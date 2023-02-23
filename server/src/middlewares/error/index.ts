@@ -5,7 +5,8 @@ export const handleErrorMiddleware = async(error: Error, req: Request, res: Resp
     if(error instanceof AppError){
     
         const {statusCode, message} = error;
-
+        // console.log(message);
+        
         return res.status(statusCode).json({
             status: 'error',
             code: statusCode,

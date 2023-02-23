@@ -34,7 +34,7 @@ class Address {
     @DeleteDateColumn()
     deleteAt: Date;
 
-    @ManyToOne(() => User)
+    @ManyToOne(() => User, {onDelete: 'CASCADE'})
     user: User;    
 
 }

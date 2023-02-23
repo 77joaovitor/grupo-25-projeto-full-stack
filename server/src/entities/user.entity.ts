@@ -1,5 +1,5 @@
-import { Entity, PrimaryGeneratedColumn ,Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, OneToMany } from 'typeorm';
 import { Exclude } from 'class-transformer';
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import Address from './address.entity';
 import Announcement from './announcement.entity';
 import Comment from './comment.entity';
@@ -29,8 +29,8 @@ class User {
     @Column({ length: 200 })
     description: string;
 
-    @Column({ type: 'date' })
-    birthdate: string;
+    @Column({ type: 'timestamp' })
+    birthdate: Date;
     
     @Column()
     isAdvertiser: boolean;
@@ -53,7 +53,7 @@ class User {
     @OneToMany(() => Announcement, announcement => announcement.advertiser)
     announcements: Announcement[];
 
-    @OneToMany(() => Comment, comment => comment.user)
+    @OneToMany(() => Comment, comments => comments.user)
     comments: Comment[]
     
 }

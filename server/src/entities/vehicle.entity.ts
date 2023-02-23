@@ -32,9 +32,7 @@ class Vehicle {
     @DeleteDateColumn()
     deleteAt: Date;
 
-    @OneToOne(() => Announcement, {
-        eager: true
-    })
+    @OneToOne(() => Announcement, (announcement) => announcement.vehicle)
     @JoinColumn()
     announcement: Announcement;
 
