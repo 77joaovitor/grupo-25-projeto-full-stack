@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn ,Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, ManyToOne, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn ,Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, ManyToOne, OneToMany, OneToOne, JoinColumn } from 'typeorm';
 import User from './user.entity';
 import Comment from "./comment.entity";
+import Vehicle from './vehicle.entity';
 
 @Entity('announcements')
 class Announcement {
@@ -8,7 +9,10 @@ class Announcement {
     @PrimaryGeneratedColumn('uuid')
     readonly id: string;
 
-    @Column({ length: 10 })
+    @Column({ length: 100 })
+    type: string;
+
+    @Column({ length: 100 })
     title: string;
 
     @Column({ length: 250 })
@@ -26,8 +30,13 @@ class Announcement {
     @ManyToOne(() => User)
     advertiser: User;
 
-    @OneToMany(() => Comment, comment => comment.announcement)
+    @OneToMany(() => Comment, comments => comments.announcement)
     comments: Comment[]
+
+    @OneToOne(() => Vehicle, (vehicle) => vehicle.announcement)
+    @JoinColumn()
+    vehicle: Vehicle;
+
 
 }
 
