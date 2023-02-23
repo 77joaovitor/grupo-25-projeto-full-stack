@@ -1,8 +1,7 @@
 import { Container } from "./style";
 
 const ProductCard = () => {
-  return <Container>
-  </Container>;
+  return <Container></Container>;
 };
 
 export default ProductCard;
