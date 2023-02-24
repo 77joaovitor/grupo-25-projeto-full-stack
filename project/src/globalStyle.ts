@@ -1,4 +1,7 @@
-:root {
+import { createGlobalStyle } from "styled-components";
+
+const GlobalStyle = createGlobalStyle`
+  :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -12,6 +15,13 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+height: fit-content;
+
+}
+
+* {
+    box-sizing: border-box;
 }
 
 a {
@@ -23,14 +33,23 @@ a:hover {
   color: #535bf2;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+html{
+      scroll-behavior: smooth;
 }
+html, body {
+    width: 100vw;
+    height: 100%;
+    margin:0;
+    padding:0;
+    font-family: Open-Sans, Helvetica, Sans-Serif;
 
+  }
+  textarea{
+    margin:0;
+    padding:0;
+    font-family: Open-Sans, Helvetica, Sans-Serif;
+
+  }
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
@@ -67,3 +86,6 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+`;
+
+export default GlobalStyle;
