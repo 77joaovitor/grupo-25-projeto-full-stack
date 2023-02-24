@@ -24,4 +24,7 @@ export interface AnnoucementUpdate {
 export interface VehicleUpdate {
   coverImage?: string;
   galleryImages?: [object];
+  price: number;
+  year: string;
+  mileage: number;
 }

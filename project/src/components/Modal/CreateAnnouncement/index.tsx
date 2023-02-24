@@ -155,7 +155,6 @@ export const CreateAnnouncement = (): JSX.Element => {
                                         className="vehicleTypeCar"
                                         id="vehicleTypeCar"
                                         type="button"
-                                        defaultChecked={true}
                                         onClick={() => {
                                             setVehicleType("car")
                                         }}

@@ -20,6 +20,9 @@ export const updateVehicleService = async (
     galleryImages: data.galleryImages
       ? data.galleryImages
       : findVehicle.galleryImages,
+      mileage: data.mileage ? data.mileage : findVehicle.mileage,
+      price: data.price ? data.price : findVehicle.price,
+      year: data.year ? data.year : findVehicle.year
   });
 
   const updatedVehicle = await vehicleRepository.findOneBy({ id });
