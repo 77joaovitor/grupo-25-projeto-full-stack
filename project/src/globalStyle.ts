@@ -8,7 +8,8 @@ const GlobalStyle = createGlobalStyle`
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: 
+rgba(255, 255, 255, 1);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -19,6 +20,8 @@ const GlobalStyle = createGlobalStyle`
 
 * {
     box-sizing: border-box;
+    color: #1a1a1a;
+    font-family: 'Inter';
 }
 
 a {

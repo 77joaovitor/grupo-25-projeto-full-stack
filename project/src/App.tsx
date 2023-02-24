@@ -1,16 +1,14 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-// import "./App.css";
 import GlobalStyle from "./globalStyle";
-import FormRegister from "./components/FormRegister";
+
+import Header from "./components/Header";
+import ProductCard from "./components/ProductCard";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <div className="App">
       <GlobalStyle />
-      <FormRegister />
+      <Header />
+      <ProductCard />
     </div>
   );
 }
