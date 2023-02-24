@@ -7,6 +7,7 @@ import { AnnouncementContext } from "../../../contexts";
 import { AnnouncementRequest } from "../../../interfaces/announcement.interface";
 import { AnnouncementRequestSchema } from "../../../schema/announcement.schema";
 import { InputModalAnnouncement } from "../../Input/Modal/inputCreateAnnouncement";
+import { useState } from "react";
 
 export const CreateAnnouncement = (): JSX.Element => {
     const { 
@@ -19,44 +20,22 @@ export const CreateAnnouncement = (): JSX.Element => {
         inputs, 
         vehicleType
     } = AnnouncementContext();
+
+    const [indexes, setIndexes] = useState<number[]>([]);
+    const [counter, setCounter] = useState<number>(1);
+
+    const addFriend = () => {
+        setIndexes(prevIndexes => [...prevIndexes, counter]);
+        setCounter(prevCounter => prevCounter + 1);
+    };
+
     
     const { register, handleSubmit, formState: { errors, isSubmitSuccessful }, reset } = useForm<AnnouncementRequest>({
         resolver: yupResolver(AnnouncementRequestSchema),
     });
-    
+
     setIsOpenModalCreateAnnouncement(true)
     
-    let count: number = 1;
-
-    // const generatorInput = (num: number) => {
-    //     const list = []
-    //     for(let i =0; i <= num; i++){
-    //         list.push(
-    //             <InputModalAnnouncement
-    //                 errors={errors}
-    //                 register={register}
-    //                 name={'galleryImages'}
-    //                 id={`galleryImages_${i+1}`}
-    //                 key={`vehicleGalleryImage_${i+1}`}
-    //                 label={`${i+1}º Imagem da galeria`}
-    //                 placeholder={"https://image.com"}
-    //                 type={"text"}
-    //             />
-    //         )
-    //     }
-    //     console.log(num)
-    //     return (
-    //         list.map((element) => {
-    //             return element
-    //         })
-    //     )
-    // }
-
-    // setInputs(generatorInput(1))
-    // useEffect(() =>{
-    // }, [, count])
-    // console.log(count)
-
     return (
         <>
             { isOpenModalCreateAnnouncement && 
@@ -69,7 +48,8 @@ export const CreateAnnouncement = (): JSX.Element => {
                 >
                     <FormCreate
                         onSubmit={
-                            handleSubmit(createAnnouncement)
+                            handleSubmit((data) => console.log(data)
+                            )
                         }
                         onClick={(e) =>  e.stopPropagation()}
                     >
@@ -196,27 +176,35 @@ export const CreateAnnouncement = (): JSX.Element => {
 
                         
                             </BoxType>
-                                <InputModalAnnouncement
+                            <InputModalAnnouncement
                                     errors={errors}
                                     register={register}
                                     name={'coverImage'}
                                     id={"vehicleCoverImage"}
                                     key={"vehicleCoverImage"}
-                                    label={"Imagem da galeria"}
+                                    label={"Imagem da capa"}
                                     placeholder={"https://image.com"}
                                     type={"text"}
                                 />
-                                    <InputModalAnnouncement
-                                    errors={errors}
-                                    register={register}
-                                    name={'galleryImages'}
-                                    id={`galleryImages_1`}
-                                    key={`vehicleGalleryImage_1`}
-                                    label={`1º Imagem da galeria`}
-                                    placeholder={"https://image.com"}
-                                    type={"text"}
-                                />
-                                    <InputModalAnnouncement
+                            {
+                                indexes.map(index => {
+                                    return(
+                                        <InputModalAnnouncement
+                                            errors={errors}
+                                            register={register}
+                                            name={'galleryImages'}
+                                            id={`galleryImages_${index}`}
+                                            key={`vehicleGalleryImage_${index}`}
+                                            label={`${index}º Imagem da galeria`}
+                                            placeholder={"https://image.com"}
+                                            type={"text"}
+                                        />
+                                    )
+                                })
+                            }
+                                
+                                    
+                                    {/* <InputModalAnnouncement
                                     errors={errors}
                                     register={register}
                                     name={'galleryImages'}
@@ -224,18 +212,18 @@ export const CreateAnnouncement = (): JSX.Element => {
                                     key={`vehicleGalleryImage_2`}
                                     label={`2º Imagem da galeria`}
                                     placeholder={"https://image.com"}
-                                    type={"text"}
-                                />
+                                    type={"text"} */}
+                                {/* /> */}
+                                {/* <BoxButton> */}
                                 <Button 
                                     className="add_image"
                                     type="button"
-                                    onClick={(e: Event) => {
-                                        // e.preventDefault()
-                                        count +1
-                                    }}
+                                    onClick={addFriend}
                                 >
                                     Adicionar campo para imagem da galeria
                                 </Button>
+
+                                {/* </BoxButton> */}
 
                                 <BoxButton>
                                     <Button
