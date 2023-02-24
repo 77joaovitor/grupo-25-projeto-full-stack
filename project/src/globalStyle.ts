@@ -16,6 +16,9 @@ rgba(255, 255, 255, 1);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+height: fit-content;
+
 }
 
 * {
@@ -33,12 +36,23 @@ a:hover {
   color: #535bf2;
 }
 
-body {
-    margin: 0;
-    padding: 0;
+html{
+      scroll-behavior: smooth;
+}
+html, body {
+    width: 100vw;
+    height: 100%;
+    margin:0;
+    padding:0;
     font-family: Open-Sans, Helvetica, Sans-Serif;
-  }
 
+  }
+  textarea{
+    margin:0;
+    padding:0;
+    font-family: Open-Sans, Helvetica, Sans-Serif;
+
+  }
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
@@ -75,7 +89,6 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
-
 `;
 
 export default GlobalStyle;
