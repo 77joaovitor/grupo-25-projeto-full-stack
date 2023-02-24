@@ -1,10 +1,10 @@
-import { Container } from "./style";
 import { useContext, useState } from "react";
-import { UserContext } from "../../context/userContext";
 import { FiMenu } from "react-icons/fi";
 import { GrClose } from "react-icons/gr";
 import logo from "../../assets/Motors shop.png";
+import { UserContext } from "../../context/user/userContext";
 import MenuMobile from "../MenuMobile";
+import { Container } from "./style";
 
 const Header = () => {
   const { auth } = useContext(UserContext);

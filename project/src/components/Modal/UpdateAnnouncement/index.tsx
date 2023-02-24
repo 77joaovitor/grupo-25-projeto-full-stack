@@ -9,25 +9,7 @@ import { Button, ButtonModal } from "../../Button";
 import { InputModalAnnouncement } from "../../Input/Modal/inputCreateAnnouncement";
 import { BoxButton, BoxContent, BoxTitle, BoxType, BoxVehicleInformation, Container, FormCreate } from "./style";
 
-type FormValues = {
-    cart: {
-        url: string;
-    }[];
-};
-
-//   const Total = ({ control }: { control: Control<FormValues> }) => {
-//     const formValues = useWatch({
-//       name: "cart",
-//       control
-//     });
-//     const total = formValues.reduce(
-//       (acc, current) => acc + (current.price || 0) * (current.quantity || 0),
-//       0
-//     );
-//     return <p>Total Amount: {total}</p>;
-//   };
-
-export const CreateAnnouncement = (): JSX.Element => {
+export const UpdateAnnouncement = (): JSX.Element => {
     const {
         createAnnouncement,
         isOpenModalCreateAnnouncement,
@@ -42,23 +24,17 @@ export const CreateAnnouncement = (): JSX.Element => {
     const [indexes, setIndexes] = useState<number[]>([]);
     const [counter, setCounter] = useState<number>(1);
 
-    const addFriend = (e: Event) => {
-        e.preventDefault()
+    const addFriend = () => {
         setIndexes(prevIndexes => [...prevIndexes, counter]);
         setCounter(prevCounter => prevCounter + 1);
     };
 
 
-    const { register, handleSubmit, control, formState: { errors, isSubmitSuccessful }, reset } = useForm<AnnouncementRequest>({
+    const { register, handleSubmit, formState: { errors, isSubmitSuccessful }, reset } = useForm<AnnouncementRequest>({
         resolver: yupResolver(AnnouncementRequestSchema),
     });
 
-    // const { fields, append, remove } = useFieldArray<AnnouncementRequest, never, "id">({
-    //     name: "cart",
-    //     control
-    //   });
-
-    setIsOpenModalCreateAnnouncement(true)
+    // setIsOpenModalCreateAnnouncement(true)
 
     return (
         <>
@@ -79,7 +55,7 @@ export const CreateAnnouncement = (): JSX.Element => {
                     >
                         <BoxContent>
                             <BoxTitle>
-                                <h3>Criar anuncio</h3>
+                                <h3>Editar anuncio</h3>
                                 <ButtonModal
                                     type="button"
                                     onClick={() => setIsOpenModalCreateAnnouncement(!isOpenModalCreateAnnouncement)}
@@ -226,6 +202,18 @@ export const CreateAnnouncement = (): JSX.Element => {
                                 })
                             }
 
+
+                            {/* <InputModalAnnouncement
+                                    errors={errors}
+                                    register={register}
+                                    name={'galleryImages'}
+                                    id={`galleryImages_2`}
+                                    key={`vehicleGalleryImage_2`}
+                                    label={`2º Imagem da galeria`}
+                                    placeholder={"https://image.com"}
+                                    type={"text"} */}
+                            {/* /> */}
+                            {/* <BoxButton> */}
                             <Button
                                 className="add_image"
                                 type="button"
@@ -252,10 +240,7 @@ export const CreateAnnouncement = (): JSX.Element => {
                                     Criar anuncio
                                 </Button>
                             </BoxButton>
-
-
                         </BoxContent>
-
                     </FormCreate>
                 </Container >
             }

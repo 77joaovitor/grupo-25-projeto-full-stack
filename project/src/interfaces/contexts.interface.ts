@@ -17,5 +17,7 @@ export interface AnnouncementProviderData{
     vehicleType: string;
     setInputs: Function;
     inputs: JSX.Element;
+    announcementsCars: AnnouncementResponse[];
+    announcementsMotorcycle: AnnouncementResponse[];
 
 };

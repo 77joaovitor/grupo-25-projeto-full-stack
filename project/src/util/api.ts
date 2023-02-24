@@ -1,8 +1,8 @@
 import axios, { AxiosInstance } from "axios";
-import { getToken } from "../contexts/session/auth";
+import { getToken } from "../context/session/auth";
 
 const api: AxiosInstance = axios.create({
-    baseURL: 'http://localhost:3100/',
+    baseURL: 'http://localhost:3000/',
     headers: {"Content-Type": "application/json"},
 });
 
