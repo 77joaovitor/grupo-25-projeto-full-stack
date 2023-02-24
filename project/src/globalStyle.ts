@@ -1,19 +1,23 @@
-:root {
+import { createGlobalStyle } from "styled-components";
+
+const GlobalStyle = createGlobalStyle`
+  :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+  line-height: 1.5px;
   font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
+  /* color-scheme: light dark; */
+  /* color: rgba(255, 255, 255, 0.87); */
+  /* background-color: #242424; */
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+  height: fit-content;
 }
-
+* {
+    box-sizing: border-box;
+}
 a {
   font-weight: 500;
   color: #646cff;
@@ -23,21 +27,29 @@ a:hover {
   color: #535bf2;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+html{
+      scroll-behavior: smooth;
 }
+html, body {
+    width: 100vw;
+    height: 100%;
+    margin:0;
+    padding:0;
+    font-family: Open-Sans, Helvetica, Sans-Serif;
 
+  }
+  textarea{
+    margin:0;
+    padding:0;
+    font-family: Open-Sans, Helvetica, Sans-Serif;
+
+  }
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
-
 button {
-  border-radius: 8px;
+  border-radius: 4px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
   font-size: 1em;
@@ -54,7 +66,6 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
-
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -67,3 +78,6 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+`;
+
+export default GlobalStyle;

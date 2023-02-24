@@ -1,3 +1,4 @@
-import { ButtonModal } from "./Modal";
+import { ButtonModal,  } from "./Modal";
+import { Button } from "./Button";
 
-export { ButtonModal };
+export { ButtonModal, Button };

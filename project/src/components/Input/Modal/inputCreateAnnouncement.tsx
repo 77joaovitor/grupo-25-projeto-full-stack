@@ -5,6 +5,7 @@ import { BsExclamationCircle } from "react-icons/bs";
 
 export const InputModalAnnouncement = ({
     register,
+	value,
 	label,
 	errors,
 	file,
@@ -14,14 +15,14 @@ export const InputModalAnnouncement = ({
 	name,
 	placeholder,
 }: PropsInputAnnouncement): JSX.Element =>{
-    const { announcementType } = AnnouncementContext()
-    return (
+
+	return (
         <>
 			<ContainerInput>	
 				{ 
 				
                 textarea ?
-                    <div className="box_input_error">
+                    <div className="box_description">
 
                         <div
                             className="box_label_error">
@@ -47,7 +48,8 @@ export const InputModalAnnouncement = ({
                             }
                         </div>
                         <textarea
-                            {...register!(name!)}
+                            {...register(name)}
+							value={value}
                             name={name}
                             id={id}
                             cols={20}
@@ -82,7 +84,7 @@ export const InputModalAnnouncement = ({
 							}
 						</div>
 						<input
-							{...register!(name!)}
+							{...register(name)}
 							type={type}
 							name={name}
 							id={id}

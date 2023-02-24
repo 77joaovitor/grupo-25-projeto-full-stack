@@ -54,9 +54,10 @@ export interface AnnouncementRequest {
     year: string;
     mileage: number;
     coverImage: string;
-    galleryImages: [
-        {
-            imageUrl: string;
-        }
-    ];
+    // galleryImages: [
+    //     {
+    //         imageUrl: string;
+    //     }
+    // ];
+    galleryImages: string
 };

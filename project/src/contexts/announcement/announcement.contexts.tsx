@@ -14,11 +14,12 @@ export const AnnouncementProvider = ({ children }: Props) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [announcementType, setAnnouncementType] = useState<string>("");
     const [vehicleType, setVehicleType] = useState<string>("");
+	const [inputs, setInputs] = useState<JSX.Element>({} as JSX.Element)
 
-
-	const navigate = useNavigate();
+	// const navigate = useNavigate();
 
 	const createAnnouncement = async (data: AnnouncementRequest) => {
+	
 		setIsLoading(true);
 		
 		try {
@@ -34,7 +35,6 @@ export const AnnouncementProvider = ({ children }: Props) => {
                     coverImage: data.coverImage,
                 },
 			});
-            console.log(response.data);
             
             setAnnouncement(response.data)
 
@@ -48,7 +48,7 @@ export const AnnouncementProvider = ({ children }: Props) => {
 				error.response?.status === 500 && setTimeout(() => {
 	
 					logout()
-					navigate('/error', {replace: true});
+					// navigate('/error', {replace: true});
 	
 				}, 5000);
 			}
@@ -64,6 +64,10 @@ export const AnnouncementProvider = ({ children }: Props) => {
             isOpenModalCreateAnnouncement,
             announcementType, 
             setAnnouncementType,
+			setVehicleType,
+			vehicleType, 
+			setInputs,
+			inputs, 
 		}}>
 			{children}
 		</Context.Provider>

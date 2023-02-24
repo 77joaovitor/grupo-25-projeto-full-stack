@@ -4,54 +4,49 @@ export const ContainerInput = styled.div`
   display: flex;
   flex-direction: column;
 
-  width: 100%;
+  width: 100%;    
 
-  label{
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 0px;
-    /* color: ${(props) => props.theme.header.textColor}; */
-
-  }
-
-  .a{
-      border: 2px dashed #ccc;
-      width: 100%;
-
-      height: 60px;
-      border: none;
-    }
-    
-
-  input {
+  input, textarea {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px 16px;
     width: 100%;
-    padding: 5px;
-    border: none;
-    border-bottom: 1px solid ${(props) => props.theme.header.textColor};
-    background-color:  ${(props) => props.theme.form.backgroundColor};
-
+    height: 100%;
+    background: #ffffff;
+    color: #000000;
+    border: 1px solid #E9ECEF;
+    border-radius: 4px;
+    :focus, :focus-visible{
+      outline: none;
+    }
   };
-  input, textarea, option, select{
-    color: ${(props) => props.theme.input.color};
+
+ textarea{
+    height: 80px;
 
   }
 
   .box_input_error {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    gap: 16px;
+    
+    height: 78px;
+    
+  }
+  .box_description{
+    display: flex;
+    flex-direction: column;
+    
     textarea{
+      gap: 10px;
+      display: flex;
+      flex-direction: column;
       padding: 10px;
-      height: 140px;
+      /* height: 140px; */
     }
 
-  }
-
-  .box_label_error{
-    height: 14px;
-  }
-
+}
   .dropdown {
       position: relative;
       top: 5px;

@@ -13,6 +13,9 @@ export interface AnnouncementProviderData{
     isOpenModalCreateAnnouncement: boolean;
     setAnnouncementType: Function
     announcementType: string;
-
+    setVehicleType: Function;
+    vehicleType: string;
+    setInputs: Function;
+    inputs: JSX.Element;
 
 };
