@@ -89,6 +89,9 @@ export const InputModalAnnouncement = ({
 							name={name}
 							id={id}
 							placeholder={placeholder}
+							onChange={
+								(e) => e.target.value
+							}
 						/>
 					</div> 
 				}
