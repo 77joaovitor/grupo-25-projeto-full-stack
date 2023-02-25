@@ -1,22 +1,16 @@
 
-import { useState } from 'react'
 import { CreateAnnouncement } from './components/Modal/CreateAnnouncement'
-import GlobalStyle from "./globalStyle";
-
-import Header from "./components/Header";
-import ProductCard from "./components/ProductCard";
-import { Home } from './pages/Home';
+import RoutesMain from './routes/index.routes';
 
 function App() {
   return (
 
-    <div className="App">
-      <GlobalStyle />
-      <Home />
-      {/* <FormRegister /> */}
+    <>
+      <RoutesMain />
+      
        {/* <CreateAnnouncement /> */}
 
-    </div>
+    </>
   );
 }
 

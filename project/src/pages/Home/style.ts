@@ -20,7 +20,7 @@ export const PresentationSection = styled.section`
         text-align: center;
 
     }
-    p, span, button{
+    p, span, a, button{
         color: #FDFDFD;
     }
 
@@ -44,13 +44,13 @@ export const BoxButton = styled.div`
     gap: 10px;
     width: 100%;
 
-    button{
+    button, a{
         width: 100%;
     }
 
     @media (min-width: 350px) {
         flex-direction: row;
-        bottom{
+        button, a{
             width: 50%;
         }
     }

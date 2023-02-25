@@ -6,6 +6,7 @@ export interface PropsButton {
     children: ReactNode;
     id?: string;
     type?: 'button' | 'submit' | 'reset' | undefined;
+    as?: 'a';
     onClick?: React.MouseEventHandler<HTMLButtonElement> | any;
     className?: string;
     defaultChecked?: boolean;
