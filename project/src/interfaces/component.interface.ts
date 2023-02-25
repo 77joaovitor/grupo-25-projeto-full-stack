@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
-import { AnnouncementRequest } from "./announcement.interface";
+import { AnnouncementRequest, AnnouncementResponse } from "./announcement.interface";
 
 export interface PropsButton {
     children: ReactNode;
@@ -18,11 +18,9 @@ export interface PropsInputAnnouncement {
   errors: FieldErrors<AnnouncementRequest>
   file?: boolean;
   textarea?: boolean;
-type?: 'text' | 'number' | 'textarea' | 'file' | 'button' | 'checkbox' | 'password' | 'file';
+  type?: 'text' | 'number' | 'textarea' | 'file' | 'button' | 'checkbox' | 'password' | 'file';
   onClick?: React.MouseEventHandler<HTMLButtonElement> | any;
   register: UseFormRegister<AnnouncementRequest>;
-  // reset: UseFormReset<ContactRequest>
-  // isSubmitSuccessful?: boolean;
   name:
     | 'title'
     | 'description'
@@ -35,3 +33,6 @@ type?: 'text' | 'number' | 'textarea' | 'file' | 'button' | 'checkbox' | 'passwo
   placeholder?: string;
 }
   
+export interface PropsAnnouncementCard {
+  announcement: AnnouncementResponse;
+}

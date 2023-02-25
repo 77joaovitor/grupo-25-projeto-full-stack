@@ -1,6 +1,6 @@
-import { Container } from "./style";
-import { UserContext } from "../../context/userContext";
 import { useContext } from "react";
+import { UserContext } from "../../context/user/userContext";
+import { Container } from "./style";
 
 const MenuMobile = () => {
   const { auth } = useContext(UserContext);
