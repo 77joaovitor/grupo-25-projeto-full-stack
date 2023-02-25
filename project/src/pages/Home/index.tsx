@@ -5,21 +5,20 @@ import ProductCard from "../../components/ProductCard"
 import { AnnouncementContext } from "../../context"
 import { PresentationSection, BoxButton, ContainerList, ListSection, BoxContent } from "./style"
 
-
 export const Home = (): JSX.Element => {
     const { announcementsCars, announcementsMotorcycle } = AnnouncementContext()
     return (
-        <div>
+        <>
             <Header />
             <PresentationSection >
                 <p>Velocidade e experiência em um lugar feito para você</p>
                 <span>Um ambiente feito para você explorar o seu melhor</span>
 
                 <BoxButton >
-                    <Button>
+                    <Button as="a" id="cars">
                         Carros
                     </Button>
-                    <Button>
+                    <Button as="a" id="motorcycles">
                         Motos
                     </Button>
                 </BoxButton>
@@ -38,34 +37,33 @@ export const Home = (): JSX.Element => {
                 </BoxContent>
             </ListSection>
             <ListSection>
-                <BoxContent>
-                <h3>Carros</h3>
+                <BoxContent id="cars">
+                    <h3>Carros</h3>
                     <ContainerList>
-
                        {
-                            announcementsCars && announcementsCars.length > 0 && announcementsCars.map((announcement, index) => (
-                                <ProductCard key={index} announcement={announcement}/>
-                            ))
-                        
+                            announcementsCars && 
+                                announcementsCars.length > 0 && 
+                                    announcementsCars.map((announcement, index) => (
+                                        <ProductCard key={index} announcement={announcement}/>
+                                    ))
                         }
                     </ContainerList>
-
                 </BoxContent>
-                <BoxContent>
-                <h3>Motos</h3>
+                <BoxContent id="motorcycles">
+                    <h3>Motos</h3>
                     <ContainerList>
-
                        {
-                            announcementsMotorcycle && announcementsMotorcycle.length > 0 && announcementsMotorcycle.map((announcement, index) => (
-                                <ProductCard key={index} announcement={announcement}/>
-                            ))
-                        
+                            announcementsMotorcycle && 
+                                announcementsMotorcycle.length > 0 && 
+                                    announcementsMotorcycle.map((announcement, index) => (
+                                        <ProductCard key={index} announcement={announcement}/>
+                                    ))                        
                         }
                     </ContainerList>
 
                 </BoxContent>
             </ListSection >
 
-        </div>
+        </>
     )
 }
