@@ -71,14 +71,24 @@ export const ProfileContent = styled.div`
         line-height: 28px;
         width: 100%;
         margin: 0;
-        /* or 175% */
-
-
-        /* Grey Scale/grey-2 */
-
         color: #495057;
     }
 
+    button{
+        width: 107px;
+        padding: 12px 10px;
+        font-size: 12px;
+
+        color: #4529E6;
+        border: 1px solid #4529E6;
+        
+        :focus,
+        :visited {
+            background-color: #4529E6;
+            color: #fff;
+            outline: none;
+        }
+    }
 `
 
 

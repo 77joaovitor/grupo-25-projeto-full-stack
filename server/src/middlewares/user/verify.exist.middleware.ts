@@ -7,14 +7,13 @@ import { userRequestSchema } from "../../schema/user/user.schema";
 const verifyExist = async (req: Request, res: Response, next: NextFunction) => {
     try {
 
-        // console.log(req.body)
         const serialized = await userRequestSchema.validate(req.body, {
         });
-        console.log(serialized)
+
         const userRepository = AppDataSource.getRepository(User);
         
         const user = await userRepository.findOneBy({
-            email: req.body.email
+            email: serialized.email
         });
 
         if (user) { throw new AppError(400, "Email already exist.") }

@@ -7,7 +7,7 @@ import MenuMobile from "../MenuMobile";
 import { Container } from "./style";
 
 const Header = () => {
-  const { auth } = useContext(UserContext);
+  const { auth } = UserContext();
   const [menuOpen, setMenuOpen] = useState(false);
   return (
     <Container>

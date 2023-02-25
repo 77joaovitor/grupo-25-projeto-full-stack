@@ -17,7 +17,6 @@ rgba(255, 255, 255, 1);
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 
-height: fit-content;
 
 }
 
@@ -44,7 +43,7 @@ html{
 }
 
 html, body {
-    height: 100%;
+    /* height: 100%; */
     margin:0;
     padding:0;
     font-family: Open-Sans, Helvetica, Sans-Serif;

@@ -3,26 +3,41 @@ import {
   Dispatch,
   ReactNode,
   SetStateAction,
+  useContext,
   useState,
 } from "react";
+import { IUserContext, Props } from "../../interfaces/contexts.interface";
+import { UserResponse } from "../../interfaces/user.interface";
+import { api } from "../../util/api";
 
-interface IUserContext {
-  auth: boolean;
-  setAuth: Dispatch<SetStateAction<boolean>>;
-}
-interface IContext {
-  children: ReactNode;
-}
+export const Context = createContext<IUserContext>({} as IUserContext);
 
-export const UserContext = createContext<IUserContext>({} as IUserContext);
+const UserProvider = ({ children }: Props) => {
+  const [auth, setAuth] = useState<boolean>(false);
+  const [user, setUser] = useState<UserResponse>({} as UserResponse)
+  
+  const getUser = async (id: string) => {
+    try {
+      const response = await api.get(`/users/${id}/`)
+      setUser(response.data)
+    } catch (error) {
+      
+    }
+  }
 
-const UserProvider = ({ children }: IContext) => {
-  const [auth, setAuth] = useState(false);
   return (
-    <UserContext.Provider value={{ auth, setAuth }}>
+    <Context.Provider value={{
+      user, 
+      setUser,
+      auth, 
+      setAuth,
+      getUser,
+    }}>
       {children}
-    </UserContext.Provider>
+    </Context.Provider>
   );
 };
 
 export default UserProvider;
+
+export const UserContext = () => useContext(Context)
