@@ -1,5 +1,6 @@
-import { ReactNode } from "react";
+import { Dispatch, ReactNode, SetStateAction } from "react";
 import { AnnouncementRequest, AnnouncementResponse } from "./announcement.interface";
+import { UserResponse } from "./user.interface";
 
 export interface Props {
     children: ReactNode;
@@ -21,3 +22,12 @@ export interface AnnouncementProviderData{
     announcementsMotorcycle: AnnouncementResponse[];
 
 };
+
+
+export interface IUserContext {
+    auth: boolean;
+    setAuth: Dispatch<SetStateAction<boolean>>;
+    user: UserResponse; 
+    setUser: Dispatch<SetStateAction<UserResponse>>;
+    getUser: (id: string) => void;
+  }

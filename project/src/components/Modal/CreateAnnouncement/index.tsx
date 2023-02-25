@@ -58,7 +58,6 @@ export const CreateAnnouncement = (): JSX.Element => {
     //     control
     //   });
 
-    setIsOpenModalCreateAnnouncement(true)
 
     return (
         <>
@@ -68,7 +67,7 @@ export const CreateAnnouncement = (): JSX.Element => {
                 // animate={{ opacity: 1 }}
                 // exit={{ opacity: 0 }}
                 // transition={{ duration: 1 }}
-                // onClick={() => setIsOpenModalCreateAnnouncement(!isOpenModalCreateAnnouncement)}
+                onClick={() => setIsOpenModalCreateAnnouncement(!isOpenModalCreateAnnouncement)}
                 >
                     <FormCreate
                         onSubmit={

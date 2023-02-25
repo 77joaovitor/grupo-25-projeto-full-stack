@@ -1,9 +1,12 @@
 import { AxiosError } from "axios";
+import { JwtPayload } from "jwt-decode";
 import { createContext, useContext, useEffect, useState } from "react";
 import { AnnouncementRequest, AnnouncementResponse } from "../../interfaces/announcement.interface";
 import { AnnouncementProviderData, Props } from "../../interfaces/contexts.interface";
 import { api } from "../../util/api";
-import { logout } from "../session/auth";
+import { getToken, logout } from "../session/auth";
+import jwt_decode from "jwt-decode";
+import { UserContext } from "../user/userContext";
 
 const Context = createContext<AnnouncementProviderData>({} as AnnouncementProviderData);
 
@@ -16,8 +19,10 @@ export const AnnouncementProvider = ({ children }: Props) => {
 	const [inputs, setInputs] = useState<JSX.Element>({} as JSX.Element)
 	const [announcementsCars, setAnnouncementsCars] = useState<AnnouncementResponse[]>([])
 	const [announcementsMotorcycle, setAnnouncementsMotorcycle] = useState<AnnouncementResponse[]>([])
+	const [allAnnouncementByAdvertiser, setAllAnnouncementByAdvertiser] = useState<AnnouncementResponse[]>([])
+	const [allAnnouncements, setAllAnnouncements] = useState<AnnouncementResponse[]>([])
 	const [reload, setReload] = useState<boolean>(false)
-
+	const { user, setUser, getUser } = UserContext()
 	const createAnnouncement = async (data: AnnouncementRequest) => {
 
 		setIsLoading(true);
@@ -59,13 +64,14 @@ export const AnnouncementProvider = ({ children }: Props) => {
 		try {
 			const response = await api.get("/announcements/")
 			
+			setAllAnnouncements(response.data)
+
 			const announcementsByCars = response.data.filter((element: AnnouncementResponse) => {
 				return element.vehicle.type === 'car'
 			})
 			const announcementsByMotorcycle = response.data.filter((element: AnnouncementResponse) => {
 				return element.vehicle.type === 'motorcycle'
 			})
-
 			setAnnouncementsCars(announcementsByCars)
 			setAnnouncementsMotorcycle(announcementsByMotorcycle)
 
@@ -76,8 +82,31 @@ export const AnnouncementProvider = ({ children }: Props) => {
 			}
 		}
 	}
+
+	const getAllAnnouncementByAdvertiser = (advertiserId: string) => {
+		try {
+			const allAnnouncementByAdvertiser = allAnnouncements.filter((element) => {
+				return element.advertiser.id === advertiserId
+			})
+			setAllAnnouncementByAdvertiser(allAnnouncementByAdvertiser)
+
+		} catch (error) {
+			
+		}
+	}
 	
 	useEffect(() => {
+		let decoded: JwtPayload = {
+			exp: 1,
+			iat: 1,
+			sub: 'error',
+		};
+		const token = getToken();
+
+		if (token) {
+			decoded = jwt_decode(token!);
+		};
+		getUser(decoded.sub!);
 		getAllAnnouncements();
 	}, [reload])
 

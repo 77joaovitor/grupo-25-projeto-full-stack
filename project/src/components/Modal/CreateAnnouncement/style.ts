@@ -10,10 +10,10 @@ export const Container = styled.div`
     z-index: 9999;
     inset: 0;
     width: 100%;
-    height: 100%;
-    color: #000000;
+    min-height: 100%;
+        color: #000000;
     background: rgba(18, 18, 20, 0.3);
-    overflow-y: auto;
+    /* overflow-y: auto; */
 `
 
 export const BoxContent = styled.div`
@@ -40,8 +40,8 @@ export const BoxContent = styled.div`
         width: fit-content;
         border: 1px solid #EDEAFD;
         border-radius: 4px;
-                height: 38px;
-                font-weight: 600;
+        height: 38px;
+        font-weight: 600;
         font-size: 12px;
         line-height: 0px;
         color: #4529E6;
@@ -50,6 +50,9 @@ export const BoxContent = styled.div`
     
 `
 export const FormCreate = styled.form`
+    position: absolute;
+    z-index: 0;
+    
     background: #ffff;
     width: 90%;
     display: flex;
@@ -60,7 +63,7 @@ export const FormCreate = styled.form`
     align-items: center;
     padding: 0px 16px 32px;
     gap: 37px;
-
+    
     position: absolute;
     width: 90%;
 
