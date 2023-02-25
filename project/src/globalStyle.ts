@@ -25,6 +25,7 @@ height: fit-content;
     box-sizing: border-box;
     color: #1a1a1a;
     font-family: 'Inter';
+    margin: 0;
 }
 
 a {
@@ -37,10 +38,12 @@ a:hover {
 }
 
 html{
-      scroll-behavior: smooth;
+  scroll-behavior: smooth;
+  width: 100vw;
+  overflow-x: hidden;
 }
+
 html, body {
-    width: 100vw;
     height: 100%;
     margin:0;
     padding:0;
