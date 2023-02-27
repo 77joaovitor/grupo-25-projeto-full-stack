@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-export const ContainerButton = styled.div`
+export const ContainerButton = styled.button`
 
   width: fit-content;
-  button {
+
     display: flex;
     align-items: center;
     
@@ -13,22 +13,26 @@ export const ContainerButton = styled.div`
     border-radius: 5px;
     
     
-    width: 100%;
+    width:fit-content;
     height: 100%; 
     
     background-color: transparent;
     
     font-size: 85%;
     
+    :active, :focus, :hover{
+        border: none !important;
+        outline: none;
 
+    }
     .svg{
       background-color: transparent;
 
-      width: 100%;
+      /* width: 15px; */
       font-size: 20px;
 
       /* color: gray; */
       width: 20px;
-    }
+    
   }
 `;

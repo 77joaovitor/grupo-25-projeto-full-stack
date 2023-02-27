@@ -1,6 +1,6 @@
 import AppDataSource from "../../data-source";
 import { GalleryImage, Vehicle } from "../../entities";
-import { AnnouncementRequest, VehicleRequest } from "../../interfaces/announcement.interface";
+import { VehicleRequest } from "../../interfaces/announcement.interface";
 
 export const createVehicleService = async (vehicle: VehicleRequest): Promise<Vehicle> => {
 
@@ -9,10 +9,10 @@ export const createVehicleService = async (vehicle: VehicleRequest): Promise<Veh
 
     const gallery = await galleryImageRepository.createQueryBuilder()
         .insert()
-        .values(vehicle.galleryImage)
+        .values(vehicle.galleryImages)
         .returning('*')
         .execute()
-    
+
     const newVehicle = vehicleRepository.create( {
         coverImage: vehicle.coverImage,
         mileage: vehicle.mileage,

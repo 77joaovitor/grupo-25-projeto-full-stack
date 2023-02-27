@@ -18,6 +18,9 @@ class Announcement {
     @Column({ length: 250 })
     description: string;
 
+    @Column({ default: true })
+    isActive: boolean;
+
     @CreateDateColumn()
     createdAt: Date;
 

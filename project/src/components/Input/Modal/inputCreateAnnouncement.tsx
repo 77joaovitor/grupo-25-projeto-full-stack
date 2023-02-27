@@ -9,12 +9,15 @@ export const InputModalAnnouncement = ({
 	errors,
 	file,
 	textarea,
+	inputGallery,
 	id,
 	type,
 	name,
 	placeholder,
+	defaultValue
 }: PropsInputAnnouncement): JSX.Element => {
-
+	// const a = inputGallery! as const
+	
 	return (
 		<>
 			<ContainerInput>
@@ -82,16 +85,28 @@ export const InputModalAnnouncement = ({
 									) : null
 								}
 							</div>
-							<input
-								{...register(name)}
-								type={type}
-								name={name}
-								id={id}
-								placeholder={placeholder}
-								onChange={
-									(e) => e.target.value
-								}
-							/>
+							{
+								file ?
+									<input
+										{...register(`galleryImages.${inputGallery!}.imageUrl` as const, {
+											required: true
+										})}
+											type={type}
+											id={id}
+											placeholder={placeholder}
+									/>
+									:
+									<input
+										{...register(name)}
+										type={type}
+										name={name}
+										id={id}
+										placeholder={placeholder}
+										onChange={
+											(e) => e.target.value
+										}
+									/>
+							}
 						</div>
 				}
 			</ContainerInput>

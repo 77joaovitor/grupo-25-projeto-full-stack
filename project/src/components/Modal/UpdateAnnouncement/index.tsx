@@ -1,7 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm, useWatch } from "react-hook-form";
 import { IoMdClose } from "react-icons/io";
+import { TfiTrash } from 'react-icons/tfi';
 import { AnnouncementContext } from "../../../context";
 import { AnnouncementRequest } from "../../../interfaces/announcement.interface";
 import { AnnouncementRequestSchema } from "../../../schema/announcement.schema";
@@ -21,41 +21,39 @@ export const UpdateAnnouncement = (): JSX.Element => {
         vehicleType
     } = AnnouncementContext();
 
-    const [indexes, setIndexes] = useState<number[]>([]);
-    const [counter, setCounter] = useState<number>(1);
-
-    const addFriend = () => {
-        setIndexes(prevIndexes => [...prevIndexes, counter]);
-        setCounter(prevCounter => prevCounter + 1);
-    };
-
-
-    const { register, handleSubmit, formState: { errors, isSubmitSuccessful }, reset } = useForm<AnnouncementRequest>({
-        resolver: yupResolver(AnnouncementRequestSchema),
+    const { register, handleSubmit, control, formState: { errors, isSubmitSuccessful }, reset } = useForm<AnnouncementRequest>({
+        resolver: yupResolver(AnnouncementRequestSchema), defaultValues: {
+            galleryImages: [
+                {
+                    imageUrl: ''
+                }
+            ]
+        },
+        mode: "onBlur",
     });
 
-    // setIsOpenModalCreateAnnouncement(true)
+    const { fields, append, remove } = useFieldArray({
+        control,
+        name: "galleryImages",
+    });
 
     return (
         <>
             {isOpenModalCreateAnnouncement &&
                 <Container
-                // initial={{ opacity: 0 }}
-                // animate={{ opacity: 1 }}
-                // exit={{ opacity: 0 }}
-                // transition={{ duration: 1 }}
-                // onClick={() => setIsOpenModalCreateAnnouncement(!isOpenModalCreateAnnouncement)}
+                    // initial={{ opacity: 0 }}
+                    // animate={{ opacity: 1 }}
+                    // exit={{ opacity: 0 }}
+                    // transition={{ duration: 1 }}
+                    onClick={() => setIsOpenModalCreateAnnouncement(!isOpenModalCreateAnnouncement)}
                 >
                     <FormCreate
-                        onSubmit={
-                            handleSubmit((data) => console.log(data)
-                            )
-                        }
+                        onSubmit={handleSubmit(createAnnouncement)}
                         onClick={(e) => e.stopPropagation()}
                     >
                         <BoxContent>
                             <BoxTitle>
-                                <h3>Editar anuncio</h3>
+                                <h3>Criar anuncio</h3>
                                 <ButtonModal
                                     type="button"
                                     onClick={() => setIsOpenModalCreateAnnouncement(!isOpenModalCreateAnnouncement)}
@@ -185,44 +183,44 @@ export const UpdateAnnouncement = (): JSX.Element => {
                                 placeholder={"https://image.com"}
                                 type={"text"}
                             />
-                            {
-                                indexes.map(index => {
-                                    return (
-                                        <InputModalAnnouncement
-                                            errors={errors}
+
+                        {
+                            fields.map((field, index) => {
+                                return (
+                                    <div className="button_del_input" 
+                                    key={`${field.id}`}
+
+                                    >
+                                        <ButtonModal type="button" onClick={() => remove(index)}>
+                                            <TfiTrash size={12} className="svg" />
+                                        </ButtonModal>
+                                        <InputModalAnnouncement 
                                             register={register}
                                             name={'galleryImages'}
-                                            id={`galleryImages_${index}`}
-                                            key={`vehicleGalleryImage_${index}`}
-                                            label={`${index}º Imagem da galeria`}
+                                            errors={errors}
+                                            file={true}
+                                            inputGallery={index}
+                                            key={field.id}
+                                            id={field.id}
+                                            label={`${index + 1}º Imagem da galeria`}
                                             placeholder={"https://image.com"}
-                                            type={"text"}
                                         />
-                                    )
-                                })
-                            }
+                        
+                                    </div>
+                                )})
+                        }
 
-
-                            {/* <InputModalAnnouncement
-                                    errors={errors}
-                                    register={register}
-                                    name={'galleryImages'}
-                                    id={`galleryImages_2`}
-                                    key={`vehicleGalleryImage_2`}
-                                    label={`2º Imagem da galeria`}
-                                    placeholder={"https://image.com"}
-                                    type={"text"} */}
-                            {/* /> */}
-                            {/* <BoxButton> */}
                             <Button
                                 className="add_image"
                                 type="button"
-                                onClick={addFriend}
+                                onClick={() =>
+                                    fields.length <= 5 && append({
+                                        imageUrl: '',
+                                    })
+                                }
                             >
                                 Adicionar campo para imagem da galeria
                             </Button>
-
-                            {/* </BoxButton> */}
 
                             <BoxButton>
                                 <Button

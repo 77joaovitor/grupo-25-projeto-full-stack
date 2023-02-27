@@ -1,6 +1,6 @@
 import { instanceToInstance } from "class-transformer";
 import AppDataSource from "../../data-source";
-import { Announcement, GalleryImage, User, Vehicle } from "../../entities";
+import { Announcement, User, Vehicle } from "../../entities";
 import { AnnouncementRequest } from "../../interfaces/announcement.interface";
 import { createVehicleService } from "../vehicle/create.service";
 
@@ -13,7 +13,10 @@ export const createAnnouncementService = async (body: AnnouncementRequest): Prom
     
     const user = await userRepository.findOneBy({email: 'geovane@gmail.com'})
 
+    console.log(vehicle);
     const newVehicle: Vehicle = await createVehicleService(vehicle)
+    console.log(newVehicle);
+    
     
     const announcement: Announcement = announcementRepository.create({
         title,

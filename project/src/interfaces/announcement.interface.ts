@@ -45,6 +45,12 @@ export interface AnnouncementResponse {
 	advertiser: Advertiser;
 }
 
+type FormValues = {
+    galleryImages: {
+        imageUrl: string;
+    }[];
+  };
+
 export interface AnnouncementRequest {
 	type: string;
 	title: string;
@@ -54,10 +60,13 @@ export interface AnnouncementRequest {
     year: string;
     mileage: number;
     coverImage: string;
-    // galleryImages: [
-    //     {
-    //         imageUrl: string;
-    //     }
-    // ];
-    galleryImages: string
+    galleryImages:  {
+        imageUrl: string;
+    }[];
+
+    
+    // input: {
+    //     imageUrl: string
+    // }[];
+    // galleryImages: string
 };
