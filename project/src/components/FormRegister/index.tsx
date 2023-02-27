@@ -2,6 +2,7 @@ import { Container } from "./style";
 const FormRegister = () => {
   return <Container>
     <h2>Cadastro</h2>
+    <h1>TESTE</h1>
     <span>Informações pessoais</span>
     <form action="">
       <label>Nome</label>
