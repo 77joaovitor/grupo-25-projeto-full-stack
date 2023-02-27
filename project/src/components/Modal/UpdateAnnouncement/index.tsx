@@ -3,11 +3,11 @@ import { useFieldArray, useForm, useWatch } from "react-hook-form";
 import { IoMdClose } from "react-icons/io";
 import { TfiTrash } from 'react-icons/tfi';
 import { AnnouncementContext } from "../../../context";
-import { AnnouncementRequest } from "../../../interfaces/announcement.interface";
+import { AnnouncementRequest, UpdateAnnouncementRequest } from "../../../interfaces/announcement.interface";
 import { AnnouncementRequestSchema } from "../../../schema/announcement.schema";
 import { Button, ButtonModal } from "../../Button";
-import { InputModalAnnouncement } from "../../Input/Modal/inputCreateAnnouncement";
 import { BoxButton, BoxContent, BoxTitle, BoxType, BoxVehicleInformation, Container, FormCreate } from "./style";
+import { InputModalUpdateAnnouncement } from "../../Input/Modal/inputUpdateAnnouncement";
 
 export const UpdateAnnouncement = (): JSX.Element => {
     const {
@@ -16,12 +16,10 @@ export const UpdateAnnouncement = (): JSX.Element => {
         setIsOpenModalCreateAnnouncement,
         setAnnouncementType,
         setVehicleType,
-        setInputs,
-        inputs,
-        vehicleType
+        setIsAnnouncementPublished,
     } = AnnouncementContext();
 
-    const { register, handleSubmit, control, formState: { errors, isSubmitSuccessful }, reset } = useForm<AnnouncementRequest>({
+    const { register, handleSubmit, control, formState: { errors, isSubmitSuccessful }, reset } = useForm<UpdateAnnouncementRequest>({
         resolver: yupResolver(AnnouncementRequestSchema), defaultValues: {
             galleryImages: [
                 {
@@ -90,7 +88,7 @@ export const UpdateAnnouncement = (): JSX.Element => {
                             </BoxType>
                             <label >Informações do veículo</label>
 
-                            <InputModalAnnouncement
+                            <InputModalUpdateAnnouncement
                                 errors={errors}
                                 register={register}
                                 name={'title'}
@@ -102,7 +100,7 @@ export const UpdateAnnouncement = (): JSX.Element => {
                             />
                             <BoxVehicleInformation>
                                 <div className="inf">
-                                    <InputModalAnnouncement
+                                    <InputModalUpdateAnnouncement
                                         errors={errors}
                                         register={register}
                                         name={'year'}
@@ -112,7 +110,7 @@ export const UpdateAnnouncement = (): JSX.Element => {
                                         placeholder={"Digitar ano"}
                                         type={"text"}
                                     />
-                                    <InputModalAnnouncement
+                                    <InputModalUpdateAnnouncement
                                         errors={errors}
                                         register={register}
                                         name={'mileage'}
@@ -123,7 +121,7 @@ export const UpdateAnnouncement = (): JSX.Element => {
                                         type={"number"}
                                     />
                                 </div>
-                                <InputModalAnnouncement
+                                <InputModalUpdateAnnouncement
                                     errors={errors}
                                     register={register}
                                     name={'price'}
@@ -135,7 +133,7 @@ export const UpdateAnnouncement = (): JSX.Element => {
                                 />
                             </BoxVehicleInformation>
 
-                            <InputModalAnnouncement
+                            <InputModalUpdateAnnouncement
                                 textarea={true}
                                 errors={errors}
                                 register={register}
@@ -173,7 +171,34 @@ export const UpdateAnnouncement = (): JSX.Element => {
 
 
                             </BoxType>
-                            <InputModalAnnouncement
+
+                            <BoxType>
+                                <label htmlFor="announcementType">Publicado</label>
+                                <BoxButton>
+                                    <Button
+                                        className="announcementPublished"
+                                        id="announcementPublished"
+                                        type="button"
+                                        defaultChecked={true}
+                                        onClick={() => {
+                                            setIsAnnouncementPublished(true)
+                                        }}
+                                    >
+                                        Sim
+                                    </Button>
+                                    <Button
+                                        className="announcementTypeRent"
+                                        id="announcementTypeRent"
+                                        type="button"
+                                        onClick={() => {
+                                            setIsAnnouncementPublished(false)
+                                        }}
+                                    >
+                                        Não
+                                    </Button>
+                                </BoxButton>
+                            </BoxType>
+                            <InputModalUpdateAnnouncement
                                 errors={errors}
                                 register={register}
                                 name={'coverImage'}
@@ -194,7 +219,7 @@ export const UpdateAnnouncement = (): JSX.Element => {
                                         <ButtonModal type="button" onClick={() => remove(index)}>
                                             <TfiTrash size={12} className="svg" />
                                         </ButtonModal>
-                                        <InputModalAnnouncement 
+                                        <InputModalUpdateAnnouncement 
                                             register={register}
                                             name={'galleryImages'}
                                             errors={errors}

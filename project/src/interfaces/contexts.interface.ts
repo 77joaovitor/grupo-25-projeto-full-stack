@@ -20,6 +20,8 @@ export interface AnnouncementProviderData {
   setVehicleType: Function;
   vehicleType: string;
   setInputs: Function;
+  setIsAnnouncementPublished: Function;
+  isAnnouncementPublished: boolean;
   inputs: JSX.Element;
   announcementsCars: AnnouncementResponse[];
   announcementsMotorcycle: AnnouncementResponse[];
