@@ -1,11 +1,11 @@
 import { Response, Request } from "express";
-import { deleteAnnoucementService } from "../../services/announcement/delete.service";
+import { deleteAnnouncementService as deleteAnnouncementService } from "../../services/announcement/delete.service";
 
-export const deleteAnnoucementController = async (
+export const deleteAnnouncementController = async (
   req: Request,
   res: Response
 ) => {
   const id: string = req.params.id;
-  const deletedAnnoucement = await deleteAnnoucementService(id);
-  return res.status(204);
+  const deletedAnnouncement = await deleteAnnouncementService(id);
+  return res.status(204).json({message: "Announcement deleted"});
 };

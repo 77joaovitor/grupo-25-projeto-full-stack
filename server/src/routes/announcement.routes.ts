@@ -1,19 +1,19 @@
-import { updateAnnoucementController as updateAnnouncementController } from "./../controllers/announcement/update.controller";
 import { Router } from "express";
 import { createAnnouncementController } from "../controllers/announcement/create.controller";
 import { getAllAnnouncementsController } from "../controllers/announcement/getAll.controller";
 import { getAllByAdvertiserController } from "../controllers/announcement/getAllByAdvertiser.controller";
+import { updateAnnouncementController } from "./../controllers/announcement/update.controller";
 
-import verifyExist from "../middlewares/user/verify.exist.middleware";
-import { deleteAnnoucementController as deleteAnnouncementController } from "../controllers/announcement/delete.controller";
-import { verifyAdvertiserId } from "../middlewares/announcement/verify.idAdvertiser.middleware";
+import { deleteAnnouncementController } from "../controllers/announcement/delete.controller";
+import { verifyAdvertiserId } from "../middleware/announcement/middleware";
+import { verifyExistAnnouncement } from "../middleware/announcement/verify.exist.middleware";
 
 const routes = Router();
 
 export const announcementRouter = () => {
   routes.post("/", createAnnouncementController);
-  routes.post("/:id", updateAnnouncementController);
-  routes.delete(":id", deleteAnnouncementController);
+  routes.delete(":id", verifyExistAnnouncement, deleteAnnouncementController);
+  routes.patch("/:id/", verifyExistAnnouncement, updateAnnouncementController);
   routes.get("/", getAllAnnouncementsController);
   routes.get("/:advertiserId/", verifyAdvertiserId, getAllByAdvertiserController);
   routes.get("/:announcementId/advertiser/:advertiserId/");

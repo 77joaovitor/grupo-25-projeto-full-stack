@@ -2,8 +2,8 @@ import { Router } from "express";
 
 import { createUserController } from "../controllers/user/create.controller";
 import { getOneUserController } from "../controllers/user/getOne.controller";
-import verifyExist from "../middlewares/user/verify.exist.middleware";
-import verifyId from "../middlewares/user/verify.id.middleware";
+import verifyExist from "../middleware/user/verify.exist.middleware";
+import verifyId from "../middleware/user/verify.id.middleware";
 
 const routes = Router();
 

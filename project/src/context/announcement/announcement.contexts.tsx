@@ -22,13 +22,14 @@ export const AnnouncementProvider = ({ children }: Props) => {
 	const [allAnnouncementByAdvertiser, setAllAnnouncementByAdvertiser] = useState<AnnouncementResponse[]>([])
 	const [allAnnouncements, setAllAnnouncements] = useState<AnnouncementResponse[]>([])
 	const [reload, setReload] = useState<boolean>(false)
-	const { user, setUser, getUser } = UserContext()
+	const { user, setUser, getUser } = UserContext();
+
 	const createAnnouncement = async (data: AnnouncementRequest) => {
 
 		setIsLoading(true);
 
 		try {
-
+			
 			const response = await api.post(`/announcements/`, {
 				...data,
 				type: announcementType,
@@ -38,10 +39,52 @@ export const AnnouncementProvider = ({ children }: Props) => {
 					year: data.year,
 					mileage: data.mileage,
 					coverImage: data.coverImage,
+					galleryImages: data.galleryImages,
+
 				},
 			});
+			
+			setAnnouncement(response.data);
+			setReload(!reload)
 
-			setAnnouncement(response.data)
+			setTimeout(() => {
+				setIsLoading(false);
+
+			}, 500);
+
+		} catch (error) {
+			if (error instanceof AxiosError) {
+				error.response?.status === 500 && setTimeout(() => {
+
+					logout()
+					// navigate('/error', {replace: true});
+
+				}, 5000);
+			}
+		};
+	};
+	const updateAnnouncement = async (data: AnnouncementRequest) => {
+
+		setIsLoading(true);
+
+		try {
+			
+			const response = await api.post(`/announcements/`, {
+				...data,
+				type: announcementType,
+				vehicle: {
+					type: vehicleType,
+					price: data.price,
+					year: data.year,
+					mileage: data.mileage,
+					coverImage: data.coverImage,
+					galleryImages: data.galleryImages,
+
+				},
+			});
+			
+			setAnnouncement(response.data);
+			setReload(!reload)
 
 			setTimeout(() => {
 				setIsLoading(false);

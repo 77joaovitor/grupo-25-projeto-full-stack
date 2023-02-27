@@ -4,7 +4,7 @@ export interface VehicleRequest {
   year: string;
   mileage: number;
   coverImage: string;
-  galleryImage: [object];
+  galleryImages: [object];
 }
 
 export interface AnnouncementRequest {
@@ -14,11 +14,12 @@ export interface AnnouncementRequest {
   vehicle: VehicleRequest;
 }
 
-export interface AnnoucementUpdate {
+export interface AnnouncementUpdate {
   type?: string;
   title?: string;
   description?: string;
   vehicle?: VehicleUpdate;
+  published: boolean;
 }
 
 export interface VehicleUpdate {
@@ -27,4 +28,5 @@ export interface VehicleUpdate {
   price: number;
   year: string;
   mileage: number;
+  type?: string;
 }

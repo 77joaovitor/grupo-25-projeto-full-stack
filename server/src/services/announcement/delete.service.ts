@@ -2,14 +2,14 @@ import AppDataSource from "../../data-source";
 import { Announcement } from "../../entities";
 import { AppError } from "../../errors";
 
-export const deleteAnnoucementService = async (id: string) => {
-  const annoucementRepository = AppDataSource.getRepository(Announcement);
+export const deleteAnnouncementService = async (id: string) => {
+  const announcementRepository = AppDataSource.getRepository(Announcement);
 
-  const findAnnoucement = await annoucementRepository.findOneBy({ id });
+  const findAnnouncement = await announcementRepository.findOneBy({ id });
 
-  if (!findAnnoucement) {
-    throw new AppError(404, "Annoucement not found");
+  if (!findAnnouncement) {
+    throw new AppError(404, "Announcement not found");
   }
 
-  await annoucementRepository.delete(id);
+  await announcementRepository.delete(id);
 };

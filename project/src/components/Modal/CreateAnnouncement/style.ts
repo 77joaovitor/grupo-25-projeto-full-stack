@@ -13,7 +13,7 @@ export const Container = styled.div`
     min-height: 100%;
         color: #000000;
     background: rgba(18, 18, 20, 0.3);
-    /* overflow-y: auto; */
+    overflow-y: auto;
 `
 
 export const BoxContent = styled.div`
@@ -35,7 +35,6 @@ export const BoxContent = styled.div`
     .add_image{
         background: #EDEAFD;
         justify-content: flex-start;
-/* Brand/brand4 */
         padding: 5px 21px;
         width: fit-content;
         border: 1px solid #EDEAFD;
@@ -66,6 +65,18 @@ export const FormCreate = styled.form`
     
     position: absolute;
     width: 90%;
+
+    .button_del_input{
+       display: flex;
+       flex-direction: row-reverse;
+       button{
+           position: relative;
+           right: 33px;
+           width: max-content;
+           height: max-content;
+           padding: 0;
+        }
+    }  
 
     @media (min-width: 580px) {
         width: 520px;
@@ -122,6 +133,8 @@ export const BoxVehicleInformation = styled.div`
         display: flex;
         gap: 10px; 
     }
+
+
     
     @media (min-width: 438px) {
         .inf{
@@ -135,8 +148,7 @@ export const BoxVehicleInformation = styled.div`
             }
         }
     }
-/* 
-    /* flex-wrap: ; */
+
     input{
         width: 100%;
     }
