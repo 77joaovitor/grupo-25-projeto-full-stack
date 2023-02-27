@@ -25,6 +25,8 @@ export interface AnnouncementProviderData {
   announcementsMotorcycle: AnnouncementResponse[];
   detailAnoucements: AnnouncementResponse;
   setDetailAnoucements: Function;
+  getAllAnnouncementByAdvertiser: Function;
+  allAnnouncementByAdvertiser: AnnouncementResponse[];
 }
 
 export interface IUserContext {

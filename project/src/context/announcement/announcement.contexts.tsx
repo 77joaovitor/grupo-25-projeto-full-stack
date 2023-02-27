@@ -144,6 +144,8 @@ export const AnnouncementProvider = ({ children }: Props) => {
         announcementsMotorcycle,
         detailAnoucements,
         setDetailAnoucements,
+        getAllAnnouncementByAdvertiser,
+        allAnnouncementByAdvertiser,
       }}
     >
       {children}

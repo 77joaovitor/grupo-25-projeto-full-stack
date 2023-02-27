@@ -2,9 +2,12 @@ import { Container } from "./style";
 import car from "../../assets/car.png";
 import { useContext } from "react";
 import { AnnouncementContext } from "../../context";
+import { useNavigate } from "react-router-dom";
 
 export const DetailAnnouncement = () => {
-  const { detailAnoucements } = AnnouncementContext();
+  const navigate = useNavigate();
+  const { detailAnoucements, getAllAnnouncementByAdvertiser } =
+    AnnouncementContext();
   return (
     <Container>
       <main>
@@ -74,15 +77,23 @@ export const DetailAnnouncement = () => {
           </div>
 
           <div className="peapleAnnouncement">
-            <h3 className="peapleAnnouncement-icon">SM</h3>
-            <h2>Samuel Leão</h2>
+            <h3 className="peapleAnnouncement-icon">
+              {detailAnoucements.advertiser.name[0]}
+            </h3>
+            <h2>{detailAnoucements.advertiser.name}</h2>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur
               magni, officia voluptates accusantium cumque laudantium atque
               facilis mollitia tempora recusandae praesentium hic, veritatis
               nisi dolor vitae repellat magnam cum quidem?
             </p>
-            <button className="peapleAnnouncement-button">
+            <button
+              className="peapleAnnouncement-button"
+              onClick={() => {
+                navigate("/profile");
+                getAllAnnouncementByAdvertiser(detailAnoucements.advertiser.id);
+              }}
+            >
               Ver todos anuncios
             </button>
           </div>

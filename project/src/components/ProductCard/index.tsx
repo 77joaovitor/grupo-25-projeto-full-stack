@@ -1,8 +1,10 @@
 import { Container } from "./style";
 import car from "../../assets/car.png";
+import moto from "../../assets/moto.png";
 import { PropsAnnouncementCard } from "../../interfaces/component.interface";
 import { AnnouncementContext } from "../../context";
 import { useNavigate } from "react-router-dom";
+import { useRef } from "react";
 
 const ProductCard = ({ announcement }: PropsAnnouncementCard) => {
   const { setDetailAnoucements } = AnnouncementContext();
@@ -12,7 +14,7 @@ const ProductCard = ({ announcement }: PropsAnnouncementCard) => {
     <Container>
       <div className="imageProduct">
         <img
-          src={car}
+          src={announcement.vehicle.type === "car" ? car : moto}
           alt=""
           onClick={() => {
             setDetailAnoucements(announcement);
@@ -24,7 +26,7 @@ const ProductCard = ({ announcement }: PropsAnnouncementCard) => {
         <h3>{announcement.title}</h3>
         <p>{announcement.description}</p>
         <div className="userConteiner">
-          <span className="logoName">SL</span>{" "}
+          <span className="logoName">{announcement.advertiser.name[0]}</span>{" "}
           <span>{announcement.advertiser.name}</span>
         </div>
         <div className="infoContainer">
@@ -40,3 +42,15 @@ const ProductCard = ({ announcement }: PropsAnnouncementCard) => {
 };
 
 export default ProductCard;
+
+// {
+
+//   "type": "motorcycle",
+
+//   "title": "honda bis",
+
+//   "description": " a;lskjfs asjksakdjh hiiuuuu lkjdpkjhs lkjhsai kjnashdf lkjasdhj lkjsas ",
+
+//   "advertiser": "User",
+
+// }
