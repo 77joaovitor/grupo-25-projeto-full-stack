@@ -2,19 +2,19 @@ import cors from 'cors';
 import express from "express";
 import "express-async-error";
 import 'reflect-metadata';
-import { handleErrorMiddleware } from "./middlewares";
+import { handleErrorMiddleware } from "./middleware";
 import routes from "./routes";
 
 const app = express();
 
-const allowedOrigins = ['http://localhost:3000',];
+const allowedOrigins = ['http://localhost:3000/',];
 
 const options: cors.CorsOptions = {
     methods: ['GET','OPTIONS','PATCH','POST','DELETE',],
     origin: allowedOrigins,
 };
 
-app.use(cors(options));
+app.use(cors());
 
 app.use(express.json());
 

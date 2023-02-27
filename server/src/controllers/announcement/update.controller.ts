@@ -1,15 +1,19 @@
-import { AnnoucementUpdate } from "../../interfaces/announcement.interface";
-import { updateAnnouncementService } from "../../services/announcement/updateAannoucement.service";
+import { AnnouncementUpdate } from "../../interfaces/announcement.interface";
+import { updateAnnouncementService } from "../../services/announcement/update.service";
 import { Request, Response } from "express";
 
-export const updateAnnoucementController = async (
+export const updateAnnouncementController = async (
   req: Request,
   res: Response
 ) => {
-  const annoucement: AnnoucementUpdate = req.body;
+  const announcement: AnnouncementUpdate = req.body;
   const id: string = req.params.id;
-  const updtaedAnnoucement = await updateAnnouncementService(annoucement, id);
+  
+  const updatedAnnouncement = await updateAnnouncementService(announcement, id);
   return res
     .status(200)
-    .json({ message: "annoucement updated", annoucement: annoucement });
+    .json({
+      message: "announcement updated", 
+      announcement: updatedAnnouncement
+    });
 };

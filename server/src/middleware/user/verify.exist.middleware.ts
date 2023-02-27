@@ -9,11 +9,14 @@ const verifyExist = async (req: Request, res: Response, next: NextFunction) => {
 
         const serialized = await userRequestSchema.validate(req.body, {
         });
-
+        
         const userRepository = AppDataSource.getRepository(User);
         
-        const user = await userRepository.findOneBy({
-            email: serialized.email
+        console.log(serialized.email);
+        const user = await userRepository.findOne({
+           where: {
+            email: req.body.email
+           }
         });
 
         if (user) { throw new AppError(400, "Email already exist.") }

@@ -12,8 +12,11 @@ export interface PropsButton {
     defaultChecked?: boolean;
 }
 
+
+
 export interface PropsInputAnnouncement {
   id?: string;
+  inputGallery?:number
   value?: string;
   label?: string;
   errors: FieldErrors<AnnouncementRequest>
@@ -31,7 +34,9 @@ export interface PropsInputAnnouncement {
     | 'coverImage'
     | 'type'
     | 'galleryImages'
+    // | `galleryImages.${string}.imageUrl`
   placeholder?: string;
+  defaultValue?: string
 }
   
 export interface PropsAnnouncementCard {

@@ -3,7 +3,6 @@ import { Announcement } from "../../entities";
 
 export const getAllByAdvertiserService = async (advertiserId: string): Promise<Announcement[]> => {
     const announcementRepository = AppDataSource.getRepository(Announcement);
-    console.log(advertiserId);
     
     return await announcementRepository
         .createQueryBuilder("announcements")
@@ -12,5 +11,6 @@ export const getAllByAdvertiserService = async (advertiserId: string): Promise<A
             "users",
             "announcements.advertiser = users.id"
         )
+        .where("isActive = :isActive", { isActive: true })
         .getMany()
 }
