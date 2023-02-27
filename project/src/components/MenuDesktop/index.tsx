@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { UserContext } from "../../context/user/userContext";
 import { Container } from "./style";
 
-const MenuMobile = () => {
+const MenuDesktop = () => {
   const { auth } = UserContext();
   return (
     <Container>
@@ -16,7 +16,7 @@ const MenuMobile = () => {
           <div> Nome</div>
         ) : (
           <div className="loginOpitonsAuth">
-            Fazer login <button>Cadastrar</button>
+            <span>Fazer login</span> <button>Cadastrar</button>
           </div>
         )}
       </div>
@@ -24,4 +24,4 @@ const MenuMobile = () => {
   );
 };
 
-export default MenuMobile;
+export default MenuDesktop;

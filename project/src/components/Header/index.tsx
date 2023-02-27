@@ -3,6 +3,7 @@ import { FiMenu } from "react-icons/fi";
 import { GrClose } from "react-icons/gr";
 import logo from "../../assets/Motors shop.png";
 import { UserContext } from "../../context/user/userContext";
+import MenuDesktop from "../MenuDesktop";
 import MenuMobile from "../MenuMobile";
 import { Container } from "./style";
 
@@ -13,6 +14,9 @@ const Header = () => {
     <Container>
       <div className="logo">
         <img src={logo} alt="" />
+      </div>
+      <div className="menuDesktop">
+        <MenuDesktop />
       </div>
       <div className="menuMobile">
         {menuOpen ? (

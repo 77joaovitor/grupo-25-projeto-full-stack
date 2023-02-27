@@ -7,6 +7,7 @@ export const Container = styled.div`
   .imageProduct {
     background: rgba(233, 236, 239, 1);
     margin-bottom: 20px;
+    cursor: pointer;
   }
   section {
     margin-bottom: 20px;

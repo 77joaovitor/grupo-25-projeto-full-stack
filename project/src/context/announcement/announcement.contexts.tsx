@@ -1,16 +1,29 @@
 import { AxiosError } from "axios";
 import { JwtPayload } from "jwt-decode";
 import { createContext, useContext, useEffect, useState } from "react";
-import { AnnouncementRequest, AnnouncementResponse } from "../../interfaces/announcement.interface";
-import { AnnouncementProviderData, Props } from "../../interfaces/contexts.interface";
+import {
+  AnnouncementRequest,
+  AnnouncementResponse,
+} from "../../interfaces/announcement.interface";
+import {
+  AnnouncementProviderData,
+  Props,
+} from "../../interfaces/contexts.interface";
 import { api } from "../../util/api";
 import { getToken, logout } from "../session/auth";
 import jwt_decode from "jwt-decode";
 import { UserContext } from "../user/userContext";
 
-const Context = createContext<AnnouncementProviderData>({} as AnnouncementProviderData);
+const Context = createContext<AnnouncementProviderData>(
+  {} as AnnouncementProviderData
+);
 
 export const AnnouncementProvider = ({ children }: Props) => {
+
+  const [idDetailAnoucements, setIdDetailAnoucements] = useState(0);
+  const [detailAnoucements, setDetailAnoucements] = useState(
+    {} as AnnouncementResponse
+  );
 	const [announcement, setAnnouncement] = useState<AnnouncementResponse>({} as AnnouncementResponse);
 	const [isOpenModalCreateAnnouncement, setIsOpenModalCreateAnnouncement] = useState<boolean>(false);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -22,6 +35,8 @@ export const AnnouncementProvider = ({ children }: Props) => {
 	const [allAnnouncementByAdvertiser, setAllAnnouncementByAdvertiser] = useState<AnnouncementResponse[]>([])
 	const [allAnnouncements, setAllAnnouncements] = useState<AnnouncementResponse[]>([])
 	const [reload, setReload] = useState<boolean>(false)
+  const [isAnnouncementPublished, setIsAnnouncementPublished] = useState<boolean>(false)
+
 	const { user, setUser, getUser } = UserContext();
 
 	const createAnnouncement = async (data: AnnouncementRequest) => {
@@ -63,7 +78,7 @@ export const AnnouncementProvider = ({ children }: Props) => {
 			}
 		};
 	};
-	const updateAnnouncement = async (data: AnnouncementRequest) => {
+	const updateAnnouncement = async (data: UpdateAnnouncementRequest) => {
 
 		setIsLoading(true);
 
@@ -72,6 +87,7 @@ export const AnnouncementProvider = ({ children }: Props) => {
 			const response = await api.post(`/announcements/`, {
 				...data,
 				type: announcementType,
+        published: isAnnouncementPublished,
 				vehicle: {
 					type: vehicleType,
 					price: data.price,
@@ -168,11 +184,16 @@ export const AnnouncementProvider = ({ children }: Props) => {
 			inputs,
 			announcementsCars,
 			announcementsMotorcycle,
+      setIsAnnouncementPublished,
+			isAnnouncementPublished,
+      detailAnoucements,
+      setDetailAnoucements,
+      getAllAnnouncementByAdvertiser,
+      allAnnouncementByAdvertiser,
 		}}>
 			{children}
 		</Context.Provider>
 	);
 };
 
-
-export const AnnouncementContext = () => useContext(Context)
+export const AnnouncementContext = () => useContext(Context);
