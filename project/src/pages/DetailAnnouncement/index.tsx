@@ -8,6 +8,8 @@ export const DetailAnnouncement = () => {
   const navigate = useNavigate();
   const { detailAnoucements, getAllAnnouncementByAdvertiser } =
     AnnouncementContext();
+    // console.log(detailAnoucements);
+    
   return (
     <Container>
       <main>
@@ -17,23 +19,23 @@ export const DetailAnnouncement = () => {
           </div>
 
           <div className="info">
-            <h1>{detailAnoucements.title}</h1>
+            <h1>{detailAnoucements?.title}</h1>
             <div className="info-text">
               <div className="info-text-span">
-                <span>{detailAnoucements.description}</span>
+                <span>{detailAnoucements?.description}</span>
                 <span className="age">
-                  {detailAnoucements.vehicle.year.toString()}
+                  {detailAnoucements?.vehicle?.year.toString()}
                 </span>
-                <span>{detailAnoucements.vehicle.mileage} KM</span>
+                <span>{detailAnoucements?.vehicle?.mileage} KM</span>
               </div>
-              <h4>R$ {detailAnoucements.vehicle.price}</h4>
+              <h4>R$ {detailAnoucements?.vehicle?.price}</h4>
             </div>
             <button>Comprar</button>
           </div>
 
           <div className="descricao">
             <h1>Descrição</h1>
-            <p>{detailAnoucements.description}</p>
+            <p>{detailAnoucements?.description}</p>
           </div>
 
           <div className="coments">
@@ -78,9 +80,9 @@ export const DetailAnnouncement = () => {
 
           <div className="peapleAnnouncement">
             <h3 className="peapleAnnouncement-icon">
-              {detailAnoucements.advertiser.name[0]}
+              {detailAnoucements?.advertiser?.name[0]}
             </h3>
-            <h2>{detailAnoucements.advertiser.name}</h2>
+            <h2>{detailAnoucements?.advertiser?.name}</h2>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur
               magni, officia voluptates accusantium cumque laudantium atque
@@ -91,7 +93,7 @@ export const DetailAnnouncement = () => {
               className="peapleAnnouncement-button"
               onClick={() => {
                 navigate("/profile");
-                getAllAnnouncementByAdvertiser(detailAnoucements.advertiser.id);
+                getAllAnnouncementByAdvertiser(detailAnoucements?.advertiser.id);
               }}
             >
               Ver todos anuncios

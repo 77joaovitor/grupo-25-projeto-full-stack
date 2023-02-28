@@ -114,20 +114,41 @@ export const AnnouncementProvider = ({ children }: Props) => {
 		};
 	};
 
-	const getAllAnnouncements = async () => {
+	const getAnnouncements = async () => {
 		try {
-			const response = await api.get("/announcements/")
+			const announcementId = localStorage.getItem('announcementId');
+			const response = await api.get(`/announcements/`);
+
+			// const responseOne = await api.get(`/announcements/${announcementId}`);
+
+
+			// console.log(responseOne.data);
+			
+			if(announcementId) {
+
+				const find = response.data.find((elem: AnnouncementResponse) => {
+					return elem.id = announcementId
+				})
+
+				console.log( find);
+
+				// setTimeout(() => {
+					setDetailAnoucements(find)
+
+				// },  10000)
+				
+			}
 			
 			setAllAnnouncements(response.data)
 
-			const announcementsByCars = response.data.filter((element: AnnouncementResponse) => {
-				return element.vehicle.type === 'car'
-			})
-			const announcementsByMotorcycle = response.data.filter((element: AnnouncementResponse) => {
-				return element.vehicle.type === 'motorcycle'
-			})
-			setAnnouncementsCars(announcementsByCars)
-			setAnnouncementsMotorcycle(announcementsByMotorcycle)
+			// const announcementsByCars = response.data.filter((element: AnnouncementResponse) => {
+			// 	return element.vehicle.type === 'car'
+			// })
+			// const announcementsByMotorcycle = response.data.filter((element: AnnouncementResponse) => {
+			// 	return element.vehicle.type === 'motorcycle'
+			// })
+			// setAnnouncementsCars(announcementsByCars)
+			// setAnnouncementsMotorcycle(announcementsByMotorcycle)
 
 		} catch (error) {
 			if (error instanceof AxiosError) {
@@ -136,6 +157,8 @@ export const AnnouncementProvider = ({ children }: Props) => {
 			}
 		}
 	}
+
+
 
 	const deleteAnnouncement = async (announcementId: string) => {
 		try {
@@ -163,7 +186,7 @@ export const AnnouncementProvider = ({ children }: Props) => {
 	}
 	
 	useEffect(() => {
-		getAllAnnouncements();
+		getAnnouncements();
 
 		let decoded: JwtPayload = {
 			exp: 1,
@@ -212,7 +235,11 @@ export const AnnouncementProvider = ({ children }: Props) => {
 			deleteAnnouncement,
 			isOpenModalDeleteAnnouncement,
 			setIsOpenModalDeleteAnnouncement,
-		}}>
+			allAnnouncements,
+			reload, 
+			
+			setReload,
+			}}>
 			{children}
 		</Context.Provider>
 	);

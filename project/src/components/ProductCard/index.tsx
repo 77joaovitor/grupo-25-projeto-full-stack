@@ -14,24 +14,38 @@ const ProductCard = ({ announcement }: PropsAnnouncementCard) => {
     setDetailAnoucements, 
     setIsOpenModalUpdateAnnouncement, 
     isOpenModalUpdateAnnouncement,
+    // getOneAnnouncement
+    setReload,
+    reload
   } = AnnouncementContext();
 
   const { user, setUser, getUser } = UserContext();
 
 
   const navigate = useNavigate();
+  
 
   return (
     <>
       {
-        user.isAdvertiser ?
+       
           <Container>
-            <div className="imageProduct">
+            <div className="imageProduct"
+            
+            onClick={ () => {
+              localStorage.setItem('announcementId', announcement?.id)
+              // getOneAnnouncement(announcement.id);
+              // setReload(!reload)
+              navigate("/announcement/");
+            }}
+            >
               <img
                 src={announcement.vehicle.type === "car" ? car : moto}
                 alt=""
-                onClick={() => {
-                  setDetailAnoucements(announcement);
+                onClick={ () => {
+                  localStorage.setItem('announcementId', announcement?.id)
+                  // getOneAnnouncement(announcement.id);
+                  // setReload(!reload)
                   navigate("/announcement/");
                 }}
               />
@@ -51,7 +65,7 @@ const ProductCard = ({ announcement }: PropsAnnouncementCard) => {
                 <span className="price">R$ {announcement.vehicle.price}</span>
               </div>
             </section>
-            <BoxButton>
+           {user.isAdvertiser && <BoxButton>
               <Button
                 className="btn_edit"
                 onClick={() =>{
@@ -67,38 +81,9 @@ const ProductCard = ({ announcement }: PropsAnnouncementCard) => {
               >
                 Ver como
               </Button>
-            </BoxButton>
+            </BoxButton>}
         </Container>
 
-        : 
-
-        <Container>
-        <div className="imageProduct">
-          <img
-            src={announcement.vehicle.type === "car" ? car : moto}
-            alt=""
-            onClick={() => {
-              setDetailAnoucements(announcement);
-              navigate("/announcement/");
-            }}
-          />
-        </div>
-        <section className="descriptionProduct">
-          <h3>{announcement.title}</h3>
-          <p>{announcement.description}</p>
-          <div className="userConteiner">
-            <span className="logoName">{announcement.advertiser.name[0]}</span>{" "}
-            <span>{announcement.advertiser.name}</span>
-          </div>
-          <div className="infoContainer">
-            <div className="kmAndAge">
-              <span className="km">{announcement.vehicle.mileage}</span>{" "}
-              <span className="age">{announcement.vehicle.year.toString()}</span>
-            </div>
-            <span className="price">R$ {announcement.vehicle.price}</span>
-          </div>
-        </section>
-        </Container>
       }
     </>
   );

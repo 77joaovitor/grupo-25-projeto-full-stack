@@ -15,9 +15,10 @@ import {
 } from "./style";
 import { Footer } from "../../components/Footer";
 import { UpdateAnnouncement } from "../../components/Modal/UpdateAnnouncement";
+import { AnnouncementResponse } from "../../interfaces/announcement.interface";
 
 export const Home = (): JSX.Element => {
-  const { announcementsCars, announcementsMotorcycle } = AnnouncementContext();
+  const { announcementsCars, announcementsMotorcycle, allAnnouncementByAdvertiser, allAnnouncements } = AnnouncementContext();
   const carousel: any = useRef(null);
   const carousel2: any = useRef(null);
   const handleRightClick = (e: Event) => {
@@ -73,9 +74,11 @@ export const Home = (): JSX.Element => {
 
             <h3>Carros</h3>
             <ContainerList ref={carousel}>
-              {announcementsCars &&
-                announcementsCars.length > 0 &&
-                announcementsCars.map((announcement, index) => (
+              {allAnnouncements &&
+              allAnnouncements
+                .filter(
+                  (elem: AnnouncementResponse) => elem.vehicle.type === "car"
+                ).map((announcement, index) => (
                   <ProductCard key={index} announcement={announcement} />
                 ))}
             </ContainerList>
@@ -94,9 +97,11 @@ export const Home = (): JSX.Element => {
           <ListBox>
             <h3>Motos</h3>
             <ContainerList ref={carousel2}>
-              {announcementsMotorcycle &&
-                announcementsMotorcycle.length > 0 &&
-                announcementsMotorcycle.map((announcement, index) => (
+              {allAnnouncements &&
+              allAnnouncements
+                .filter(
+                  (elem: AnnouncementResponse) => elem.vehicle.type === "motorcycle"
+                ).map((announcement, index) => (
                   <ProductCard key={index} announcement={announcement} />
                 ))}
             </ContainerList>

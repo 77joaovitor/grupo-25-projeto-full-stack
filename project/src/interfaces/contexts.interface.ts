@@ -36,6 +36,10 @@ export interface AnnouncementProviderData {
   deleteAnnouncement: (announcementId: string) => void;
   setIsOpenModalDeleteAnnouncement: Function;
   isOpenModalDeleteAnnouncement: boolean;
+  reload: boolean
+  allAnnouncements: AnnouncementResponse[]
+
+ setReload: Function;
 }
 
 export interface IUserContext {
