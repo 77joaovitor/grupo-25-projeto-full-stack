@@ -9,9 +9,12 @@ import {
   PresentationSection,
   BoxButton,
   ContainerList,
+  ListBox,
   ListSection,
   BoxContent,
 } from "./style";
+import { Footer } from "../../components/Footer";
+import { UpdateAnnouncement } from "../../components/Modal/UpdateAnnouncement";
 
 export const Home = (): JSX.Element => {
   const { announcementsCars, announcementsMotorcycle } = AnnouncementContext();
@@ -66,43 +69,49 @@ export const Home = (): JSX.Element => {
       </ListSection>
       <ListSection>
         <BoxContent id="cars">
-          <h3>Carros</h3>
-          <ContainerList ref={carousel}>
-            {announcementsCars &&
-              announcementsCars.length > 0 &&
-              announcementsCars.map((announcement, index) => (
-                <ProductCard key={index} announcement={announcement} />
-              ))}
-          </ContainerList>
-          <div className="divCarouselCar">
-            <div onClick={(e) => handleLeftClick(e as any)}>
-              <GrLinkPrevious />
+          <ListBox>
+
+            <h3>Carros</h3>
+            <ContainerList ref={carousel}>
+              {announcementsCars &&
+                announcementsCars.length > 0 &&
+                announcementsCars.map((announcement, index) => (
+                  <ProductCard key={index} announcement={announcement} />
+                ))}
+            </ContainerList>
+            <div className="divCarouselCar">
+              <div onClick={(e) => handleLeftClick(e as any)}>
+                <GrLinkPrevious />
+              </div>
+              <div onClick={(e) => handleRightClick(e as any)}>
+                {" "}
+                <GrLinkNext />
+              </div>
             </div>
-            <div onClick={(e) => handleRightClick(e as any)}>
-              {" "}
-              <GrLinkNext />
-            </div>
-          </div>
+          </ListBox>
         </BoxContent>
         <BoxContent id="motorcycles">
-          <h3>Motos</h3>
-          <ContainerList ref={carousel2}>
-            {announcementsMotorcycle &&
-              announcementsMotorcycle.length > 0 &&
-              announcementsMotorcycle.map((announcement, index) => (
-                <ProductCard key={index} announcement={announcement} />
-              ))}
-          </ContainerList>
-          <div className="divCarouselMoto">
-            <div onClick={(e) => handleLeftClickM(e as any)}>
-              <GrLinkPrevious />
+          <ListBox>
+            <h3>Motos</h3>
+            <ContainerList ref={carousel2}>
+              {announcementsMotorcycle &&
+                announcementsMotorcycle.length > 0 &&
+                announcementsMotorcycle.map((announcement, index) => (
+                  <ProductCard key={index} announcement={announcement} />
+                ))}
+            </ContainerList>
+            <div className="divCarouselMoto">
+              <div onClick={(e) => handleLeftClickM(e as any)}>
+                <GrLinkPrevious />
+              </div>
+              <div onClick={(e) => handleRightClickM(e as any)}>
+                <GrLinkNext />
+              </div>
             </div>
-            <div onClick={(e) => handleRightClickM(e as any)}>
-              <GrLinkNext />
-            </div>
-          </div>
+          </ListBox>
         </BoxContent>
       </ListSection>
+      <Footer />
     </>
   );
 };

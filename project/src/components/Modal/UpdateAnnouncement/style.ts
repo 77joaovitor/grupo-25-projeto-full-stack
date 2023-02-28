@@ -64,6 +64,19 @@ export const FormCreate = styled.form`
     position: absolute;
     width: 90%;
 
+    .button_del_input{
+       display: flex;
+       flex-direction: row-reverse;
+       button{
+           position: relative;
+           right: 20px;
+           width: max-content;
+           height: max-content;
+           padding: 0;
+        }
+    }  
+
+
     @media (min-width: 580px) {
         width: 520px;
     }
@@ -94,18 +107,26 @@ export const BoxButton = styled.div`
     align-self: flex-start;
     gap: 10px;
     width: 100%;
-
+    font-size: 13.5px;
+    padding: 10px 10px;
     button{
         width: 50%;
     }
 
     .cancel_btn{
-        width: 146px;
-        background: #F1F3F5;
+        /* width: 146px; */
+    height: 45px;
+    background: #F1F3F5;
+    font-size: 13.5px;
+    padding: 10px 10px;
     }
     .create_btn{
         background: #B0A6F0;
         color: #ffff;
+        font-size: 13.5px;
+    padding: 10px 10px;
+    width: 40%;
+    height: 45px;
     }
 
 `

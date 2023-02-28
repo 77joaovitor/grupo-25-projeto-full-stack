@@ -2,6 +2,7 @@ import { Dispatch, ReactNode, SetStateAction } from "react";
 import {
   AnnouncementRequest,
   AnnouncementResponse,
+  UpdateAnnouncementRequest,
 } from "./announcement.interface";
 import { UserResponse } from "./user.interface";
 
@@ -22,6 +23,8 @@ export interface AnnouncementProviderData {
   setInputs: Function;
   setIsAnnouncementPublished: Function;
   isAnnouncementPublished: boolean;
+  isOpenModalUpdateAnnouncement: boolean;
+  setIsOpenModalUpdateAnnouncement: Function;
   inputs: JSX.Element;
   announcementsCars: AnnouncementResponse[];
   announcementsMotorcycle: AnnouncementResponse[];
@@ -29,6 +32,10 @@ export interface AnnouncementProviderData {
   setDetailAnoucements: Function;
   getAllAnnouncementByAdvertiser: Function;
   allAnnouncementByAdvertiser: AnnouncementResponse[];
+  updateAnnouncement: (data: UpdateAnnouncementRequest) => void;
+  deleteAnnouncement: (announcementId: string) => void;
+  setIsOpenModalDeleteAnnouncement: Function;
+  isOpenModalDeleteAnnouncement: boolean;
 }
 
 export interface IUserContext {

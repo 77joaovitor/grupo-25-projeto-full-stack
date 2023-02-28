@@ -33,10 +33,14 @@ class Announcement {
     @ManyToOne(() => User)
     advertiser: User;
 
-    @OneToMany(() => Comment, comments => comments.announcement)
+    @OneToMany(() => Comment, comments => comments.announcement, {
+        onDelete: 'CASCADE'
+    })
     comments: Comment[]
 
-    @OneToOne(() => Vehicle, (vehicle) => vehicle.announcement)
+    @OneToOne(() => Vehicle, (vehicle) => vehicle.announcement, {
+        onDelete: 'CASCADE'
+    })
     @JoinColumn()
     vehicle: Vehicle;
 

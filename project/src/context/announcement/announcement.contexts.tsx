@@ -20,6 +20,7 @@ export const AnnouncementProvider = ({ children }: Props) => {
   );
 	const [announcement, setAnnouncement] = useState<AnnouncementResponse>({} as AnnouncementResponse);
 	const [isOpenModalCreateAnnouncement, setIsOpenModalCreateAnnouncement] = useState<boolean>(false);
+	const [isOpenModalUpdateAnnouncement, setIsOpenModalUpdateAnnouncement] = useState<boolean>(false);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [announcementType, setAnnouncementType] = useState<string>("");
 	const [vehicleType, setVehicleType] = useState<string>("");
@@ -30,7 +31,7 @@ export const AnnouncementProvider = ({ children }: Props) => {
 	const [allAnnouncements, setAllAnnouncements] = useState<AnnouncementResponse[]>([])
 	const [reload, setReload] = useState<boolean>(false);
 	const [isAnnouncementPublished, setIsAnnouncementPublished] = useState<boolean>(false)
-
+	const [isOpenModalDeleteAnnouncement, setIsOpenModalDeleteAnnouncement] = useState<boolean>(false);
 	const { user, setUser, getUser } = UserContext();
 
 	const createAnnouncement = async (data: AnnouncementRequest) => {
@@ -78,7 +79,7 @@ export const AnnouncementProvider = ({ children }: Props) => {
 
 		try {
 			
-			const response = await api.post(`/announcements/${announcement.id}`, {
+			const response = await api.post(`/announcements/${detailAnoucements.id}`, {
 				...data,
 				type: announcementType,
 				published: isAnnouncementPublished,
@@ -136,12 +137,25 @@ export const AnnouncementProvider = ({ children }: Props) => {
 		}
 	}
 
+	const deleteAnnouncement = async (announcementId: string) => {
+		try {
+			await api.delete(`/announcements/${announcementId}`);
+			setReload(!reload)
+
+		} catch (error) {
+			if (error instanceof AxiosError) {
+				console.log(error);
+				
+			}	
+		}
+	}
+
 	const getAllAnnouncementByAdvertiser = (advertiserId: string) => {
 		try {
-			const allAnnouncementByAdvertiser = allAnnouncements.filter((element) => {
+			const allAnnouncementByAdvertiserId = allAnnouncements.filter((element) => {
 				return element.advertiser.id === advertiserId
 			})
-			setAllAnnouncementByAdvertiser(allAnnouncementByAdvertiser)
+			setAllAnnouncementByAdvertiser(allAnnouncementByAdvertiserId)
 
 		} catch (error) {
 			
@@ -149,19 +163,27 @@ export const AnnouncementProvider = ({ children }: Props) => {
 	}
 	
 	useEffect(() => {
+		getAllAnnouncements();
+
 		let decoded: JwtPayload = {
 			exp: 1,
 			iat: 1,
 			sub: 'error',
 		};
-		const token = getToken();
 
+		const token = getToken();
+		
 		if (token) {
 			decoded = jwt_decode(token!);
 		};
-		getUser(decoded.sub!);
-		getAllAnnouncements();
-	}, [reload])
+
+		if (decoded.sub?.length! > 5){
+			getAllAnnouncementByAdvertiser(decoded.sub!)
+			getUser(decoded.sub!);
+		} 
+
+		
+	}, [, reload])
 
 	return (
 		<Context.Provider value={{
@@ -184,6 +206,12 @@ export const AnnouncementProvider = ({ children }: Props) => {
 			setDetailAnoucements,
 			getAllAnnouncementByAdvertiser,
 			allAnnouncementByAdvertiser,
+			isOpenModalUpdateAnnouncement,
+			setIsOpenModalUpdateAnnouncement,
+			updateAnnouncement,
+			deleteAnnouncement,
+			isOpenModalDeleteAnnouncement,
+			setIsOpenModalDeleteAnnouncement,
 		}}>
 			{children}
 		</Context.Provider>

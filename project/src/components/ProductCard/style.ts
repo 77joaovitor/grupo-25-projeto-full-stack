@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const Container = styled.li`
   width: 312px;
-  height: 350px;
-  margin-bottom: 20px;
+  height: max-content;
+  /* margin-bottom: 20px; */
   .imageProduct {
     background: rgba(233, 236, 239, 1);
     margin-bottom: 20px;
@@ -79,3 +79,36 @@ export const Container = styled.div`
     }
   }
 `;
+
+export const BoxButton = styled.div`
+    display: flex;
+    justify-content: flex-start;
+
+    gap: 10px;
+    width: 100%;
+    font-size: 13.5px;
+    color: #212529;
+    
+    
+    .btn_edit{
+      width: 80px;
+      height: 38px;
+      background: transparent;
+      font-size: 13.5px;
+      padding: 10px 10px;
+      border: 1px solid #212529;
+      border-radius: 4px;
+      :active, :focus{
+        color: #212529;
+      }
+    }
+    .btn_see{
+        background: transparent;
+        font-size: 13.5px;
+        padding: 12px 8px;
+        width: 105px;
+        height: 38px;
+        border: 1px solid #212529;
+    }
+
+`

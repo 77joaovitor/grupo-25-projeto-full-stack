@@ -2,7 +2,6 @@ import AuctionCard from "../../components/AuctionCard";
 import { Button } from "../../components/Button";
 import { Footer } from "../../components/Footer";
 import Header from "../../components/Header";
-import { CreateAnnouncement } from "../../components/Modal/CreateAnnouncement";
 import ProductCard from "../../components/ProductCard";
 import { AnnouncementContext } from "../../context";
 import { UserContext } from "../../context/user/userContext";
@@ -23,11 +22,13 @@ export const Profile = (): JSX.Element => {
     announcementsMotorcycle,
     isOpenModalCreateAnnouncement,
     allAnnouncementByAdvertiser,
+    setIsOpenModalUpdateAnnouncement,
+    isOpenModalUpdateAnnouncement
   } = AnnouncementContext();
   const { user } = UserContext();
+  
   return (
     <>
-      {<CreateAnnouncement />}
       <Header />
       <PresentationSection id="home">
         <ProfileContent>
@@ -41,31 +42,10 @@ export const Profile = (): JSX.Element => {
             ever since the 1500s
           </p>
 
-          {true && (
-            <Button
-              onClick={() =>
-                setIsOpenModalCreateAnnouncement(!isOpenModalCreateAnnouncement)
-              }
-            >
-              Criar anuncio
-            </Button>
-          )}
         </ProfileContent>
       </PresentationSection>
 
       <ContainerMain>
-        {user.isAdvertiser && (
-          <BoxContent>
-            <h3>Leilão</h3>
-            <ContainerList>
-              <AuctionCard />
-              <AuctionCard />
-              <AuctionCard />
-              <AuctionCard />
-            </ContainerList>
-          </BoxContent>
-        )}
-
         <BoxContent id="cars">
           <h3>Carros</h3>
           <ContainerList>

@@ -6,19 +6,23 @@ import { AnnouncementContext } from "../../../context";
 import { AnnouncementRequest, UpdateAnnouncementRequest } from "../../../interfaces/announcement.interface";
 import { AnnouncementRequestSchema } from "../../../schema/announcement.schema";
 import { Button, ButtonModal } from "../../Button";
-import { BoxButton, BoxContent, BoxTitle, BoxType, BoxVehicleInformation, Container, FormCreate } from "./style";
+import { Container } from '../style'
+import { BoxButton, BoxContent, BoxTitle, BoxType, BoxVehicleInformation, FormCreate } from "./style";
 import { InputModalUpdateAnnouncement } from "../../Input/Modal/inputUpdateAnnouncement";
 
 export const UpdateAnnouncement = (): JSX.Element => {
     const {
-        createAnnouncement,
-        isOpenModalCreateAnnouncement,
-        setIsOpenModalCreateAnnouncement,
+        updateAnnouncement,
+        isOpenModalUpdateAnnouncement,
+        setIsOpenModalUpdateAnnouncement,
         setAnnouncementType,
         setVehicleType,
         setIsAnnouncementPublished,
+        detailAnoucements,
+        isOpenModalDeleteAnnouncement, 
+        setIsOpenModalDeleteAnnouncement,
     } = AnnouncementContext();
-
+    
     const { register, handleSubmit, control, formState: { errors, isSubmitSuccessful }, reset } = useForm<UpdateAnnouncementRequest>({
         resolver: yupResolver(AnnouncementRequestSchema), defaultValues: {
             galleryImages: [
@@ -37,24 +41,24 @@ export const UpdateAnnouncement = (): JSX.Element => {
 
     return (
         <>
-            {isOpenModalCreateAnnouncement &&
+            {isOpenModalUpdateAnnouncement &&
                 <Container
                     // initial={{ opacity: 0 }}
                     // animate={{ opacity: 1 }}
                     // exit={{ opacity: 0 }}
                     // transition={{ duration: 1 }}
-                    onClick={() => setIsOpenModalCreateAnnouncement(!isOpenModalCreateAnnouncement)}
+                    onClick={() => setIsOpenModalUpdateAnnouncement(!isOpenModalUpdateAnnouncement)}
                 >
                     <FormCreate
-                        onSubmit={handleSubmit(createAnnouncement)}
+                        onSubmit={handleSubmit(updateAnnouncement)}
                         onClick={(e) => e.stopPropagation()}
                     >
                         <BoxContent>
                             <BoxTitle>
-                                <h3>Criar anuncio</h3>
+                                <h3>Editar anúncio</h3>
                                 <ButtonModal
                                     type="button"
-                                    onClick={() => setIsOpenModalCreateAnnouncement(!isOpenModalCreateAnnouncement)}
+                                    onClick={() => setIsOpenModalUpdateAnnouncement(!isOpenModalUpdateAnnouncement)}
                                 >
                                     <IoMdClose />
                                 </ButtonModal>
@@ -67,17 +71,18 @@ export const UpdateAnnouncement = (): JSX.Element => {
                                         className="announcementTypeSale"
                                         id="announcementTypeSale"
                                         type="button"
-                                        defaultChecked={true}
+                                        defaultChecked={detailAnoucements.type === "sale" && true}
                                         onClick={() => {
                                             setAnnouncementType("sale")
                                         }}
-                                    >
+                                        >
                                         Venda
                                     </Button>
                                     <Button
                                         className="announcementTypeRent"
                                         id="announcementTypeRent"
                                         type="button"
+                                        defaultChecked={detailAnoucements.type === "rent" && true}
                                         onClick={() => {
                                             setAnnouncementType("rent")
                                         }}
@@ -95,7 +100,7 @@ export const UpdateAnnouncement = (): JSX.Element => {
                                 id={"AnnouncementTitle"}
                                 key={"AnnouncementTitle"}
                                 label={"Título"}
-                                placeholder={"Digitar o Título"}
+                                placeholder={detailAnoucements.title}
                                 type={"text"}
                             />
                             <BoxVehicleInformation>
@@ -107,7 +112,7 @@ export const UpdateAnnouncement = (): JSX.Element => {
                                         id={"vehicleYear"}
                                         key={"vehicleYear"}
                                         label={"Ano"}
-                                        placeholder={"Digitar ano"}
+                                        placeholder={detailAnoucements.vehicle.year.toString()}
                                         type={"text"}
                                     />
                                     <InputModalUpdateAnnouncement
@@ -117,7 +122,7 @@ export const UpdateAnnouncement = (): JSX.Element => {
                                         id={"vehicleMileage"}
                                         key={"vehicleMileage"}
                                         label={"Quilometragem"}
-                                        placeholder={"0"}
+                                        placeholder={detailAnoucements.vehicle.mileage.toString()}
                                         type={"number"}
                                     />
                                 </div>
@@ -128,7 +133,7 @@ export const UpdateAnnouncement = (): JSX.Element => {
                                     id={"vehiclePrice"}
                                     key={"vehiclePrice"}
                                     label={"Preço"}
-                                    placeholder={"Digitar preço"}
+                                    placeholder={detailAnoucements.vehicle.price.toString()}
                                     type={"number"}
                                 />
                             </BoxVehicleInformation>
@@ -141,7 +146,7 @@ export const UpdateAnnouncement = (): JSX.Element => {
                                 id={"announcementDescription"}
                                 key={"announcementDescription"}
                                 label={"Descrição"}
-                                placeholder={"Digitar descrição"}
+                                placeholder={detailAnoucements.description}
                             />
 
                             <BoxType>
@@ -179,17 +184,17 @@ export const UpdateAnnouncement = (): JSX.Element => {
                                         className="announcementPublished"
                                         id="announcementPublished"
                                         type="button"
-                                        defaultChecked={true}
                                         onClick={() => {
                                             setIsAnnouncementPublished(true)
                                         }}
-                                    >
+                                        >
                                         Sim
                                     </Button>
                                     <Button
                                         className="announcementTypeRent"
                                         id="announcementTypeRent"
                                         type="button"
+                                        defaultChecked={!detailAnoucements.isActive && true}
                                         onClick={() => {
                                             setIsAnnouncementPublished(false)
                                         }}
@@ -252,15 +257,17 @@ export const UpdateAnnouncement = (): JSX.Element => {
                                     className="cancel_btn"
                                     type="button"
                                     onClick={() => {
+                                        setIsOpenModalUpdateAnnouncement(!isOpenModalUpdateAnnouncement)
+                                        setIsOpenModalDeleteAnnouncement(!isOpenModalDeleteAnnouncement)
                                     }}
                                 >
-                                    Cancelar
+                                    Excluir anúncio
                                 </Button>
                                 <Button
                                     className="create_btn"
                                     type="submit"
                                 >
-                                    Criar anuncio
+                                    Salvar alterações
                                 </Button>
                             </BoxButton>
                         </BoxContent>
