@@ -19,181 +19,189 @@ const Context = createContext<AnnouncementProviderData>(
 );
 
 export const AnnouncementProvider = ({ children }: Props) => {
-
   const [idDetailAnoucements, setIdDetailAnoucements] = useState(0);
   const [detailAnoucements, setDetailAnoucements] = useState(
     {} as AnnouncementResponse
   );
-	const [announcement, setAnnouncement] = useState<AnnouncementResponse>({} as AnnouncementResponse);
-	const [isOpenModalCreateAnnouncement, setIsOpenModalCreateAnnouncement] = useState<boolean>(false);
-	const [isLoading, setIsLoading] = useState<boolean>(false);
-	const [announcementType, setAnnouncementType] = useState<string>("");
-	const [vehicleType, setVehicleType] = useState<string>("");
-	const [inputs, setInputs] = useState<JSX.Element>({} as JSX.Element)
-	const [announcementsCars, setAnnouncementsCars] = useState<AnnouncementResponse[]>([])
-	const [announcementsMotorcycle, setAnnouncementsMotorcycle] = useState<AnnouncementResponse[]>([])
-	const [allAnnouncementByAdvertiser, setAllAnnouncementByAdvertiser] = useState<AnnouncementResponse[]>([])
-	const [allAnnouncements, setAllAnnouncements] = useState<AnnouncementResponse[]>([])
-	const [reload, setReload] = useState<boolean>(false)
-  const [isAnnouncementPublished, setIsAnnouncementPublished] = useState<boolean>(false)
+  const [announcement, setAnnouncement] = useState<AnnouncementResponse>(
+    {} as AnnouncementResponse
+  );
+  const [isOpenModalCreateAnnouncement, setIsOpenModalCreateAnnouncement] =
+    useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [announcementType, setAnnouncementType] = useState<string>("");
+  const [vehicleType, setVehicleType] = useState<string>("");
+  const [inputs, setInputs] = useState<JSX.Element>({} as JSX.Element);
+  const [announcementsCars, setAnnouncementsCars] = useState<
+    AnnouncementResponse[]
+  >([]);
+  const [announcementsMotorcycle, setAnnouncementsMotorcycle] = useState<
+    AnnouncementResponse[]
+  >([]);
+  const [allAnnouncementByAdvertiser, setAllAnnouncementByAdvertiser] =
+    useState<AnnouncementResponse[]>([]);
+  const [allAnnouncements, setAllAnnouncements] = useState<
+    AnnouncementResponse[]
+  >([]);
+  const [reload, setReload] = useState<boolean>(false);
+  const [isAnnouncementPublished, setIsAnnouncementPublished] =
+    useState<boolean>(false);
 
-	const { user, setUser, getUser } = UserContext();
+  const { user, setUser, getUser } = UserContext();
 
-	const createAnnouncement = async (data: AnnouncementRequest) => {
+  const createAnnouncement = async (data: AnnouncementRequest) => {
+    setIsLoading(true);
 
-		setIsLoading(true);
+    try {
+      const response = await api.post(`/announcements/`, {
+        ...data,
+        type: announcementType,
+        vehicle: {
+          type: vehicleType,
+          price: data.price,
+          year: data.year,
+          mileage: data.mileage,
+          coverImage: data.coverImage,
+          galleryImages: data.galleryImages,
+        },
+      });
 
-		try {
-			
-			const response = await api.post(`/announcements/`, {
-				...data,
-				type: announcementType,
-				vehicle: {
-					type: vehicleType,
-					price: data.price,
-					year: data.year,
-					mileage: data.mileage,
-					coverImage: data.coverImage,
-					galleryImages: data.galleryImages,
+      setAnnouncement(response.data);
+      setReload(!reload);
 
-				},
-			});
-			
-			setAnnouncement(response.data);
-			setReload(!reload)
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 500);
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        error.response?.status === 500 &&
+          setTimeout(() => {
+            logout();
+            // navigate('/error', {replace: true});
+          }, 5000);
+      }
+    }
+  };
+  const updateAnnouncement = async (data: UpdateAnnouncementRequest) => {
+    setIsLoading(true);
 
-			setTimeout(() => {
-				setIsLoading(false);
-
-			}, 500);
-
-		} catch (error) {
-			if (error instanceof AxiosError) {
-				error.response?.status === 500 && setTimeout(() => {
-
-					logout()
-					// navigate('/error', {replace: true});
-
-				}, 5000);
-			}
-		};
-	};
-	const updateAnnouncement = async (data: UpdateAnnouncementRequest) => {
-
-		setIsLoading(true);
-
-		try {
-			
-			const response = await api.post(`/announcements/`, {
-				...data,
-				type: announcementType,
+    try {
+      const response = await api.post(`/announcements/`, {
+        ...data,
+        type: announcementType,
         published: isAnnouncementPublished,
-				vehicle: {
-					type: vehicleType,
-					price: data.price,
-					year: data.year,
-					mileage: data.mileage,
-					coverImage: data.coverImage,
-					galleryImages: data.galleryImages,
+        vehicle: {
+          type: vehicleType,
+          price: data.price,
+          year: data.year,
+          mileage: data.mileage,
+          coverImage: data.coverImage,
+          galleryImages: data.galleryImages,
+        },
+      });
 
-				},
-			});
-			
-			setAnnouncement(response.data);
-			setReload(!reload)
+      setAnnouncement(response.data);
+      setReload(!reload);
 
-			setTimeout(() => {
-				setIsLoading(false);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 500);
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        error.response?.status === 500 &&
+          setTimeout(() => {
+            logout();
+            // navigate('/error', {replace: true});
+          }, 5000);
+      }
+    }
+  };
 
-			}, 500);
+  const getAllAnnouncements = async () => {
+    try {
+      const annoucementId = localStorage.getItem("annoucementID");
+      const response = await api.get("/announcements/");
+      if (annoucementId) {
+        const responseDetail = response.data.find(
+          (elem: AnnouncementResponse) => {
+            return elem.id === annoucementId;
+          }
+        );
+        setDetailAnoucements(responseDetail);
+      }
 
-		} catch (error) {
-			if (error instanceof AxiosError) {
-				error.response?.status === 500 && setTimeout(() => {
+      setAllAnnouncements(response.data);
 
-					logout()
-					// navigate('/error', {replace: true});
+      const announcementsByCars = response.data.filter(
+        (element: AnnouncementResponse) => {
+          return element.vehicle.type === "car";
+        }
+      );
+      const announcementsByMotorcycle = response.data.filter(
+        (element: AnnouncementResponse) => {
+          return element.vehicle.type === "motorcycle";
+        }
+      );
+      setAnnouncementsCars(announcementsByCars);
+      setAnnouncementsMotorcycle(announcementsByMotorcycle);
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        console.log(error);
+      }
+    }
+  };
 
-				}, 5000);
-			}
-		};
-	};
+  const getAllAnnouncementByAdvertiser = (advertiserId: string) => {
+    try {
+      const allAnnouncementByAdvertiser = allAnnouncements.filter((element) => {
+        return element.advertiser.id === advertiserId;
+      });
+      setAllAnnouncementByAdvertiser(allAnnouncementByAdvertiser);
+    } catch (error) {}
+  };
 
-	const getAllAnnouncements = async () => {
-		try {
-			const response = await api.get("/announcements/")
-			
-			setAllAnnouncements(response.data)
+  useEffect(() => {
+    let decoded: JwtPayload = {
+      exp: 1,
+      iat: 1,
+      sub: "error",
+    };
+    const token = getToken();
 
-			const announcementsByCars = response.data.filter((element: AnnouncementResponse) => {
-				return element.vehicle.type === 'car'
-			})
-			const announcementsByMotorcycle = response.data.filter((element: AnnouncementResponse) => {
-				return element.vehicle.type === 'motorcycle'
-			})
-			setAnnouncementsCars(announcementsByCars)
-			setAnnouncementsMotorcycle(announcementsByMotorcycle)
+    if (token) {
+      decoded = jwt_decode(token!);
+    }
+    getUser(decoded.sub!);
+    getAllAnnouncements();
+  }, [, reload]);
 
-		} catch (error) {
-			if (error instanceof AxiosError) {
-				console.log(error);
-				
-			}
-		}
-	}
-
-	const getAllAnnouncementByAdvertiser = (advertiserId: string) => {
-		try {
-			const allAnnouncementByAdvertiser = allAnnouncements.filter((element) => {
-				return element.advertiser.id === advertiserId
-			})
-			setAllAnnouncementByAdvertiser(allAnnouncementByAdvertiser)
-
-		} catch (error) {
-			
-		}
-	}
-	
-	useEffect(() => {
-		let decoded: JwtPayload = {
-			exp: 1,
-			iat: 1,
-			sub: 'error',
-		};
-		const token = getToken();
-
-		if (token) {
-			decoded = jwt_decode(token!);
-		};
-		getUser(decoded.sub!);
-		getAllAnnouncements();
-	}, [reload])
-
-	return (
-		<Context.Provider value={{
-			createAnnouncement,
-			setAnnouncement,
-			announcement,
-			setIsOpenModalCreateAnnouncement,
-			isOpenModalCreateAnnouncement,
-			announcementType,
-			setAnnouncementType,
-			setVehicleType,
-			vehicleType,
-			setInputs,
-			inputs,
-			announcementsCars,
-			announcementsMotorcycle,
-      setIsAnnouncementPublished,
-			isAnnouncementPublished,
-      detailAnoucements,
-      setDetailAnoucements,
-      getAllAnnouncementByAdvertiser,
-      allAnnouncementByAdvertiser,
-		}}>
-			{children}
-		</Context.Provider>
-	);
+  return (
+    <Context.Provider
+      value={{
+        createAnnouncement,
+        setAnnouncement,
+        announcement,
+        setIsOpenModalCreateAnnouncement,
+        isOpenModalCreateAnnouncement,
+        announcementType,
+        setAnnouncementType,
+        setVehicleType,
+        vehicleType,
+        setInputs,
+        inputs,
+        announcementsCars,
+        announcementsMotorcycle,
+        setIsAnnouncementPublished,
+        isAnnouncementPublished,
+        detailAnoucements,
+        setDetailAnoucements,
+        getAllAnnouncementByAdvertiser,
+        allAnnouncementByAdvertiser,
+      }}
+    >
+      {children}
+    </Context.Provider>
+  );
 };
 
 export const AnnouncementContext = () => useContext(Context);

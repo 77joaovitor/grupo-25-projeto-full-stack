@@ -1,10 +1,7 @@
 import { Container } from "./style";
-import car from "../../assets/car.png";
-import moto from "../../assets/moto.png";
 import { PropsAnnouncementCard } from "../../interfaces/component.interface";
 import { AnnouncementContext } from "../../context";
 import { useNavigate } from "react-router-dom";
-import { useRef } from "react";
 
 const ProductCard = ({ announcement }: PropsAnnouncementCard) => {
   const { setDetailAnoucements } = AnnouncementContext();
@@ -14,10 +11,11 @@ const ProductCard = ({ announcement }: PropsAnnouncementCard) => {
     <Container>
       <div className="imageProduct">
         <img
-          src={announcement.vehicle.type === "car" ? car : moto}
+          src={announcement.vehicle.coverImage}
           alt=""
           onClick={() => {
             setDetailAnoucements(announcement);
+            localStorage.setItem("annoucementID", announcement?.id);
             navigate("/announcement/");
           }}
         />
@@ -26,8 +24,7 @@ const ProductCard = ({ announcement }: PropsAnnouncementCard) => {
         <h3>{announcement.title}</h3>
         <p>{announcement.description}</p>
         <div className="userConteiner">
-          <span className="logoName">{announcement.advertiser.name[0]}</span>{" "}
-          <span>{announcement.advertiser.name}</span>
+          <span className="logoName">aksjbsf</span> <span>aslkjfs</span>
         </div>
         <div className="infoContainer">
           <div className="kmAndAge">

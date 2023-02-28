@@ -1,10 +1,9 @@
 import styled from "styled-components";
-import imgAuction from "../../assets/Image_leilão.jpeg"
+import imgAuction from "../../assets/Image_leilão.jpeg";
 
-export const Container = styled.li`
+export const Container = styled.div`
+  width: 294px;
+  img {
     width: 294px;
-    img{
-        width: 294px;
-    }
-
+  }
 `;

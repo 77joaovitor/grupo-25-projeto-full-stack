@@ -4,10 +4,20 @@ export const Container = styled.div`
   width: 312px;
   height: 350px;
   margin-bottom: 20px;
+  flex: none;
   .imageProduct {
     background: rgba(233, 236, 239, 1);
     margin-bottom: 20px;
+    max-width: 100%;
+    max-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
+    img {
+      width: 100%;
+      height: 100%;
+    }
   }
   section {
     margin-bottom: 20px;
