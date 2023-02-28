@@ -94,8 +94,5 @@ export const BoxContent = styled.div`
 `;
 export const ContainerList = styled(Carousel)`
   display: flex;
-  /* width: 100%; */
   gap: 5px;
-  list-style-type: none;
-  padding: 0;
 `;

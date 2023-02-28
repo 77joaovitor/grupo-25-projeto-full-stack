@@ -1,8 +1,10 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  width: 312px;
+  width: 300px;
   height: 350px;
+  max-width: 300px;
+
   margin-bottom: 20px;
   flex: none;
   .imageProduct {
@@ -13,6 +15,7 @@ export const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    max-height: 176px;
     cursor: pointer;
     img {
       width: 100%;

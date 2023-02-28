@@ -24,7 +24,8 @@ const ProductCard = ({ announcement }: PropsAnnouncementCard) => {
         <h3>{announcement.title}</h3>
         <p>{announcement.description}</p>
         <div className="userConteiner">
-          <span className="logoName">aksjbsf</span> <span>aslkjfs</span>
+          <span className="logoName">{announcement.advertiser.name[0]}</span>{" "}
+          <span>{announcement.advertiser.name}</span>
         </div>
         <div className="infoContainer">
           <div className="kmAndAge">

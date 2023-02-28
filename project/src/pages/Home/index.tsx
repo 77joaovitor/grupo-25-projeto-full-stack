@@ -20,8 +20,25 @@ export const Home = (): JSX.Element => {
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items: 3,
-      slidesToSlide: 3, // optional, default to 1.
+      items: 4,
+      slidesToSlide: 4, // optional, default to 1.
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+      slidesToSlide: 2, // optional, default to 1.
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+      slidesToSlide: 1, // optional, default to 1.
+    },
+  };
+  const responsive2 = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 4,
+      slidesToSlide: 2, // optional, default to 1.
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
@@ -55,7 +72,10 @@ export const Home = (): JSX.Element => {
       <ListSection>
         <BoxContent>
           <h3>Leilão</h3>
-          <ContainerList responsive={responsive}>
+          <ContainerList
+            responsive={responsive2}
+            removeArrowOnDeviceType={["tablet", "mobile"]}
+          >
             <AuctionCard />
             <AuctionCard />
             <AuctionCard />
@@ -66,7 +86,10 @@ export const Home = (): JSX.Element => {
       <ListSection>
         <BoxContent id="cars">
           <h3>Carros</h3>
-          <ContainerList responsive={responsive}>
+          <ContainerList
+            responsive={responsive}
+            removeArrowOnDeviceType={["tablet", "mobile"]}
+          >
             {announcementsCars &&
               announcementsCars.map((announcement, index) => (
                 <ProductCard key={index} announcement={announcement} />
@@ -75,7 +98,10 @@ export const Home = (): JSX.Element => {
         </BoxContent>
         <BoxContent id="motorcycles">
           <h3>Motos</h3>
-          <ContainerList responsive={responsive}>
+          <ContainerList
+            responsive={responsive}
+            removeArrowOnDeviceType={["tablet", "mobile"]}
+          >
             {announcementsMotorcycle &&
               announcementsMotorcycle.map((announcement, index) => (
                 <ProductCard key={index} announcement={announcement} />
