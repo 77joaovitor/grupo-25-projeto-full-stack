@@ -1,5 +1,3 @@
-import AuctionCard from "../../components/AuctionCard";
-import { Button } from "../../components/Button";
 import { Footer } from "../../components/Footer";
 import Header from "../../components/Header";
 import ProductCard from "../../components/ProductCard";
@@ -17,15 +15,46 @@ import {
 
 export const Profile = (): JSX.Element => {
   const {
-    announcementsCars,
-    setIsOpenModalCreateAnnouncement,
-    announcementsMotorcycle,
-    isOpenModalCreateAnnouncement,
     allAnnouncementByAdvertiser,
-    setIsOpenModalUpdateAnnouncement,
-    isOpenModalUpdateAnnouncement
   } = AnnouncementContext();
+
   const { user } = UserContext();
+
+  const responsive = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 4,
+      slidesToSlide: 4, // optional, default to 1.
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+      slidesToSlide: 2, // optional, default to 1.
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+      slidesToSlide: 1, // optional, default to 1.
+    },
+  };
+
+  const responsive2 = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 4,
+      slidesToSlide: 2, // optional, default to 1.
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+      slidesToSlide: 2, // optional, default to 1.
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+      slidesToSlide: 1, // optional, default to 1.
+    },
+  };
   
   return (
     <>
@@ -48,7 +77,11 @@ export const Profile = (): JSX.Element => {
       <ContainerMain>
         <BoxContent id="cars">
           <h3>Carros</h3>
-          <ContainerList>
+          <ContainerList
+            
+            responsive={responsive}
+            removeArrowOnDeviceType={["tablet", "mobile"]}
+          >
             {allAnnouncementByAdvertiser &&
               allAnnouncementByAdvertiser
                 .filter(
@@ -61,7 +94,11 @@ export const Profile = (): JSX.Element => {
         </BoxContent>
         <BoxContent id="motorcycles">
           <h3>Motos</h3>
-          <ContainerList>
+          <ContainerList
+            responsive={responsive}
+            removeArrowOnDeviceType={["tablet", "mobile"]}
+          >
+          
             {allAnnouncementByAdvertiser &&
               allAnnouncementByAdvertiser
                 .filter(

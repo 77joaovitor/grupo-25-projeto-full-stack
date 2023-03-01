@@ -92,6 +92,8 @@ export const DetailAnnouncement = () => {
             <button
               className="peapleAnnouncement-button"
               onClick={() => {
+                localStorage.setItem("advertiserID", detailAnoucements?.advertiser.id);
+
                 navigate("/profile");
                 getAllAnnouncementByAdvertiser(detailAnoucements?.advertiser.id);
               }}

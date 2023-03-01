@@ -30,22 +30,13 @@ const ProductCard = ({ announcement }: PropsAnnouncementCard) => {
       {
        
           <Container>
-            <div className="imageProduct"
-            
-            onClick={ () => {
-              localStorage.setItem('announcementId', announcement?.id)
-              // getOneAnnouncement(announcement.id);
-              // setReload(!reload)
-              navigate("/announcement/");
-            }}
-            >
+            <div className="imageProduct">
               <img
                 src={announcement.vehicle.type === "car" ? car : moto}
                 alt=""
-                onClick={ () => {
-                  localStorage.setItem('announcementId', announcement?.id)
-                  // getOneAnnouncement(announcement.id);
-                  // setReload(!reload)
+                onClick={() => {
+                  setDetailAnoucements(announcement);
+                  localStorage.setItem("announcementID", announcement?.id);
                   navigate("/announcement/");
                 }}
               />

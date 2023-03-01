@@ -116,39 +116,30 @@ export const AnnouncementProvider = ({ children }: Props) => {
 
 	const getAnnouncements = async () => {
 		try {
-			const announcementId = localStorage.getItem('announcementId');
-			const response = await api.get(`/announcements/`);
+			const announcementID = localStorage.getItem("announcementID");
 
-			// const responseOne = await api.get(`/announcements/${announcementId}`);
+			const advertiserID = localStorage.getItem("advertiserID");
 
+			const response = await api.get("/announcements/");
 
-			// console.log(responseOne.data);
-			
-			if(announcementId) {
-
-				const find = response.data.find((elem: AnnouncementResponse) => {
-					return elem.id = announcementId
-				})
-
-				console.log( find);
-
-				// setTimeout(() => {
-					setDetailAnoucements(find)
-
-				// },  10000)
-				
-			}
-			
 			setAllAnnouncements(response.data)
+			
+			if (announcementID) {
+				const responseDetail = response.data.find((elem: AnnouncementResponse) => {
+					return elem.id === announcementID;
+				});
+				setDetailAnoucements(responseDetail);		
+			}
+				
+			if(advertiserID){
+					
+				const allAnnouncementByAdvertiserId = response.data.filter((element: AnnouncementResponse) => {
+					return element.advertiser.id === advertiserID
+				})
+				
+				setAllAnnouncementByAdvertiser(allAnnouncementByAdvertiserId)
 
-			// const announcementsByCars = response.data.filter((element: AnnouncementResponse) => {
-			// 	return element.vehicle.type === 'car'
-			// })
-			// const announcementsByMotorcycle = response.data.filter((element: AnnouncementResponse) => {
-			// 	return element.vehicle.type === 'motorcycle'
-			// })
-			// setAnnouncementsCars(announcementsByCars)
-			// setAnnouncementsMotorcycle(announcementsByMotorcycle)
+			}
 
 		} catch (error) {
 			if (error instanceof AxiosError) {
@@ -179,7 +170,7 @@ export const AnnouncementProvider = ({ children }: Props) => {
 				return element.advertiser.id === advertiserId
 			})
 			setAllAnnouncementByAdvertiser(allAnnouncementByAdvertiserId)
-
+			return allAnnouncementByAdvertiserId
 		} catch (error) {
 			
 		}
@@ -201,6 +192,7 @@ export const AnnouncementProvider = ({ children }: Props) => {
 		};
 
 		if (decoded.sub?.length! > 5){
+			localStorage.removeItem('advertiserID')
 			getAllAnnouncementByAdvertiser(decoded.sub!)
 			getUser(decoded.sub!);
 		} 

@@ -1,13 +1,27 @@
 import styled from "styled-components";
 
-export const Container = styled.li`
-  width: 312px;
-  height: max-content;
-  /* margin-bottom: 20px; */
+export const Container = styled.div`
+
+width: 300px;
+  height: 350px;
+  max-width: 300px;
+
+  flex: none;
+  padding: 5px;
   .imageProduct {
     background: rgba(233, 236, 239, 1);
     margin-bottom: 20px;
+    max-width: 100%;
+    max-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 176px;
     cursor: pointer;
+    img {
+      width: 100%;
+      height: 100%;
+    }
   }
   section {
     margin-bottom: 20px;

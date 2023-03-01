@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import Carousel from 'react-multi-carousel'
+import "react-multi-carousel/lib/styles.css";
+
 
 export const Container = styled.div`
     display: flex;
@@ -142,10 +145,9 @@ export const BoxContent = styled.div`
     width: 100%;
 `
 
-export const ContainerList = styled.ul`
+export const ContainerList = styled(Carousel)`
     display: flex;
-    overflow-x: auto;
-    justify-content: center;
+
     gap: 5px;
     padding: 0;
 
