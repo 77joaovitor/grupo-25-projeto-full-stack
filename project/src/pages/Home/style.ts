@@ -94,5 +94,11 @@ export const BoxContent = styled.div`
 `;
 export const ContainerList = styled(Carousel)`
   display: flex;
-  gap: 5px;
+  box-sizing: border-box;
+  .react-multiple-carousel__arrow--left {
+    left: calc(1% + 1px);
+  }
+  li {
+    width: 90%;
+  }
 `;

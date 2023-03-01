@@ -10,10 +10,6 @@ import {
   ListSection,
   BoxContent,
 } from "./style";
-interface PropsButton {
-  onClick?: React.MouseEventHandler<HTMLButtonElement> | any;
-  rest: any;
-}
 
 export const Home = (): JSX.Element => {
   const { announcementsCars, announcementsMotorcycle } = AnnouncementContext();

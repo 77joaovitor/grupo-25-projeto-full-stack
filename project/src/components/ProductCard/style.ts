@@ -10,7 +10,7 @@ export const Container = styled.div`
   .imageProduct {
     background: rgba(233, 236, 239, 1);
     margin-bottom: 20px;
-    max-width: 100%;
+    max-width: 95%;
     max-height: 100%;
     display: flex;
     justify-content: center;
@@ -24,6 +24,7 @@ export const Container = styled.div`
   }
   section {
     margin-bottom: 20px;
+    max-width: 95%;
     > h3 {
       color: rgba(33, 37, 41, 1);
       font-size: 16px;
