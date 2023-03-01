@@ -3,7 +3,7 @@ import AppDataSource from "../../data-source";
 import { User } from "../../entities";
 import { UserSessionRequest } from "../../interfaces/user.interface";
 
-export const createSessionService = async (body: UserSessionRequest): Promise<string> => {
+export const createSessionService = async (body: UserSessionRequest): Promise<object> => {
     
     const userRepository = AppDataSource.getRepository(User);
     const findUser = await userRepository.findOneBy({email: body.email});
@@ -21,6 +21,8 @@ export const createSessionService = async (body: UserSessionRequest): Promise<st
         }   
     );
 
-    return token;
+    return {
+        access_token: token
+    };
 
 }

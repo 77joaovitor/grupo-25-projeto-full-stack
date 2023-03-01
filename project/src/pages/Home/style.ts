@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import Carousel from 'react-multi-carousel'
+import "react-multi-carousel/lib/styles.css";
 
 export const PresentationSection = styled.section`
   display: flex;
@@ -7,7 +9,7 @@ export const PresentationSection = styled.section`
   align-items: center;
   padding: 4%;
   gap: 52px;
-  height: 520px;
+  height: 584px;
 
   p {
     font-weight: 600;
@@ -63,11 +65,19 @@ export const BoxButton = styled.div`
   }
 `;
 
-export const ListSection = styled.section`
+export const ListSection = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 50px;
   padding: 4%;
   width: 100%;
+`;
+export const ListBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 100%;
+  height: 422px;
 `;
 
 export const BoxContent = styled.div`
@@ -90,9 +100,9 @@ export const BoxContent = styled.div`
     top: 138px;
   }
 `;
-export const ContainerList = styled.ul`
+export const ContainerList = styled(Carousel)`
   display: flex;
-  overflow-x: auto;
+  /* overflow-x: auto; */
   /* width: 100%; */
   gap: 5px;
   list-style-type: none;

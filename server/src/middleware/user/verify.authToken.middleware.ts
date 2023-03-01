@@ -5,9 +5,9 @@ import { AppError, handleError } from "../../errors";
 const verifyAuthToken = async (req: Request, res: Response, next: NextFunction) => {
    
     try {
-
+        
         let token = req.headers.authorization;
-
+        
         if(!token){throw new AppError(401,'Invalid Token' )};
         
         token = token.split(' ')[1];

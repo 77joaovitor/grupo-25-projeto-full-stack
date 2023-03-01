@@ -4,38 +4,56 @@ import { Button } from "../../components/Button";
 import Header from "../../components/Header";
 import ProductCard from "../../components/ProductCard";
 import { AnnouncementContext } from "../../context";
-import { GrLinkNext, GrLinkPrevious } from "react-icons/gr";
 import {
   PresentationSection,
   BoxButton,
   ContainerList,
+  ListBox,
   ListSection,
   BoxContent,
 } from "./style";
+import { Footer } from "../../components/Footer";
+import { AnnouncementResponse } from "../../interfaces/announcement.interface";
 
 export const Home = (): JSX.Element => {
-  const { announcementsCars, announcementsMotorcycle } = AnnouncementContext();
-  const carousel: any = useRef(null);
-  const carousel2: any = useRef(null);
-  const handleRightClick = (e: Event) => {
-    e.preventDefault();
-    carousel.current.scrollLeft += 267;
+  const { announcementsCars, announcementsMotorcycle, allAnnouncementByAdvertiser, allAnnouncements } = AnnouncementContext();
+
+  const responsive = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 4,
+      slidesToSlide: 4, // optional, default to 1.
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+      slidesToSlide: 2, // optional, default to 1.
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+      slidesToSlide: 1, // optional, default to 1.
+    },
   };
 
-  const handleLeftClick = (e: Event) => {
-    e.preventDefault();
-    carousel.current.scrollLeft -= 275;
+  const responsive2 = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 4,
+      slidesToSlide: 2, // optional, default to 1.
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+      slidesToSlide: 2, // optional, default to 1.
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+      slidesToSlide: 1, // optional, default to 1.
+    },
   };
 
-  const handleRightClickM = (e: Event) => {
-    e.preventDefault();
-    carousel2.current.scrollLeft += 275;
-  };
-
-  const handleLeftClickM = (e: Event) => {
-    e.preventDefault();
-    carousel2.current.scrollLeft -= 275;
-  };
   return (
     <>
       <Header />
@@ -56,7 +74,10 @@ export const Home = (): JSX.Element => {
       <ListSection>
         <BoxContent>
           <h3>Leilão</h3>
-          <ContainerList>
+          <ContainerList
+            responsive={responsive2}
+            removeArrowOnDeviceType={["tablet", "mobile"]}
+          >
             <AuctionCard />
             <AuctionCard />
             <AuctionCard />
@@ -66,43 +87,41 @@ export const Home = (): JSX.Element => {
       </ListSection>
       <ListSection>
         <BoxContent id="cars">
-          <h3>Carros</h3>
-          <ContainerList ref={carousel}>
-            {announcementsCars &&
-              announcementsCars.length > 0 &&
-              announcementsCars.map((announcement, index) => (
-                <ProductCard key={index} announcement={announcement} />
-              ))}
-          </ContainerList>
-          <div className="divCarouselCar">
-            <div onClick={(e) => handleLeftClick(e as any)}>
-              <GrLinkPrevious />
-            </div>
-            <div onClick={(e) => handleRightClick(e as any)}>
-              {" "}
-              <GrLinkNext />
-            </div>
-          </div>
+          <ListBox>
+            <h3>Carros</h3>
+            <ContainerList
+              responsive={responsive}
+              removeArrowOnDeviceType={["tablet", "mobile"]}
+            >
+              {allAnnouncements &&
+              allAnnouncements
+                .filter(
+                  (elem: AnnouncementResponse) => elem.vehicle.type === "car"
+                ).map((announcement, index) => (
+                  <ProductCard key={index} announcement={announcement} />
+                ))}
+            </ContainerList>
+          </ListBox>
         </BoxContent>
         <BoxContent id="motorcycles">
-          <h3>Motos</h3>
-          <ContainerList ref={carousel2}>
-            {announcementsMotorcycle &&
-              announcementsMotorcycle.length > 0 &&
-              announcementsMotorcycle.map((announcement, index) => (
-                <ProductCard key={index} announcement={announcement} />
-              ))}
-          </ContainerList>
-          <div className="divCarouselMoto">
-            <div onClick={(e) => handleLeftClickM(e as any)}>
-              <GrLinkPrevious />
-            </div>
-            <div onClick={(e) => handleRightClickM(e as any)}>
-              <GrLinkNext />
-            </div>
-          </div>
+          <ListBox>
+            <h3>Motos</h3>
+            <ContainerList
+              responsive={responsive}
+              removeArrowOnDeviceType={["tablet", "mobile"]}
+            >
+              {allAnnouncements &&
+              allAnnouncements
+                .filter(
+                  (elem: AnnouncementResponse) => elem.vehicle.type === "motorcycle"
+                ).map((announcement, index) => (
+                  <ProductCard key={index} announcement={announcement} />
+                ))}
+            </ContainerList>
+          </ListBox>
         </BoxContent>
       </ListSection>
+      <Footer />
     </>
   );
 };

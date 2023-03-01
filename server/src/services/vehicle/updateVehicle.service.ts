@@ -34,9 +34,11 @@ export const updateVehicleService = async (
     .insert()
     .values(data.galleryImages!)
     .returning('*')
-    .execute()
-    
+    .execute();
 
+  findVehicle.galleryImages = gallery.raw
+
+  await vehicleRepository.save(findVehicle);
 
   await vehicleRepository.update(id, {
     type: data.type ? data.type : findVehicle.type, 
@@ -46,12 +48,11 @@ export const updateVehicleService = async (
       year: data.year ? data.year : findVehicle.year
   });
 
-
-  await vehicleRepository
-    .createQueryBuilder()
-    .relation('galleryImages')
-    .of(findVehicle)
-    .add(gallery.raw)
+  // await vehicleRepository
+  //   .createQueryBuilder()
+  //   .relation('galleryImages')
+  //   .of(findVehicle)
+  //   .add(gallery.raw)
 
   const updatedVehicle = await vehicleRepository.findOne({ 
     where: {

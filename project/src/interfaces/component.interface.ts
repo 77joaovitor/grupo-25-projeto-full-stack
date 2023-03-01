@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
-import { AnnouncementRequest, AnnouncementResponse } from "./announcement.interface";
+import { AnnouncementRequest, AnnouncementResponse, UpdateAnnouncementRequest } from "./announcement.interface";
 
 export interface PropsButton {
     children: ReactNode;
@@ -26,7 +26,32 @@ export interface PropsInputAnnouncement {
   onClick?: React.MouseEventHandler<HTMLButtonElement> | any;
   register: UseFormRegister<AnnouncementRequest>;
   name:
-    | 'title'
+  | 'title'
+    | 'description'
+    | 'price'
+    | 'year'
+    | 'mileage'
+    | 'coverImage'
+    | 'type'
+    | 'galleryImages'
+    // | `galleryImages.${string}.imageUrl`
+  placeholder?: string;
+  defaultValue?: string
+}
+
+export interface PropsInputUpdateAnnouncement {
+    id?: string;
+  inputGallery?:number
+  value?: string;
+  label?: string;
+  errors: FieldErrors<AnnouncementRequest>
+  file?: boolean;
+  textarea?: boolean;
+  type?: 'text' | 'number' | 'textarea' | 'file' | 'button' | 'checkbox' | 'password' | 'file';
+  onClick?: React.MouseEventHandler<HTMLButtonElement> | any;
+  register:UseFormRegister<UpdateAnnouncementRequest>;
+  name:
+  | 'title'
     | 'description'
     | 'price'
     | 'year'

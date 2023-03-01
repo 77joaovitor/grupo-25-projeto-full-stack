@@ -32,11 +32,15 @@ class Vehicle {
     @DeleteDateColumn()
     deleteAt: Date;
 
-    @OneToOne(() => Announcement, (announcement) => announcement.vehicle)
+    @OneToOne(() => Announcement, (announcement) => announcement.vehicle, {
+        onDelete: 'CASCADE'
+    })
     @JoinColumn()
     announcement: Announcement;
 
-    @OneToMany(() => GalleryImage, (galleryImage => galleryImage.vehicle))
+    @OneToMany(() => GalleryImage, (galleryImage => galleryImage.vehicle), {
+        onDelete: 'CASCADE'
+    })
     galleryImages: GalleryImage[];
 
 }
