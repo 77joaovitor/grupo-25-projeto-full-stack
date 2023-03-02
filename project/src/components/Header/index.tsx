@@ -25,7 +25,6 @@ const Header = () => {
       {
         isWide &&
         <MenuDesktop />
-
       }
       {/* </div> */}
       <div className="menuMobile">

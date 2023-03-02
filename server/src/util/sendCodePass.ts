@@ -26,7 +26,7 @@ const sendEmail = async ({ subject, text, to }: IEmailRequest) => {
       subject,
     })
     .then(() => console.log("send"))
-    .catch((err) => console.log(err));
+    .catch((err: any) => console.log(err));
 };
 
 export default sendEmail;
