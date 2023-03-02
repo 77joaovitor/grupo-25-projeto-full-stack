@@ -43,6 +43,7 @@ export interface AnnouncementResponse {
 	deleteAt?: null,
 	vehicle: Vehicle;
 	advertiser: Advertiser;
+    isActive: boolean;
 }
 
 type FormValues = {
@@ -63,10 +64,18 @@ export interface AnnouncementRequest {
     galleryImages:  {
         imageUrl: string;
     }[];
-
-    
-    // input: {
-    //     imageUrl: string
-    // }[];
-    // galleryImages: string
+};
+export interface UpdateAnnouncementRequest {
+	type: string;
+	title: string;
+	description: string;
+    vehicleType: string;
+    price: number;
+    year: string;
+    mileage: number;
+    coverImage: string;
+    galleryImages:  {
+        imageUrl: string;
+    }[];
+    isActive: boolean;
 };

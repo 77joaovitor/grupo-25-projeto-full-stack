@@ -3,25 +3,27 @@ import { useFieldArray, useForm, useWatch } from "react-hook-form";
 import { IoMdClose } from "react-icons/io";
 import { TfiTrash } from 'react-icons/tfi';
 import { AnnouncementContext } from "../../../context";
-import { AnnouncementRequest } from "../../../interfaces/announcement.interface";
+import { AnnouncementRequest, UpdateAnnouncementRequest } from "../../../interfaces/announcement.interface";
 import { AnnouncementRequestSchema } from "../../../schema/announcement.schema";
 import { Button, ButtonModal } from "../../Button";
-import { InputModalAnnouncement } from "../../Input/Modal/inputCreateAnnouncement";
-import { BoxButton, BoxContent, BoxTitle, BoxType, BoxVehicleInformation, Container, FormCreate } from "./style";
+import { Container } from '../style'
+import { BoxButton, BoxContent, BoxTitle, BoxType, BoxVehicleInformation, FormCreate } from "./style";
+import { InputModalUpdateAnnouncement } from "../../Input/Modal/inputUpdateAnnouncement";
 
 export const UpdateAnnouncement = (): JSX.Element => {
     const {
-        createAnnouncement,
-        isOpenModalCreateAnnouncement,
-        setIsOpenModalCreateAnnouncement,
+        updateAnnouncement,
+        isOpenModalUpdateAnnouncement,
+        setIsOpenModalUpdateAnnouncement,
         setAnnouncementType,
         setVehicleType,
-        setInputs,
-        inputs,
-        vehicleType
+        setIsAnnouncementPublished,
+        detailAnoucements,
+        isOpenModalDeleteAnnouncement, 
+        setIsOpenModalDeleteAnnouncement,
     } = AnnouncementContext();
-
-    const { register, handleSubmit, control, formState: { errors, isSubmitSuccessful }, reset } = useForm<AnnouncementRequest>({
+    
+    const { register, handleSubmit, control, formState: { errors, isSubmitSuccessful }, reset } = useForm<UpdateAnnouncementRequest>({
         resolver: yupResolver(AnnouncementRequestSchema), defaultValues: {
             galleryImages: [
                 {
@@ -39,24 +41,24 @@ export const UpdateAnnouncement = (): JSX.Element => {
 
     return (
         <>
-            {isOpenModalCreateAnnouncement &&
+            {isOpenModalUpdateAnnouncement &&
                 <Container
                     // initial={{ opacity: 0 }}
                     // animate={{ opacity: 1 }}
                     // exit={{ opacity: 0 }}
                     // transition={{ duration: 1 }}
-                    onClick={() => setIsOpenModalCreateAnnouncement(!isOpenModalCreateAnnouncement)}
+                    onClick={() => setIsOpenModalUpdateAnnouncement(!isOpenModalUpdateAnnouncement)}
                 >
                     <FormCreate
-                        onSubmit={handleSubmit(createAnnouncement)}
+                        onSubmit={handleSubmit(updateAnnouncement)}
                         onClick={(e) => e.stopPropagation()}
                     >
                         <BoxContent>
                             <BoxTitle>
-                                <h3>Criar anuncio</h3>
+                                <h3>Editar anúncio</h3>
                                 <ButtonModal
                                     type="button"
-                                    onClick={() => setIsOpenModalCreateAnnouncement(!isOpenModalCreateAnnouncement)}
+                                    onClick={() => setIsOpenModalUpdateAnnouncement(!isOpenModalUpdateAnnouncement)}
                                 >
                                     <IoMdClose />
                                 </ButtonModal>
@@ -69,17 +71,18 @@ export const UpdateAnnouncement = (): JSX.Element => {
                                         className="announcementTypeSale"
                                         id="announcementTypeSale"
                                         type="button"
-                                        defaultChecked={true}
+                                        defaultChecked={detailAnoucements.type === "sale" && true}
                                         onClick={() => {
                                             setAnnouncementType("sale")
                                         }}
-                                    >
+                                        >
                                         Venda
                                     </Button>
                                     <Button
                                         className="announcementTypeRent"
                                         id="announcementTypeRent"
                                         type="button"
+                                        defaultChecked={detailAnoucements.type === "rent" && true}
                                         onClick={() => {
                                             setAnnouncementType("rent")
                                         }}
@@ -90,52 +93,52 @@ export const UpdateAnnouncement = (): JSX.Element => {
                             </BoxType>
                             <label >Informações do veículo</label>
 
-                            <InputModalAnnouncement
+                            <InputModalUpdateAnnouncement
                                 errors={errors}
                                 register={register}
                                 name={'title'}
                                 id={"AnnouncementTitle"}
                                 key={"AnnouncementTitle"}
                                 label={"Título"}
-                                placeholder={"Digitar o Título"}
+                                placeholder={detailAnoucements.title}
                                 type={"text"}
                             />
                             <BoxVehicleInformation>
                                 <div className="inf">
-                                    <InputModalAnnouncement
+                                    <InputModalUpdateAnnouncement
                                         errors={errors}
                                         register={register}
                                         name={'year'}
                                         id={"vehicleYear"}
                                         key={"vehicleYear"}
                                         label={"Ano"}
-                                        placeholder={"Digitar ano"}
+                                        placeholder={detailAnoucements.vehicle.year.toString()}
                                         type={"text"}
                                     />
-                                    <InputModalAnnouncement
+                                    <InputModalUpdateAnnouncement
                                         errors={errors}
                                         register={register}
                                         name={'mileage'}
                                         id={"vehicleMileage"}
                                         key={"vehicleMileage"}
                                         label={"Quilometragem"}
-                                        placeholder={"0"}
+                                        placeholder={detailAnoucements.vehicle.mileage.toString()}
                                         type={"number"}
                                     />
                                 </div>
-                                <InputModalAnnouncement
+                                <InputModalUpdateAnnouncement
                                     errors={errors}
                                     register={register}
                                     name={'price'}
                                     id={"vehiclePrice"}
                                     key={"vehiclePrice"}
                                     label={"Preço"}
-                                    placeholder={"Digitar preço"}
+                                    placeholder={detailAnoucements.vehicle.price.toString()}
                                     type={"number"}
                                 />
                             </BoxVehicleInformation>
 
-                            <InputModalAnnouncement
+                            <InputModalUpdateAnnouncement
                                 textarea={true}
                                 errors={errors}
                                 register={register}
@@ -143,7 +146,7 @@ export const UpdateAnnouncement = (): JSX.Element => {
                                 id={"announcementDescription"}
                                 key={"announcementDescription"}
                                 label={"Descrição"}
-                                placeholder={"Digitar descrição"}
+                                placeholder={detailAnoucements.description}
                             />
 
                             <BoxType>
@@ -173,7 +176,34 @@ export const UpdateAnnouncement = (): JSX.Element => {
 
 
                             </BoxType>
-                            <InputModalAnnouncement
+
+                            <BoxType>
+                                <label htmlFor="announcementType">Publicado</label>
+                                <BoxButton>
+                                    <Button
+                                        className="announcementPublished"
+                                        id="announcementPublished"
+                                        type="button"
+                                        onClick={() => {
+                                            setIsAnnouncementPublished(true)
+                                        }}
+                                        >
+                                        Sim
+                                    </Button>
+                                    <Button
+                                        className="announcementTypeRent"
+                                        id="announcementTypeRent"
+                                        type="button"
+                                        defaultChecked={!detailAnoucements.isActive && true}
+                                        onClick={() => {
+                                            setIsAnnouncementPublished(false)
+                                        }}
+                                    >
+                                        Não
+                                    </Button>
+                                </BoxButton>
+                            </BoxType>
+                            <InputModalUpdateAnnouncement
                                 errors={errors}
                                 register={register}
                                 name={'coverImage'}
@@ -194,7 +224,7 @@ export const UpdateAnnouncement = (): JSX.Element => {
                                         <ButtonModal type="button" onClick={() => remove(index)}>
                                             <TfiTrash size={12} className="svg" />
                                         </ButtonModal>
-                                        <InputModalAnnouncement 
+                                        <InputModalUpdateAnnouncement 
                                             register={register}
                                             name={'galleryImages'}
                                             errors={errors}
@@ -227,15 +257,17 @@ export const UpdateAnnouncement = (): JSX.Element => {
                                     className="cancel_btn"
                                     type="button"
                                     onClick={() => {
+                                        setIsOpenModalUpdateAnnouncement(!isOpenModalUpdateAnnouncement)
+                                        setIsOpenModalDeleteAnnouncement(!isOpenModalDeleteAnnouncement)
                                     }}
                                 >
-                                    Cancelar
+                                    Excluir anúncio
                                 </Button>
                                 <Button
                                     className="create_btn"
                                     type="submit"
                                 >
-                                    Criar anuncio
+                                    Salvar alterações
                                 </Button>
                             </BoxButton>
                         </BoxContent>

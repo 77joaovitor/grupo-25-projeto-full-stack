@@ -1,14 +1,15 @@
-import { Home, DetailAnnouncement, Profile } from "../pages";
+import { Home, DetailAnnouncement, Profile, Register, ProfileAdmin } from "../pages";
 import { Route, Routes } from 'react-router-dom'
 
 const RoutesMain = () => {
 
-  return( 
+  return ( 
     <Routes>
         <Route path='/' element={<Home />}/>
         <Route path='/announcement/' element={<DetailAnnouncement />}/>
         <Route path='/profile/' element={<Profile />}/>
-          {/* <Route path='/' element={<Login/>}/> */}
+        <Route path='/signup/' element={<Register />}/>
+        <Route path='/profile/admin' element={<ProfileAdmin/>}/>
           {/* <Route path='/register' element={<Register/>}/> */}
           {/* <Route path='/dashboard' element={<Dashboard/>}/> */}
 

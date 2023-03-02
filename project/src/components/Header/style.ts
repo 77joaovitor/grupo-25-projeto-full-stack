@@ -13,6 +13,9 @@ export const Container = styled.header`
   width: 100vw;
   height: 4rem;
   border-bottom: 2px solid #dee2e6;
+  > figure {
+    cursor: pointer;
+  }
 
   .menuMobileHeader {
     position: absolute;

@@ -6,6 +6,6 @@ export const deleteAnnouncementController = async (
   res: Response
 ) => {
   const id: string = req.params.id;
-  const deletedAnnouncement = await deleteAnnouncementService(id);
-  return res.status(204).json({message: "Announcement deleted"});
+  const deletedAnnouncement: object = await deleteAnnouncementService(id);
+  return res.status(204).json(deletedAnnouncement);
 };

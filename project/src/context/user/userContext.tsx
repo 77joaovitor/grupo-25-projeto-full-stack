@@ -1,3 +1,4 @@
+import { AxiosError } from "axios";
 import {
   createContext,
   Dispatch,
@@ -21,7 +22,10 @@ const UserProvider = ({ children }: Props) => {
       const response = await api.get(`/users/${id}/`)
       setUser(response.data)
     } catch (error) {
-      
+      if(error instanceof AxiosError){
+        console.log(error);
+        
+      }
     }
   }
 

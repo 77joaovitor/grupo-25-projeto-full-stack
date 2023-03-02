@@ -1,11 +1,48 @@
 import { Container } from "./style";
+import * as yup from 'yup';
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import Header from '../../components/Header'
+
 const FormRegister = () => {
-  return <Container>
+
+  const formSchema = yup.object().shape({
+    name: yup.string().required("Nome obrigatório"),
+    email: yup.string().required("Email obrigatório").email("Email inválido").matches(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i,"Email inválido"),
+    cpf: yup.string().required("CPF obrigatório"),
+    phone: yup.string().required("Telefone obrigatório"),
+    birthiday: yup.string().required("Campo obrigatório obrigatório"),
+    description: yup.string().required("Campo obrigatório"),
+    cep: yup.string().required("CEP obrigatório"),
+    country: yup.string().required("País obrigatório"),
+    state: yup.string().required("Estado obrigatório"),
+    city: yup.string().required("Cidade obrigatório"),
+    bairro: yup.string().required("Bairro obrigatório"),
+    rua: yup.string().required("Rua obrigatório"),
+    number: yup.string().required("Campo obrigatório"),
+    password: yup.string().required("Senha obrigatória").matches(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{8,})$/,"Senha obrigatória"),
+    confirmPassword: yup.string().oneOf([yup.ref("password")],"Senha não identica")
+})
+
+const { register,handleSubmit, formState: {errors} } = useForm({
+  resolver: yupResolver(formSchema),
+
+}) 
+
+  return <>
+  
+  <Container >
+    <Header />
     <h2>Cadastro</h2>
     <span>Informações pessoais</span>
-    <form action="">
-      <label>Nome</label>
-      <input type="text" name="" id="" placeholder="Ex: Samuel Leão"/>
+    <form onSubmit={handleSubmit()} action="">
+
+      <label>
+        <span>Nome</span>
+        <input type="text" id="" placeholder="Ex: Samuel Leão" {...register("name")} />
+        {errors.name?.message}
+      </label>
+      
 
       <label>Email</label>
       <input type="text" name="" id="" placeholder="Ex: samuel@kenzie.com.br"/>
@@ -52,6 +89,7 @@ const FormRegister = () => {
       <input type="password" name="" id="" placeholder="Digitar senha"/>
     </form>
   </Container>;
+  </>
 };
 
 export default FormRegister;

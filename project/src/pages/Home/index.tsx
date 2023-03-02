@@ -7,12 +7,20 @@ import {
   PresentationSection,
   BoxButton,
   ContainerList,
+  ListBox,
   ListSection,
   BoxContent,
 } from "./style";
+import { Footer } from "../../components/Footer";
+import { AnnouncementResponse } from "../../interfaces/announcement.interface";
 
 export const Home = (): JSX.Element => {
-  const { announcementsCars, announcementsMotorcycle } = AnnouncementContext();
+  const {
+    announcementsCars,
+    announcementsMotorcycle,
+    allAnnouncementByAdvertiser,
+    allAnnouncements,
+  } = AnnouncementContext();
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -81,16 +89,22 @@ export const Home = (): JSX.Element => {
       </ListSection>
       <ListSection>
         <BoxContent id="cars">
-          <h3>Carros</h3>
-          <ContainerList
-            responsive={responsive}
-            removeArrowOnDeviceType={["tablet", "mobile"]}
-          >
-            {announcementsCars &&
-              announcementsCars.map((announcement, index) => (
-                <ProductCard key={index} announcement={announcement} />
-              ))}
-          </ContainerList>
+          <ListBox>
+            <h3>Carros</h3>
+            <ContainerList
+              responsive={responsive}
+              removeArrowOnDeviceType={["tablet", "mobile"]}
+            >
+              {allAnnouncements &&
+                allAnnouncements
+                  .filter(
+                    (elem: AnnouncementResponse) => elem.vehicle.type === "car"
+                  )
+                  .map((announcement, index) => (
+                    <ProductCard key={index} announcement={announcement} />
+                  ))}
+            </ContainerList>
+          </ListBox>
         </BoxContent>
         <BoxContent id="motorcycles">
           <h3>Motos</h3>
@@ -105,6 +119,7 @@ export const Home = (): JSX.Element => {
           </ContainerList>
         </BoxContent>
       </ListSection>
+      <Footer />
     </>
   );
 };

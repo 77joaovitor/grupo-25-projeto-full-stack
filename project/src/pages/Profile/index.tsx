@@ -1,8 +1,5 @@
-import AuctionCard from "../../components/AuctionCard";
-import { Button } from "../../components/Button";
 import { Footer } from "../../components/Footer";
 import Header from "../../components/Header";
-import { CreateAnnouncement } from "../../components/Modal/CreateAnnouncement";
 import ProductCard from "../../components/ProductCard";
 import { AnnouncementContext } from "../../context";
 import { UserContext } from "../../context/user/userContext";
@@ -18,16 +15,49 @@ import {
 
 export const Profile = (): JSX.Element => {
   const {
-    announcementsCars,
-    setIsOpenModalCreateAnnouncement,
-    announcementsMotorcycle,
-    isOpenModalCreateAnnouncement,
     allAnnouncementByAdvertiser,
   } = AnnouncementContext();
+
   const { user } = UserContext();
+
+  const responsive = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 4,
+      slidesToSlide: 4, // optional, default to 1.
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+      slidesToSlide: 2, // optional, default to 1.
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+      slidesToSlide: 1, // optional, default to 1.
+    },
+  };
+
+  const responsive2 = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 4,
+      slidesToSlide: 2, // optional, default to 1.
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+      slidesToSlide: 2, // optional, default to 1.
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+      slidesToSlide: 1, // optional, default to 1.
+    },
+  };
+  
   return (
     <>
-      {<CreateAnnouncement />}
       <Header />
       <PresentationSection id="home">
         <ProfileContent>
@@ -41,34 +71,17 @@ export const Profile = (): JSX.Element => {
             ever since the 1500s
           </p>
 
-          {true && (
-            <Button
-              onClick={() =>
-                setIsOpenModalCreateAnnouncement(!isOpenModalCreateAnnouncement)
-              }
-            >
-              Criar anuncio
-            </Button>
-          )}
         </ProfileContent>
       </PresentationSection>
 
       <ContainerMain>
-        {user.isAdvertiser && (
-          <BoxContent>
-            <h3>Leilão</h3>
-            <ContainerList>
-              <AuctionCard />
-              <AuctionCard />
-              <AuctionCard />
-              <AuctionCard />
-            </ContainerList>
-          </BoxContent>
-        )}
-
         <BoxContent id="cars">
           <h3>Carros</h3>
-          <ContainerList>
+          <ContainerList
+            
+            responsive={responsive}
+            removeArrowOnDeviceType={["tablet", "mobile"]}
+          >
             {allAnnouncementByAdvertiser &&
               allAnnouncementByAdvertiser
                 .filter(
@@ -81,7 +94,11 @@ export const Profile = (): JSX.Element => {
         </BoxContent>
         <BoxContent id="motorcycles">
           <h3>Motos</h3>
-          <ContainerList>
+          <ContainerList
+            responsive={responsive}
+            removeArrowOnDeviceType={["tablet", "mobile"]}
+          >
+          
             {allAnnouncementByAdvertiser &&
               allAnnouncementByAdvertiser
                 .filter(

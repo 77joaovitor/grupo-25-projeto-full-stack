@@ -7,7 +7,8 @@ import { AnnouncementRequest } from "../../../interfaces/announcement.interface"
 import { AnnouncementRequestSchema } from "../../../schema/announcement.schema";
 import { Button, ButtonModal } from "../../Button";
 import { InputModalAnnouncement } from "../../Input/Modal/inputCreateAnnouncement";
-import { BoxButton, BoxContent, BoxTitle, BoxType, BoxVehicleInformation, Container, FormCreate } from "./style";
+import { Container, BoxTitle } from '../style'
+import { BoxButton, BoxContent, BoxType, BoxVehicleInformation, FormCreate } from "./style";
 
 export const CreateAnnouncement = (): JSX.Element => {
     const {
