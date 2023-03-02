@@ -2,9 +2,7 @@ import styled from 'styled-components';
 
 export const ContainerInput = styled.div`
   display: flex;
-  flex-direction: column;
-
-  width: 100%;    
+  flex-direction: column;   
 
   input, textarea {
     display: flex;

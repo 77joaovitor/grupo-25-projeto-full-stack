@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { FieldErrors, UseFormRegister } from "react-hook-form";
+import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 import { AnnouncementRequest, AnnouncementResponse } from "./announcement.interface";
 
 export interface PropsButton {
@@ -24,7 +24,7 @@ export interface PropsInputAnnouncement {
   textarea?: boolean;
   type?: 'text' | 'number' | 'textarea' | 'file' | 'button' | 'checkbox' | 'password' | 'file';
   onClick?: React.MouseEventHandler<HTMLButtonElement> | any;
-  register: UseFormRegister<AnnouncementRequest>;
+  register: UseFormRegister<FieldValues>;
   name:
     | 'title'
     | 'description'

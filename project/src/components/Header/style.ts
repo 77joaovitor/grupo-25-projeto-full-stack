@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.header`
-  position: fixed;
+  
   z-index: 1;
   inset: 9999;
 

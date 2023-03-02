@@ -3,6 +3,9 @@ import * as yup from 'yup';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import Header from '../../components/Header'
+import { InputModalAnnouncement } from "../Input/Modal/inputCreateAnnouncement";
+import { Button } from "../Button";
+import { ButtonLink, ButtonType } from "../Button/Button/style";
 
 const FormRegister = () => {
 
@@ -24,69 +27,168 @@ const FormRegister = () => {
     confirmPassword: yup.string().oneOf([yup.ref("password")],"Senha não identica")
 })
 
+
 const { register,handleSubmit, formState: {errors} } = useForm({
   resolver: yupResolver(formSchema),
 
 }) 
+const onSubmitFunction = (data:any) => {
+  console.log(data)
+  // if(user){
+  //     Setuser([...user,data])
+  //     history.push(`/userpage/ ${data.name}`)
+  // }
+}
 
   return <>
-  
+  <Header />
   <Container >
-    <Header />
-    <h2>Cadastro</h2>
-    <span>Informações pessoais</span>
-    <form onSubmit={handleSubmit()} action="">
-
-      <label>
+    
+    <form onSubmit={handleSubmit(onSubmitFunction)} action="">
+      <div className="formText"> 
+        <h2>Cadastro</h2>
+        <span>Informações pessoais</span>
+      </div>
+   
+      
+      {/* <label>
         <span>Nome</span>
         <input type="text" id="" placeholder="Ex: Samuel Leão" {...register("name")} />
         {errors.name?.message}
-      </label>
+      </label> */}
       
+      <InputModalAnnouncement
+          errors={errors}
+          name='title'
+          label="Nome"
+          placeholder="Ex: Samuel Leão"
+          type="text"
+          register={register}
+      />
 
-      <label>Email</label>
-      <input type="text" name="" id="" placeholder="Ex: samuel@kenzie.com.br"/>
+      <InputModalAnnouncement
+          errors={errors}
+          name='title'
+          label="Email"
+          placeholder="Ex: samuel@kenzie.com.br"
+          type="text"
+          register={register}
+      />
 
-      <label>CPF</label>
-      <input type="text" name="" id="" placeholder="000.000.000-00"/>
+      <InputModalAnnouncement
+          errors={errors}
+          name='title'
+          label="CPF"
+          placeholder="000.000.000-00"
+          type="text"
+          register={register}
+      />
 
-      <label>Celular</label>
-      <input type="text" name="" id="" placeholder="(DDD) 90000-0000"/>
+      <InputModalAnnouncement
+          errors={errors}
+          name='title'
+          label="Celular"
+          placeholder="(DDD) 90000-0000"
+          type="text"
+          register={register}
+      />
 
-      <label>Data de nascimento</label>
-      <input type="text" name="" id="" placeholder="00/00/00"/>
+      <InputModalAnnouncement
+          errors={errors}
+          name='title'
+          label="Data de nascimento"
+          placeholder="00/00/00"
+          type="text"
+          register={register}
+      />
 
-      <label>Descrição</label>
-      <input type="text" name="" id="" placeholder="Digitar descrição"/>
+      <InputModalAnnouncement
+          errors={errors}
+          name='title'
+          label="CEP"
+          placeholder="00000.000"
+          type="text"
+          register={register}
+      />
 
-      <span>Informações de  endereço</span>
-      <label>CEP</label>
-      <input type="text" name="" id="" placeholder="00000.000"/>
+      <InputModalAnnouncement
+          errors={errors}
+          name='title'
+          label="Estado"
+          placeholder="Digitar Estado"
+          type="text"
+          register={register}
+      />
+
+      <InputModalAnnouncement
+          errors={errors}
+          name='title'
+          label="Cidade"
+          placeholder="Digitar cidade"
+          type="text"
+          register={register}
+      />
+
+      <InputModalAnnouncement
+          errors={errors}
+          name='title'
+          label="Rua"
+          placeholder="Digitar rua"
+          type="text"
+          register={register}
+      />
+
+      <InputModalAnnouncement
+          errors={errors}
+          name='title'
+          label="Número"
+          placeholder="Digitar número"
+          type="text"
+          register={register}
+      />
+
+      <InputModalAnnouncement
+          errors={errors}
+          name='title'
+          label="Complemento"
+          placeholder="Ex: apart 307"
+          type="text"
+          register={register}
+      />
+
+    <div className="formText"> 
+      <span className="spanType">Tipo de conta</span>
+      <div className="formButton">
+        <button>
+          Comprador
+        </button>
+        <button className="buttonWhite">
+          Anunciante
+        </button>
+      </div>
       
-      <label>Estado</label>
-      <input type="text" name="" id="" placeholder="Digitar Estado"/>
+    </div>
 
-      <label>Cidade</label>
-      <input type="text" name="" id="" placeholder="Digitar cidade"/>
+      <InputModalAnnouncement
+          errors={errors}
+          name='title'
+          label="Senha"
+          placeholder="Digitar senha"
+          type="text"
+          register={register}
+      />
 
-      <label>Rua</label>
-      <input type="text" name="" id="" placeholder="Digitar rua"/>
-
-      <label>Número</label>
-      <input type="text" name="" id="" placeholder="Digitar número"/>
-
-      <label>Complemento</label>
-      <input type="text" name="" id="" placeholder="Ex: apart 307"/>
-
-      <span>Tipo de conta</span>
-      <button type="button">Comprador</button>
-      <button type="button">Anunciante</button>
-
-      <label>Senha</label>
-      <input type="password" name="" id="" placeholder="Digitar senha"/>
-
-      <label>Confirmar Senha</label>
-      <input type="password" name="" id="" placeholder="Digitar senha"/>
+      <InputModalAnnouncement
+          errors={errors}
+          name='title'
+          label="Confirmar Senha"
+          placeholder="Digitar senha"
+          type="text"
+          register={register}
+      />
+      <button className="buttonFinaly">
+        Finalizar cadastro
+      </button>
     </form>
   </Container>;
   </>
