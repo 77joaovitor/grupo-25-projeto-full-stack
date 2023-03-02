@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Carousel from 'react-multi-carousel'
+import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
 export const PresentationSection = styled.section`
@@ -102,10 +102,11 @@ export const BoxContent = styled.div`
 `;
 export const ContainerList = styled(Carousel)`
   display: flex;
-  /* overflow-x: auto; */
-  /* width: 100%; */
-  gap: 5px;
-  list-style-type: none;
-  padding: 0;
-  scroll-behavior: smooth;
+  box-sizing: border-box;
+  .react-multiple-carousel__arrow--left {
+    left: calc(1% + 1px);
+  }
+  li {
+    width: 300px;
+  }
 `;

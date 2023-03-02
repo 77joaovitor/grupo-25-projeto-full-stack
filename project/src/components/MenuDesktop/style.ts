@@ -43,12 +43,16 @@ export const Container = styled.div`
         display: flex;
         align-items: center;
         justify-content: center;
+        cursor: pointer;
       }
       > button {
         font-family: "Inter";
         font-style: normal;
         font-weight: 600;
         font-size: 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         color: black;
         background-color: rgba(255, 255, 255, 1);
         border: 1px solid #dee2e6;

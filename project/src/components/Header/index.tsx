@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { FiMenu } from "react-icons/fi";
 import { GrClose } from "react-icons/gr";
+import { useNavigate } from "react-router-dom";
 import logo from "../../assets/Motors shop.png";
 import { UserContext } from "../../context/user/userContext";
 import MenuDesktop from "../MenuDesktop";
@@ -10,11 +11,12 @@ import { Container } from "./style";
 const Header = () => {
   const { auth } = UserContext();
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
   return (
     <Container>
-      <div className="logo">
-        <img src={logo} alt="" />
-      </div>
+      <figure className="logo">
+        <img src={logo} alt="" onClick={() => navigate("/")} />
+      </figure>
       <div className="menuDesktop">
         <MenuDesktop />
       </div>

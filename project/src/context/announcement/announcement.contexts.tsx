@@ -1,8 +1,15 @@
 import { AxiosError } from "axios";
 import { JwtPayload } from "jwt-decode";
 import { createContext, useContext, useEffect, useState } from "react";
-import { AnnouncementRequest, AnnouncementResponse, UpdateAnnouncementRequest } from "../../interfaces/announcement.interface";
-import { AnnouncementProviderData, Props } from "../../interfaces/contexts.interface";
+import {
+  AnnouncementRequest,
+  AnnouncementResponse,
+  UpdateAnnouncementRequest,
+} from "../../interfaces/announcement.interface";
+import {
+  AnnouncementProviderData,
+  Props,
+} from "../../interfaces/contexts.interface";
 import { api } from "../../util/api";
 import { getToken, logout } from "../session/auth";
 import jwt_decode from "jwt-decode";
@@ -13,228 +20,227 @@ const Context = createContext<AnnouncementProviderData>(
 );
 
 export const AnnouncementProvider = ({ children }: Props) => {
-
   const [idDetailAnoucements, setIdDetailAnoucements] = useState(0);
   const [detailAnoucements, setDetailAnoucements] = useState(
     {} as AnnouncementResponse
   );
-	const [announcement, setAnnouncement] = useState<AnnouncementResponse>({} as AnnouncementResponse);
-	const [isOpenModalCreateAnnouncement, setIsOpenModalCreateAnnouncement] = useState<boolean>(false);
-	const [isOpenModalUpdateAnnouncement, setIsOpenModalUpdateAnnouncement] = useState<boolean>(false);
-	const [isLoading, setIsLoading] = useState<boolean>(false);
-	const [announcementType, setAnnouncementType] = useState<string>("");
-	const [vehicleType, setVehicleType] = useState<string>("");
-	const [inputs, setInputs] = useState<JSX.Element>({} as JSX.Element)
-	const [announcementsCars, setAnnouncementsCars] = useState<AnnouncementResponse[]>([])
-	const [announcementsMotorcycle, setAnnouncementsMotorcycle] = useState<AnnouncementResponse[]>([])
-	const [allAnnouncementByAdvertiser, setAllAnnouncementByAdvertiser] = useState<AnnouncementResponse[]>([])
-	const [allAnnouncements, setAllAnnouncements] = useState<AnnouncementResponse[]>([])
-	const [reload, setReload] = useState<boolean>(false);
-	const [isAnnouncementPublished, setIsAnnouncementPublished] = useState<boolean>(false)
-	const [isOpenModalDeleteAnnouncement, setIsOpenModalDeleteAnnouncement] = useState<boolean>(false);
-	const { user, setUser, getUser } = UserContext();
+  const [announcement, setAnnouncement] = useState<AnnouncementResponse>(
+    {} as AnnouncementResponse
+  );
+  const [isOpenModalCreateAnnouncement, setIsOpenModalCreateAnnouncement] =
+    useState<boolean>(false);
+  const [isOpenModalUpdateAnnouncement, setIsOpenModalUpdateAnnouncement] =
+    useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [announcementType, setAnnouncementType] = useState<string>("");
+  const [vehicleType, setVehicleType] = useState<string>("");
+  const [inputs, setInputs] = useState<JSX.Element>({} as JSX.Element);
+  const [announcementsCars, setAnnouncementsCars] = useState<
+    AnnouncementResponse[]
+  >([]);
+  const [announcementsMotorcycle, setAnnouncementsMotorcycle] = useState<
+    AnnouncementResponse[]
+  >([]);
+  const [allAnnouncementByAdvertiser, setAllAnnouncementByAdvertiser] =
+    useState<AnnouncementResponse[]>([]);
+  const [allAnnouncements, setAllAnnouncements] = useState<
+    AnnouncementResponse[]
+  >([]);
+  const [reload, setReload] = useState<boolean>(false);
+  const [isAnnouncementPublished, setIsAnnouncementPublished] =
+    useState<boolean>(false);
+  const [isOpenModalDeleteAnnouncement, setIsOpenModalDeleteAnnouncement] =
+    useState<boolean>(false);
+  const { user, setUser, getUser } = UserContext();
 
-	const createAnnouncement = async (data: AnnouncementRequest) => {
+  const createAnnouncement = async (data: AnnouncementRequest) => {
+    setIsLoading(true);
 
-		setIsLoading(true);
+    try {
+      const response = await api.post(`/announcements/`, {
+        ...data,
+        type: announcementType,
+        vehicle: {
+          type: vehicleType,
+          price: data.price,
+          year: data.year,
+          mileage: data.mileage,
+          coverImage: data.coverImage,
+          galleryImages: data.galleryImages,
+        },
+      });
 
-		try {
-			
-			const response = await api.post(`/announcements/`, {
-				...data,
-				type: announcementType,
-				vehicle: {
-					type: vehicleType,
-					price: data.price,
-					year: data.year,
-					mileage: data.mileage,
-					coverImage: data.coverImage,
-					galleryImages: data.galleryImages,
+      setAnnouncement(response.data);
+      setReload(!reload);
 
-				},
-			});
-			
-			setAnnouncement(response.data);
-			setReload(!reload)
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 500);
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        error.response?.status === 500 &&
+          setTimeout(() => {
+            logout();
+            // navigate('/error', {replace: true});
+          }, 5000);
+      }
+    }
+  };
+  const updateAnnouncement = async (data: UpdateAnnouncementRequest) => {
+    setIsLoading(true);
 
-			setTimeout(() => {
-				setIsLoading(false);
+    try {
+      const response = await api.post(
+        `/announcements/${detailAnoucements.id}`,
+        {
+          ...data,
+          type: announcementType,
+          published: isAnnouncementPublished,
+          vehicle: {
+            type: vehicleType,
+            price: data.price,
+            year: data.year,
+            mileage: data.mileage,
+            coverImage: data.coverImage,
+            galleryImages: data.galleryImages,
+          },
+        }
+      );
 
-			}, 500);
+      setAnnouncement(response.data);
+      setReload(!reload);
 
-		} catch (error) {
-			if (error instanceof AxiosError) {
-				error.response?.status === 500 && setTimeout(() => {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 500);
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        error.response?.status === 500 &&
+          setTimeout(() => {
+            logout();
+            // navigate('/error', {replace: true});
+          }, 5000);
+      }
+    }
+  };
 
-					logout()
-					// navigate('/error', {replace: true});
+  const getAnnouncements = async () => {
+    try {
+      const announcementID = localStorage.getItem("announcementID");
 
-				}, 5000);
-			}
-		};
-	};
-	const updateAnnouncement = async (data: UpdateAnnouncementRequest) => {
+      const advertiserID = localStorage.getItem("advertiserID");
 
-		setIsLoading(true);
+      const response = await api.get("/announcements/");
 
-		try {
-			
-			const response = await api.post(`/announcements/${detailAnoucements.id}`, {
-				...data,
-				type: announcementType,
-				published: isAnnouncementPublished,
-				vehicle: {
-					type: vehicleType,
-					price: data.price,
-					year: data.year,
-					mileage: data.mileage,
-					coverImage: data.coverImage,
-					galleryImages: data.galleryImages,
+      setAllAnnouncements(response.data);
 
-				},
-			});
-			
-			setAnnouncement(response.data);
-			setReload(!reload)
+      if (announcementID) {
+        const responseDetail = response.data.find(
+          (elem: AnnouncementResponse) => {
+            return elem.id === announcementID;
+          }
+        );
+        setDetailAnoucements(responseDetail);
+      }
 
-			setTimeout(() => {
-				setIsLoading(false);
+      if (advertiserID) {
+        const allAnnouncementByAdvertiserId = response.data.filter(
+          (element: AnnouncementResponse) => {
+            return element.advertiser.id === advertiserID;
+          }
+        );
 
-			}, 500);
+        setAllAnnouncementByAdvertiser(allAnnouncementByAdvertiserId);
+      }
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        console.log(error);
+      }
+    }
+  };
 
-		} catch (error) {
-			if (error instanceof AxiosError) {
-				error.response?.status === 500 && setTimeout(() => {
+  const deleteAnnouncement = async (announcementId: string) => {
+    try {
+      await api.delete(`/announcements/${announcementId}`);
+      setReload(!reload);
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        console.log(error);
+      }
+    }
+  };
 
-					logout()
-					// navigate('/error', {replace: true});
+  const getAllAnnouncementByAdvertiser = (advertiserId: string) => {
+    try {
+      const allAnnouncementByAdvertiserId = allAnnouncements.filter(
+        (element) => {
+          return element.advertiser.id === advertiserId;
+        }
+      );
+      setAllAnnouncementByAdvertiser(allAnnouncementByAdvertiserId);
+      return allAnnouncementByAdvertiserId;
+    } catch (error) {}
+  };
 
-				}, 5000);
-			}
-		};
-	};
+  useEffect(() => {
+    getAnnouncements();
 
-	const getAnnouncements = async () => {
-		try {
-			const announcementID = localStorage.getItem("announcementID");
+    let decoded: JwtPayload = {
+      exp: 1,
+      iat: 1,
+      sub: "error",
+    };
 
-			const advertiserID = localStorage.getItem("advertiserID");
+    const token = getToken();
 
-			const response = await api.get("/announcements/");
+    if (token) {
+      decoded = jwt_decode(token!);
+    }
 
-			setAllAnnouncements(response.data)
-			
-			if (announcementID) {
-				const responseDetail = response.data.find((elem: AnnouncementResponse) => {
-					return elem.id === announcementID;
-				});
-				setDetailAnoucements(responseDetail);		
-			}
-				
-			if(advertiserID){
-					
-				const allAnnouncementByAdvertiserId = response.data.filter((element: AnnouncementResponse) => {
-					return element.advertiser.id === advertiserID
-				})
-				
-				setAllAnnouncementByAdvertiser(allAnnouncementByAdvertiserId)
+    if (decoded.sub?.length! > 5) {
+      localStorage.removeItem("advertiserID");
+      getAllAnnouncementByAdvertiser(decoded.sub!);
+      getUser(decoded.sub!);
+    }
+  }, [, reload]);
 
-			}
+  return (
+    <Context.Provider
+      value={{
+        createAnnouncement,
+        setAnnouncement,
+        announcement,
+        setIsOpenModalCreateAnnouncement,
+        isOpenModalCreateAnnouncement,
+        announcementType,
+        setAnnouncementType,
+        setVehicleType,
+        vehicleType,
+        setInputs,
+        inputs,
+        announcementsCars,
+        announcementsMotorcycle,
+        setIsAnnouncementPublished,
+        isAnnouncementPublished,
+        detailAnoucements,
+        setDetailAnoucements,
+        getAllAnnouncementByAdvertiser,
+        allAnnouncementByAdvertiser,
+        isOpenModalUpdateAnnouncement,
+        setIsOpenModalUpdateAnnouncement,
+        updateAnnouncement,
+        deleteAnnouncement,
+        isOpenModalDeleteAnnouncement,
+        setIsOpenModalDeleteAnnouncement,
+        allAnnouncements,
+        reload,
 
-		} catch (error) {
-			if (error instanceof AxiosError) {
-				console.log(error);
-				
-			}
-		}
-	}
-
-
-
-	const deleteAnnouncement = async (announcementId: string) => {
-		try {
-			await api.delete(`/announcements/${announcementId}`);
-			setReload(!reload)
-
-		} catch (error) {
-			if (error instanceof AxiosError) {
-				console.log(error);
-				
-			}	
-		}
-	}
-
-	const getAllAnnouncementByAdvertiser = (advertiserId: string) => {
-		try {
-			const allAnnouncementByAdvertiserId = allAnnouncements.filter((element) => {
-				return element.advertiser.id === advertiserId
-			})
-			setAllAnnouncementByAdvertiser(allAnnouncementByAdvertiserId)
-			return allAnnouncementByAdvertiserId
-		} catch (error) {
-			
-		}
-	}
-	
-	useEffect(() => {
-		getAnnouncements();
-
-		let decoded: JwtPayload = {
-			exp: 1,
-			iat: 1,
-			sub: 'error',
-		};
-
-		const token = getToken();
-		
-		if (token) {
-			decoded = jwt_decode(token!);
-		};
-
-		if (decoded.sub?.length! > 5){
-			localStorage.removeItem('advertiserID')
-			getAllAnnouncementByAdvertiser(decoded.sub!)
-			getUser(decoded.sub!);
-		} 
-
-		
-	}, [, reload])
-
-	return (
-		<Context.Provider value={{
-			createAnnouncement,
-			setAnnouncement,
-			announcement,
-			setIsOpenModalCreateAnnouncement,
-			isOpenModalCreateAnnouncement,
-			announcementType,
-			setAnnouncementType,
-			setVehicleType,
-			vehicleType,
-			setInputs,
-			inputs,
-			announcementsCars,
-			announcementsMotorcycle,
-			setIsAnnouncementPublished,
-			isAnnouncementPublished,
-			detailAnoucements,
-			setDetailAnoucements,
-			getAllAnnouncementByAdvertiser,
-			allAnnouncementByAdvertiser,
-			isOpenModalUpdateAnnouncement,
-			setIsOpenModalUpdateAnnouncement,
-			updateAnnouncement,
-			deleteAnnouncement,
-			isOpenModalDeleteAnnouncement,
-			setIsOpenModalDeleteAnnouncement,
-			allAnnouncements,
-			reload, 
-			
-			setReload,
-			}}>
-			{children}
-		</Context.Provider>
-	);
+        setReload,
+      }}
+    >
+      {children}
+    </Context.Provider>
+  );
 };
 
 export const AnnouncementContext = () => useContext(Context);
