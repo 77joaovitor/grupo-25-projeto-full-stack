@@ -197,50 +197,50 @@ export const AnnouncementProvider = ({ children }: Props) => {
       decoded = jwt_decode(token!);
     }
 
-    if (decoded.sub?.length! > 5) {
-      localStorage.removeItem("advertiserID");
-      getAllAnnouncementByAdvertiser(decoded.sub!);
-      getUser(decoded.sub!);
-    }
-  }, [, reload]);
+		if (decoded.sub?.length! > 5){
+			// localStorage.removeItem('advertiserID')
+			// getAllAnnouncementByAdvertiser(decoded.sub!)
+			getUser(decoded.sub!);
+		} 
 
-  return (
-    <Context.Provider
-      value={{
-        createAnnouncement,
-        setAnnouncement,
-        announcement,
-        setIsOpenModalCreateAnnouncement,
-        isOpenModalCreateAnnouncement,
-        announcementType,
-        setAnnouncementType,
-        setVehicleType,
-        vehicleType,
-        setInputs,
-        inputs,
-        announcementsCars,
-        announcementsMotorcycle,
-        setIsAnnouncementPublished,
-        isAnnouncementPublished,
-        detailAnoucements,
-        setDetailAnoucements,
-        getAllAnnouncementByAdvertiser,
-        allAnnouncementByAdvertiser,
-        isOpenModalUpdateAnnouncement,
-        setIsOpenModalUpdateAnnouncement,
-        updateAnnouncement,
-        deleteAnnouncement,
-        isOpenModalDeleteAnnouncement,
-        setIsOpenModalDeleteAnnouncement,
-        allAnnouncements,
-        reload,
+		
+	}, [, reload])
 
-        setReload,
-      }}
-    >
-      {children}
-    </Context.Provider>
-  );
+	return (
+		<Context.Provider value={{
+			createAnnouncement,
+			setAnnouncement,
+			announcement,
+			setIsOpenModalCreateAnnouncement,
+			isOpenModalCreateAnnouncement,
+			announcementType,
+			setAnnouncementType,
+			setVehicleType,
+			vehicleType,
+			setInputs,
+			inputs,
+			announcementsCars,
+			announcementsMotorcycle,
+			setIsAnnouncementPublished,
+			isAnnouncementPublished,
+			detailAnoucements,
+			setDetailAnoucements,
+			getAllAnnouncementByAdvertiser,
+			allAnnouncementByAdvertiser,
+			isOpenModalUpdateAnnouncement,
+			setIsOpenModalUpdateAnnouncement,
+			updateAnnouncement,
+			deleteAnnouncement,
+			isOpenModalDeleteAnnouncement,
+			setIsOpenModalDeleteAnnouncement,
+			allAnnouncements,
+			reload, 
+			
+			setReload,
+			}}>
+			{children}
+		</Context.Provider>
+	);
 };
 
 export const AnnouncementContext = () => useContext(Context);

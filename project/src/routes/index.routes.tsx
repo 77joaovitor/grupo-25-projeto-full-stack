@@ -1,4 +1,4 @@
-import { Home, DetailAnnouncement, Profile, Register, ProfileAdmin } from "../pages";
+import { Home, DetailAnnouncement, Profile, Register, ProfileAdmin, Login } from "../pages";
 import { Route, Routes } from 'react-router-dom'
 
 const RoutesMain = () => {
@@ -10,7 +10,7 @@ const RoutesMain = () => {
         <Route path='/profile/' element={<Profile />}/>
         <Route path='/signup/' element={<Register />}/>
         <Route path='/profile/admin' element={<ProfileAdmin/>}/>
-          {/* <Route path='/register' element={<Register/>}/> */}
+          <Route path='/login' element={<Login/>}/>
           {/* <Route path='/dashboard' element={<Dashboard/>}/> */}
 
          {/* <Route path='/error' element={<Error/>}/> */}

@@ -14,6 +14,7 @@ export const Button = ({
         <>  {
             as === "a" ?
                 <ButtonLink
+                    className={className}
                     href={`#${id}`}
                 >
                     {children}

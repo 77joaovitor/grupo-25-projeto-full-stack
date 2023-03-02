@@ -16,7 +16,10 @@ export const Context = createContext<IUserContext>({} as IUserContext);
 const UserProvider = ({ children }: Props) => {
   const [auth, setAuth] = useState<boolean>(false);
   const [user, setUser] = useState<UserResponse>({} as UserResponse)
-  
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [reload, setReload] = useState<boolean>(false);
+  const [isDropdown, setIsDropDown] = useState<boolean>(false)
+
   const getUser = async (id: string) => {
     try {
       const response = await api.get(`/users/${id}/`)
@@ -36,6 +39,12 @@ const UserProvider = ({ children }: Props) => {
       auth, 
       setAuth,
       getUser,
+      isLoading, 
+      setIsLoading,
+      reload, 
+      setReload,
+      isDropdown, 
+      setIsDropDown,
     }}>
       {children}
     </Context.Provider>
