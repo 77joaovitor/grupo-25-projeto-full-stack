@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
-import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
+import { FieldErrors, UseFormRegister } from "react-hook-form";
 import { AnnouncementRequest, AnnouncementResponse } from "./announcement.interface";
+import { UserRegisterRequest } from "./user.interface";
 
 export interface PropsButton {
     children: ReactNode;
@@ -24,8 +25,9 @@ export interface PropsInputAnnouncement {
   textarea?: boolean;
   type?: 'text' | 'number' | 'textarea' | 'file' | 'button' | 'checkbox' | 'password' | 'file';
   onClick?: React.MouseEventHandler<HTMLButtonElement> | any;
-  register: UseFormRegister<FieldValues>;
+  register: UseFormRegister<AnnouncementRequest>;
   name:
+
     | 'title'
     | 'description'
     | 'price'
@@ -34,6 +36,37 @@ export interface PropsInputAnnouncement {
     | 'coverImage'
     | 'type'
     | 'galleryImages'
+    // | `galleryImages.${string}.imageUrl`
+  placeholder?: string;
+  defaultValue?: string
+}
+
+export interface PropsInputUser {
+  id?: string;
+  inputGallery?:number
+  value?: string;
+  label?: string;
+  errors: FieldErrors<UserRegisterRequest>
+  file?: boolean;
+  textarea?: boolean;
+  type?: 'text' | 'number' | 'textarea' | 'file' | 'button' | 'checkbox' | 'password' | 'file';
+  onClick?: React.MouseEventHandler<HTMLButtonElement> | any;
+  register: UseFormRegister<UserRegisterRequest>;
+  name:
+    | 'name'
+    | 'email'
+    | 'CPF'
+    | 'phone'
+    | 'birthday'
+    | 'description'
+    | 'CEP'
+    | 'state'
+    | 'city'
+    | 'rua'
+    | 'number'
+    | 'complemento'
+    | 'password'
+    | 'confirmPassword'
     // | `galleryImages.${string}.imageUrl`
   placeholder?: string;
   defaultValue?: string

@@ -7,7 +7,7 @@ import {
   useState,
 } from "react";
 import { IUserContext, Props } from "../../interfaces/contexts.interface";
-import { UserResponse } from "../../interfaces/user.interface";
+import { UserRegisterRequest, UserResponse } from "../../interfaces/user.interface";
 import { api } from "../../util/api";
 
 export const Context = createContext<IUserContext>({} as IUserContext);
@@ -25,10 +25,20 @@ const UserProvider = ({ children }: Props) => {
     }
   }
 
+  const createUser = async (data: UserRegisterRequest) => {
+    console.log(data)
+		// try {
+		// 	const response = await api.post('/'), {
+		// 		...data,
+		// 		},
+		// 	});
+	};
+
   return (
     <Context.Provider value={{
       user, 
       setUser,
+      createUser,
       auth, 
       setAuth,
       getUser,
@@ -36,6 +46,9 @@ const UserProvider = ({ children }: Props) => {
       {children}
     </Context.Provider>
   );
+
+  
+
 };
 
 export default UserProvider;

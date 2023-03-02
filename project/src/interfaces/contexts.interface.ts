@@ -35,4 +35,5 @@ export interface IUserContext {
   user: UserResponse;
   setUser: Dispatch<SetStateAction<UserResponse>>;
   getUser: (id: string) => void;
+  createUser: (data: any) => void
 }
