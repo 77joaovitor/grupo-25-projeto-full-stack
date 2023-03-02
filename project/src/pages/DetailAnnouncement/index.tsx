@@ -1,8 +1,9 @@
-import { Container } from "./style";
-import car from "../../assets/car.png";
-import { useContext } from "react";
-import { AnnouncementContext } from "../../context";
 import { useNavigate } from "react-router-dom";
+import car from "../../assets/car.png";
+import { AnnouncementContext } from "../../context";
+import { getToken } from "../../context/session/auth";
+import { UserContext } from "../../context/user/userContext";
+import { Container } from "./style";
 import Header from "../../components/Header";
 import InitialLetterName from "../../components/InitialLetterName";
 import { Footer } from "../../components/Footer";
@@ -12,6 +13,8 @@ export const DetailAnnouncement = () => {
   const { detailAnoucements, getAllAnnouncementByAdvertiser } =
     AnnouncementContext();
 
+  const { user } = UserContext();
+  const token = getToken();
   return (
     <Container>
       <Header />
@@ -81,18 +84,31 @@ export const DetailAnnouncement = () => {
                         "advertiserID",
                         detailAnoucements?.advertiser.id
                       );
+                {
+                  token ? user.isAdvertiser ? user.id === detailAnoucements.advertiser.id &&
+                    (getAllAnnouncementByAdvertiser(detailAnoucements?.advertiser.id))
+                    (navigate("/profile/admin") )
+                  :
+                  navigate("/profile")
+                  :
+                  navigate("/profile") 
+                      }
 
-                      navigate("/profile");
-                      getAllAnnouncementByAdvertiser(
+                  {
+                          // token ? user.isAdvertiser ?
+                    // getAllAnnouncementByAdvertiser(detailAnoucements?.advertiser.id)
+                    // :
+                  }
+                        getAllAnnouncementByAdvertiser(
                         detailAnoucements?.advertiser.id
                       );
                     }}
                   >
-                    Ver todos anuncios
-                  </button>
-                </div>
-              </aside>
-            </div>
+                  Ver todos anuncios
+                </button>
+              </div>
+            </aside>
+          </div>
             <div className="container-third-desktop">
               <div className="coments">
                 <h1>Comentários</h1>
@@ -126,6 +142,6 @@ export const DetailAnnouncement = () => {
         </div>
       </div>
       <Footer />
-    </Container>
+    </Container >
   );
 };

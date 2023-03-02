@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { UserContext } from "../../context/user/userContext";
-import { Container } from "./style";
+import { Container, Dropdown, DropdownContent } from "./style";
 import { Button } from "../Button";
 import { getToken } from "../../context/session/auth";
 import { useNavigate } from "react-router-dom";
@@ -34,7 +34,18 @@ const MenuDesktop = () => {
           <div 
             className="box-user"
           >
-            <span> {user.name}</span>
+            <Button
+              className="btn-user"
+            >
+              {user.name}
+            </Button>
+            
+            <Dropdown>
+              <DropdownContent>
+
+              </DropdownContent>
+
+            </Dropdown>
           </div>
         ) :
           // <div className="loginOpitonsAuth">

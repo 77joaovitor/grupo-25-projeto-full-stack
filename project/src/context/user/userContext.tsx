@@ -18,6 +18,7 @@ const UserProvider = ({ children }: Props) => {
   const [user, setUser] = useState<UserResponse>({} as UserResponse)
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [reload, setReload] = useState<boolean>(false);
+  const [isDropdown, setIsDropDown] = useState<boolean>(false)
 
   const getUser = async (id: string) => {
     try {
@@ -42,6 +43,8 @@ const UserProvider = ({ children }: Props) => {
       setIsLoading,
       reload, 
       setReload,
+      isDropdown, 
+      setIsDropDown,
     }}>
       {children}
     </Context.Provider>

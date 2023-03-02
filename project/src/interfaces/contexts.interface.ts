@@ -52,11 +52,13 @@ export interface IUserContext {
   setIsLoading: Function;
   reload: boolean;
   setReload: Function;
+  isDropdown: boolean;
+  setIsDropDown: Function;
+
 }
 
 
 export interface SessionProviderData {
   createSession: (data: UserSessionRequest) => void;
   logout: () => void;
-
 };

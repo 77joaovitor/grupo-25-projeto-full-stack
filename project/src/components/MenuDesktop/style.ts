@@ -35,9 +35,22 @@ export const Container = styled.div`
     justify-content: center;
 
     .box-user{
+      display: flex;
+      justify-content: center;
+      align-items: center;
       width: 100%;
       padding: 20px;
       padding-right: 0;
+      .btn-user{
+        width: fit-content;
+        padding: 0;
+        border: none;
+        color: #495057; 
+        :active, :focus, :hover{
+          background-color: transparent;
+          color: #495057; 
+        }
+      }
     }
     
     .btn-link {
@@ -68,3 +81,22 @@ export const Container = styled.div`
 
   filter: drop-shadow(0px 40px 40px rgba(0, 0, 0, 0.09));
 `;
+
+export const Dropdown = styled.div`
+  position: relative;
+  top: 5px;
+  display: inline-block;
+  height:  16px;
+  margin-left: 10px;
+  
+  .svg{
+    color:red;
+
+    width: 10px;
+  }
+
+`
+
+export const DropdownContent = styled.div`
+
+`
