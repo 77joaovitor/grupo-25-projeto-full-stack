@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { FiMenu } from "react-icons/fi";
 import { GrClose } from "react-icons/gr";
+import { useMedia } from "react-use-media";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/Motors shop.png";
 import { UserContext } from "../../context/user/userContext";
@@ -11,15 +12,22 @@ import { Container } from "./style";
 const Header = () => {
   const { auth } = UserContext();
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const isWide = useMedia({
+    minWidth: 700,
+  });
   const navigate = useNavigate();
   return (
     <Container>
-      <figure className="logo">
-        <img src={logo} alt="" onClick={() => navigate("/")} />
-      </figure>
-      <div className="menuDesktop">
-        <MenuDesktop />
+      <div className="logo">
+        <img src={logo} alt="" />
       </div>
+      {
+        isWide &&
+        <MenuDesktop />
+
+      }
+      {/* </div> */}
       <div className="menuMobile">
         {menuOpen ? (
           <GrClose size={16} onClick={() => setMenuOpen((old) => !old)} />

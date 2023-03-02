@@ -31,6 +31,7 @@ export const Container = styled.header`
     }
     .menuDesktop {
       display: flex;
+      /* justify-content: ; */
     }
   }
 `;

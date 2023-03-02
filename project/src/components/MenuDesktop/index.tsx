@@ -1,24 +1,63 @@
 import { useContext } from "react";
 import { UserContext } from "../../context/user/userContext";
 import { Container } from "./style";
+import { Button } from "../Button";
+import { getToken } from "../../context/session/auth";
+import { useNavigate } from "react-router-dom";
 
 const MenuDesktop = () => {
-  const { auth } = UserContext();
+  const { user } = UserContext();
+  const navigate = useNavigate()
+  const token = getToken()
+
   return (
     <Container>
       <div className="options">
-        <button>Carros</button>
-        <button>Motos</button>
-        <button>Leilão</button>
+        <Button
+         className="btn-link"
+         id="car"
+          as="a"
+        >Carros</Button>
+        <Button
+        id="motorcycle"
+         className="btn-link"
+          as="a"
+        >Motos</Button>
+        <Button
+        id="rent"
+         className="btn-link"
+        as="a"
+        >Leilão</Button>
       </div>
       <div className="loginOptions">
-        {auth ? (
-          <div> Nome</div>
-        ) : (
-          <div className="loginOpitonsAuth">
-            <span>Fazer login</span> <button>Cadastrar</button>
+        {token ? (
+          <div 
+            className="box-user"
+          >
+            <span> {user.name}</span>
           </div>
-        )}
+        ) :
+          // <div className="loginOpitonsAuth">
+             <>
+              <Button
+                className="btn-link"
+                onClick={() => {
+                  navigate('/login')
+                }}
+              >
+                Fazer login
+              </Button> 
+              <Button
+              className="btn-register"
+                onClick={() => {
+                  navigate('/register')
+                }}
+              >
+                Cadastrar
+              </Button>
+            </>
+            
+        }
       </div>
     </Container>
   );
