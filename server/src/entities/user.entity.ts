@@ -38,6 +38,9 @@ class User {
     @Column({ default: true })
     isActive: boolean;
 
+    @Column({type: 'decimal', nullable: true})
+    pin: number | null
+
     @CreateDateColumn()
     createdAt: Date;
 

@@ -23,3 +23,8 @@ export interface UserSessionRequest {
     email: string
     password: string
 }
+
+export interface UserRecoveryPasswordRequest {
+    password: string;
+    pin: number;
+}
