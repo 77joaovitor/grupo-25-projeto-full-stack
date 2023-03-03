@@ -6,12 +6,12 @@ import { useNavigate } from "react-router-dom";
 import Header from "../../components/Header";
 import InitialLetterName from "../../components/InitialLetterName";
 import { Footer } from "../../components/Footer";
+import { AnnouncementResponse } from "../../interfaces/announcement.interface";
 
 export const DetailAnnouncement = () => {
   const navigate = useNavigate();
   const { detailAnoucements, getAllAnnouncementByAdvertiser } =
     AnnouncementContext();
-
   return (
     <Container>
       <Header />
@@ -22,7 +22,7 @@ export const DetailAnnouncement = () => {
               <div className="fotoPrincipal">
                 <img
                   className="logoPrincipal"
-                  src={detailAnoucements?.vehicle?.coverImage}
+                  src={detailAnoucements?.vehicle?.coverImage!}
                   alt=""
                 />
               </div>
@@ -125,6 +125,7 @@ export const DetailAnnouncement = () => {
           </div>
         </div>
       </div>
+      )
       <Footer />
     </Container>
   );

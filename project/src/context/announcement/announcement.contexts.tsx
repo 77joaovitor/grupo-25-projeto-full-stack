@@ -140,7 +140,7 @@ export const AnnouncementProvider = ({ children }: Props) => {
             return elem.id === announcementID;
           }
         );
-        setDetailAnoucements(responseDetail);
+        await setDetailAnoucements(responseDetail);
       }
 
       if (advertiserID) {
