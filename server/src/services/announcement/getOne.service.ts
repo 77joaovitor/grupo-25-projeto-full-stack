@@ -17,6 +17,7 @@ export const getOneAnnouncementService = async (announcementId: string): Promise
                     galleryImages: true
                 },
                 advertiser: true,
+                comments: true,
             }
         })
 

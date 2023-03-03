@@ -17,7 +17,6 @@ export const createUserService = async (body: UserRequest): Promise<User> => {
     const user = userRepository.create({
         birthdate: new Date(birthdate), cpf, description, email, isAdvertiser, name, password: hashPassword, phone, 
     })
-    console.log(user);
     
     await userRepository.save(user)
     

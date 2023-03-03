@@ -10,17 +10,20 @@ import { verifyAdvertiserId } from "../middleware/announcement/middleware";
 import { verifyExistAnnouncement } from "../middleware/announcement/verify.exist.middleware";
 import { verifyAnnouncementOwner } from "../middleware/announcement/verify.owner";
 import verifyAuthToken from "../middleware/user/verify.authToken.middleware";
+import { verifyIsAdvertiser } from "../middleware/user/verify.isAdvertiser.middleware";
+import { createCommentController } from "../controllers/comment/create.controller";
+import { getAllByAnnouncementController } from "../controllers/comment/getAllByAnnouncement.controller";
 
 const routes = Router();
 
 export const announcementRouter = () => {
-  routes.post("/", createAnnouncementController);
+  routes.post("/",verifyAuthToken, verifyIsAdvertiser, createAnnouncementController);
   routes.get("/", getAllAnnouncementsController);
   routes.get("/:id", verifyExistAnnouncement, getOneAnnouncementController);
-  routes.patch("/:id/", verifyExistAnnouncement, updateAnnouncementController);
-  routes.delete("/:id/", verifyAuthToken, verifyExistAnnouncement, verifyAnnouncementOwner, deleteAnnouncementController);
+  routes.patch("/:id/", verifyAuthToken, verifyIsAdvertiser, verifyExistAnnouncement, updateAnnouncementController);
+  routes.delete("/:id/", verifyAuthToken, verifyIsAdvertiser, verifyAuthToken, verifyExistAnnouncement, verifyAnnouncementOwner, deleteAnnouncementController);
   routes.get("/:advertiserId/", verifyAdvertiserId, getAllByAdvertiserController);
-  routes.get("/:announcementId/advertiser/:advertiserId/");
-
+  routes.post("/:id/comments", verifyAuthToken, verifyExistAnnouncement, createCommentController);
+  routes.get("/:id/comments", verifyExistAnnouncement, getAllByAnnouncementController);
   return routes;
 };
