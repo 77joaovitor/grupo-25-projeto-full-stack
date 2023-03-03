@@ -13,7 +13,8 @@ export const getAllAnnouncementsService = async (): Promise<Announcement[]> => {
             vehicle: {       
                 galleryImages: true,
             },
-            advertiser: true
+            advertiser: true,
+            comments: true,
         }
     }));
 }
