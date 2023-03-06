@@ -7,24 +7,30 @@ import { useNavigate } from "react-router-dom";
 import InitialLetterName from "../InitialLetterName";
 
 const MenuDesktop = () => {
-  const { user, isDropdown, setIsDropDown } = UserContext();
+
+  const { 
+    user, 
+    isDropdown, 
+    setIsDropDown, 
+    isModalUpdateProfile, 
+    setIsModalUpdateProfile, 
+    setIsModalUpdateAddress,
+    isModalUpdateAddress
+  } = UserContext();
+
   const navigate = useNavigate()
   const token = getToken()
-  if(user.name){
-
-    console.log(  user.name.slice(0, 1));
-  }
-
+  
   return (
     <Container>
       <div className="options">
         <Button
          className="btn-link"
-         id="car"
+         id="cars"
           as="a"
         >Carros</Button>
         <Button
-        id="motorcycle"
+        id="motorcycles"
          className="btn-link"
           as="a"
         >Motos</Button>
@@ -35,31 +41,18 @@ const MenuDesktop = () => {
         >Leilão</Button>
       </div>
       <div className="loginOptions">
-        {!token ? 
+        {user.id ? 
         
-        <>
-        <Button
-          className="btn-link"
-          onClick={() => {
-            navigate('/login')
-          }}
-        >
-          Fazer login
-        </Button> 
-        <Button
-        className="btn-register"
-          onClick={() => {
-            navigate('/register')
-          }}
-        >
-          Cadastrar
-        </Button>
-      </> : 
+        
           <div 
             className="box-user"
+            onClick={
+              () => setIsDropDown(!isDropdown)
+            }
           >
             <InitialLetterName
             name={user.name && user.name[0]}
+            
             />
           
             <Button
@@ -74,15 +67,31 @@ const MenuDesktop = () => {
               isDropdown &&
               <Dropdown>
                 <DropdownContent>
-                    <Button>
+                    <Button
+                      onClick={
+                        () => {
+                          setIsModalUpdateProfile(!isModalUpdateProfile)
+                          setIsDropDown(!isDropdown)
+                        }
+                      }
+                    >
                       Editar Perfil
                     </Button>
-                    <Button>
+                    <Button
+                      onClick={
+                        () => setIsModalUpdateAddress(!isModalUpdateAddress)
+                      }
+
+                    >
                       Editar Endereço
                     </Button>
                     {
                       user.isAdvertiser &&
-                        <Button>
+                        <Button
+                          onClick={
+                            () => navigate("/profile/admin")
+                          }
+                        >
                           Meus Anúncios
                         </Button>
                     }
@@ -90,7 +99,8 @@ const MenuDesktop = () => {
                       onClick={
                         () => {
                           logout()
-                          navigate('/')
+                          setIsDropDown(!isDropdown)
+                          navigate('/login')
                         }
                       }
                     >
@@ -100,7 +110,25 @@ const MenuDesktop = () => {
 
               </Dropdown>
             }
-          </div>
+          </div> :
+          <>
+          <Button
+            className="btn-link"
+            onClick={() => {
+              navigate('/login')
+            }}
+          >
+            Fazer login
+          </Button> 
+          <Button
+          className="btn-register"
+            onClick={() => {
+              navigate('/register')
+            }}
+          >
+            Cadastrar
+          </Button>
+        </> 
         
           // <div className="loginOpitonsAuth">
            

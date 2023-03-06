@@ -13,7 +13,7 @@ export const ContainerInput = styled.div`
     padding: 0px 16px;
     width: 100%;
     height: 100%;
-    /* background: #ffffff; */
+    background: #ffffff;
     color: #000000;
     border: 1px solid #E9ECEF;
     border-radius: 4px;
@@ -33,10 +33,7 @@ export const ContainerInput = styled.div`
     
     height: 78px;
     gap: 10px;
-    .eye{
-      position: relative;
-      top: 0;
-    }
+    
   }
   .box_description{
     display: flex;

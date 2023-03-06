@@ -1,5 +1,5 @@
 import { Exclude } from 'class-transformer';
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import Address from './address.entity';
 import Announcement from './announcement.entity';
 import Comment from './comment.entity';
@@ -50,9 +50,10 @@ class User {
     @DeleteDateColumn()
     deleteAt: Date;
 
-    @OneToMany(() => Address, address => address.user)
-    addresses: Address[];
-
+    @OneToOne(() => Address, address => address.user, {onDelete: 'CASCADE'})
+    @JoinColumn()
+    addresses: Address;
+ 
     @OneToMany(() => Announcement, announcement => announcement.advertiser)
     announcements: Announcement[];
 

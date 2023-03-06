@@ -5,7 +5,7 @@ import styled from "styled-components";
 export const BoxForm = styled.form`
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 20px;
     width: 90%;
 
     padding: 6% 10%;
@@ -21,6 +21,20 @@ export const BoxForm = styled.form`
     background: #FDFDFD;
     border-radius: 4px;
 
+    input{
+        background-color: transparent;
+        button{
+            color: #495057;
+
+        }
+        background: transparent;
+    }
+    .eye{
+        height: 0;
+        position: relative;
+        top: -50px;
+        left: 40%;
+    }
     button{
         width: 100%;
         background: #4529E6;
@@ -49,10 +63,27 @@ export const BoxForm = styled.form`
         margin: 0 auto;
     }
 
+    @media (min-width: 375px) {
+        .eye{
+            left: 120px;
+        }
+
+    }
+    
     @media (min-width: 440px) {
         width: 412px;
-        height: 612px;
         padding: 44px 48px;
     }
 
 `;
+
+export const BoxInput = styled.div`
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 5px;
+    .eye{
+        position: relative;
+        top: 20px;
+    }
+`

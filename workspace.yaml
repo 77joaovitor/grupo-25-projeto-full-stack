@@ -1,0 +1,1117 @@
+_type: export
+__export_format: 4
+__export_date: 2023-03-04T02:21:54.871Z
+__export_source: insomnia.desktop.app:v2022.5.1
+resources:
+  - _id: req_b55739706df643aa94586c7357a0631b
+    parentId: fld_e738c8b1b411451e9f9bb2a11d44925a
+    modified: 1677894345564
+    created: 1677827106775
+    url: "{{ _.baseUrl
+      }}/announcements/806e2f73-8c45-43b5-a21e-006556b72723/comments"
+    name: GET ALL BY ANNOUNCEMENTS /announcements/:id/comments - 200
+    description: |-
+      ### Todos os campos de envio são obrigatórios
+      #### Essa rota não precisa de autenticação
+
+      #
+
+      ### Retorno esperado
+
+      [
+      	{
+      		"id": "d57e00b2-91d4-4d62-9e5b-1dd4656204d9",
+      		"body": "comentário",
+      		"createdAt": "2023-03-03T06:35:10.365Z",
+      		"user": {
+      			"id": "841cc2e5-06ea-4419-b6e6-eeede7d0cd25",
+      			"name": "Lara Oliveira",
+      			"email": "oliveira@gmail.com",
+      			"cpf": "86178824505",
+      			"phone": "73988440863",
+      			"description": "descrição",
+      			"birthdate": "2000-03-17T03:00:00.000Z",
+      			"isAdvertiser": true,
+      			"isActive": true,
+      			"pin": null,
+      			"createdAt": "2023-03-03T06:27:24.291Z",
+      			"updatedAt": "2023-03-03T06:27:24.291Z",
+      			"deleteAt": null
+      		},
+      		"announcement": {
+      			"id": "806e2f73-8c45-43b5-a21e-006556b72723",
+      			"type": "eeaa",
+      			"title": "Esse é o anuncio",
+      			"description": "Essa é a descrição",
+      			"isActive": true,
+      			"createdAt": "2023-03-03T06:32:55.683Z",
+      			"updatedAt": "2023-03-03T06:32:55.699Z",
+      			"deleteAt": null
+      		}
+      	}
+      ]
+
+      **STATUS 200
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1677824894968
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_e738c8b1b411451e9f9bb2a11d44925a
+    parentId: wrk_e2e064f3986846cd9a9eec71dce9ac00
+    modified: 1677824891528
+    created: 1677824891528
+    name: Comments
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1677824891528
+    _type: request_group
+  - _id: wrk_e2e064f3986846cd9a9eec71dce9ac00
+    parentId: null
+    modified: 1676476717103
+    created: 1676476717103
+    name: M6-Project
+    description: ""
+    scope: collection
+    _type: workspace
+  - _id: req_b424d1d668b643fe80ac2f0133a70475
+    parentId: fld_e738c8b1b411451e9f9bb2a11d44925a
+    modified: 1677895645917
+    created: 1677824894918
+    url: "{{ _.baseUrl
+      }}/announcements/806e2f73-8c45-43b5-a21e-006556b72723/comments"
+    name: CREATE /announcements/:id/comments - 200
+    description: |-
+      ### Todos os campos de envio são obrigatórios
+      #### Essa rota precisa de autenticação
+
+      #
+
+      - body: string;
+
+      #
+
+      ### Exemplo de requisição:
+
+      {	
+      	"body": "comentário"
+      }
+
+      ### Retorno esperado
+
+      {
+      	"id": "d57e00b2-91d4-4d62-9e5b-1dd4656204d9",
+      	"createdAt": "2023-03-03T06:35:10.365Z",
+      	"body": "comentário",
+      	"user": {
+      		"id": "841cc2e5-06ea-4419-b6e6-eeede7d0cd25",
+      		"name": "Lara Oliveira",
+      		"email": "oliveira@gmail.com",
+      		"cpf": "86178824505",
+      		"phone": "73988440863",
+      		"description": "descrição",
+      		"birthdate": "2000-03-17T03:00:00.000Z",
+      		"isAdvertiser": true,
+      		"isActive": true,
+      		"pin": null,
+      		"createdAt": "2023-03-03T06:27:24.291Z",
+      		"updatedAt": "2023-03-03T06:27:24.291Z",
+      		"deleteAt": null
+      	},
+      	"announcement": {
+      		"id": "806e2f73-8c45-43b5-a21e-006556b72723",
+      		"type": "eeaa",
+      		"title": "Esse é o anuncio",
+      		"description": "Essa é a descrição",
+      		"isActive": true,
+      		"createdAt": "2023-03-03T06:32:55.683Z",
+      		"updatedAt": "2023-03-03T06:32:55.699Z",
+      		"deleteAt": null
+      	}
+      }
+
+      **STATUS 200
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	
+        	"body": "comentário"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_c6e913617cd84227b748bdbb01ece6fe
+    authentication:
+      type: bearer
+      token: "{% response 'body', 'req_9006addac983440ea8e8c891fb9d6206',
+        'b64::JC5hY2Nlc3NfdG9rZW4=::46b', 'never', 60 %}"
+    metaSortKey: -1677824894918
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_fc344ee2acf74dda85115b6c6efc9532
+    parentId: fld_de45789653064ed38d24a182c5b46cae
+    modified: 1677895591181
+    created: 1677804573083
+    url: "{{ _.baseUrl }}/email"
+    name: Send Email /email - 200
+    description: >-
+      ### Todos os campos de envio são obrigatórios
+
+      #### Essa rota não precisa de autenticação
+
+
+      #### Essa rota verifica o email passado, se confirmado, é enviado o pin code por email, concedendo acesso a atualização de senha
+
+
+      #
+
+
+      - email: string;
+
+
+      #
+
+
+      ### Exemplo de requisição:
+
+
+      {
+      	"email": "silva00geovane@gmail.com"
+      }
+
+
+      ### Retorno esperado
+
+
+      {
+      	"message": "email send success"
+      }
+
+
+      **STATUS 200
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"email": "silva00geovane@gmail.com"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_8dd4b278178040ff8b2775dfa4ab0684
+    authentication: {}
+    metaSortKey: -1677804573083
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_de45789653064ed38d24a182c5b46cae
+    parentId: wrk_e2e064f3986846cd9a9eec71dce9ac00
+    modified: 1677804570767
+    created: 1677804570767
+    name: Email
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1677804570767
+    _type: request_group
+  - _id: req_9006addac983440ea8e8c891fb9d6206
+    parentId: fld_3817390eae8442a5892b792410f8e5eb
+    modified: 1677895589765
+    created: 1677096229442
+    url: "{{ _.baseUrl }}/login/"
+    name: SESSION /login 200
+    description: >-
+      ### Todos os campos de envio são obrigatórios
+
+      #
+
+
+      - email: string;
+
+      - password: string;
+
+
+      #### Essa rota não precisa de autenticação
+
+
+      #
+
+
+      ### Exemplo de requisição:
+
+
+      {
+      	"email": "oliveira@gmail.com",
+      	"password": "Geovane1*"
+      }
+
+
+      ### Retorno esperado
+
+
+      {
+      	"access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im9saXZlaXJhQGdtYWlsLmNvbSIsImlzQWRtIjp0cnVlLCJpc0FjdGl2ZSI6dHJ1ZSwiaWF0IjoxNjc3ODI0OTYwLCJleHAiOjE2Nzc5MTEzNjAsInN1YiI6Ijg0MWNjMmU1LTA2ZWEtNDQxOS1iNmU2LWVlZWRlN2QwY2QyNSJ9.jUua86QkWPyC2wNf_lM0684h8vm5RrXVyylt8I_JHuU"
+      }
+
+
+      **STATUS 200
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"email": "oliveira@gmail.com",
+        	"password": "Geovane1*"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_dbb72bef2ae64755ad728881f71040f2
+    authentication: {}
+    metaSortKey: -1677096229442
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_3817390eae8442a5892b792410f8e5eb
+    parentId: wrk_e2e064f3986846cd9a9eec71dce9ac00
+    modified: 1677096226808
+    created: 1677096226808
+    name: Session
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1677096226808
+    _type: request_group
+  - _id: req_b0444015ff97474cb16c44157d6d2e00
+    parentId: fld_df567d87316e445888e8ab6e0d031f84
+    modified: 1677895586337
+    created: 1676491565191
+    url: "{{ _.baseUrl }}/announcements/"
+    name: CREATE /announcements - 201
+    description: |-
+      ### Todos os campos de envio são obrigatórios
+      #### Essa rota precisa de autenticação
+      #### Apenas anunciantes possuem permissão para acessar a rota
+
+      #
+
+      - type: string;
+      - title: string;
+      - description: string;
+      - vehicle: {
+      		type: string;
+          price: string;
+          year: string;
+          mileage: number;
+          coverImage: string;
+          galleryImages: [
+      			{
+      				imageUrl: string
+      			}, 
+      			{
+      				imageUrl: string
+      			}
+          ]
+      	}
+
+      #
+
+      ### Exemplo de requisição:
+
+      {
+      	"type": "eeaa",
+      	"title": "Esse é o anuncio",
+      	"description": "Essa é a descrição",
+      	"vehicle":{
+      		"type": "motorcycle",
+          "price": 400.000,
+          "year": "2022",
+          "mileage": 400,
+          "coverImage": "cover url",
+          "galleryImages": [
+      			{
+      				"imageUrl": "qe"
+      			}, 
+      			{
+      				"imageUrl": "isso"
+      			}
+          ]
+      	}
+      }
+
+      ### Retorno esperado
+
+      {
+      	"id": "806e2f73-8c45-43b5-a21e-006556b72723",
+      	"type": "eeaa",
+      	"title": "Esse é o anuncio",
+      	"description": "Essa é a descrição",
+      	"isActive": true,
+      	"createdAt": "2023-03-03T06:32:55.683Z",
+      	"updatedAt": "2023-03-03T06:32:55.699Z",
+      	"deleteAt": null,
+      	"vehicle": {
+      		"id": "cabb9daa-00b0-40aa-b19e-0e455f3e595e",
+      		"type": "motorcycle",
+      		"price": 400,
+      		"year": "2022",
+      		"mileage": 400,
+      		"coverImage": "cover url",
+      		"createdAt": "2023-03-03T06:32:55.649Z",
+      		"updatedAt": "2023-03-03T06:32:55.704Z",
+      		"galleryImages": [
+      			{
+      				"id": "ea4ee522-23b1-43db-a5d4-dffa015c290c",
+      				"imageUrl": "qe",
+      				"createdAt": "2023-03-03T06:32:55.637Z",
+      				"deleteAt": null
+      			},
+      			{
+      				"id": "aabcede5-2183-45ec-950b-ef2e610c90f7",
+      				"imageUrl": "isso",
+      				"createdAt": "2023-03-03T06:32:55.637Z",
+      				"deleteAt": null
+      			}
+      		]
+      	},
+      	"advertiser": {
+      		"id": "841cc2e5-06ea-4419-b6e6-eeede7d0cd25",
+      		"name": "Lara Oliveira",
+      		"email": "oliveira@gmail.com",
+      		"cpf": "86178824505",
+      		"phone": "73988440863",
+      		"description": "descrição",
+      		"birthdate": "2000-03-17T03:00:00.000Z",
+      		"isAdvertiser": true,
+      		"isActive": true,
+      		"pin": null,
+      		"createdAt": "2023-03-03T06:27:24.291Z",
+      		"updatedAt": "2023-03-03T06:27:24.291Z",
+      		"deleteAt": null
+      	},
+      	"comments": []
+      }
+
+      **STATUS 200
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"type": "eeaa",
+        	"title": "Esse é o anuncio",
+        	"description": "Essa é a descrição",
+        	"vehicle":{
+        		"type": "motorcycle",
+            "price": 400.000,
+            "year": "2022",
+            "mileage": 400,
+            "coverImage": "cover url",
+            "galleryImages": [
+        			{
+        				"imageUrl": "qe"
+        			}, 
+        			{
+        				"imageUrl": "isso"
+        			}
+            ]
+        	}
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_f9312053e43148fb8e0d24d632c91789
+    authentication:
+      type: bearer
+      token: "{% response 'body', 'req_9006addac983440ea8e8c891fb9d6206',
+        'b64::JC5hY2Nlc3NfdG9rZW4=::46b', 'never', 60 %}"
+    metaSortKey: -1676491565191
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_df567d87316e445888e8ab6e0d031f84
+    parentId: wrk_e2e064f3986846cd9a9eec71dce9ac00
+    modified: 1676491562698
+    created: 1676491562698
+    name: annouuncement
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1676491562698
+    _type: request_group
+  - _id: req_cf1b0d786d1648fc8c5960cf91be21fe
+    parentId: fld_df567d87316e445888e8ab6e0d031f84
+    modified: 1677895564920
+    created: 1677466826626
+    url: "{{ _.baseUrl }}/announcements/eee4ed96-6b27-4d95-b8b6-6a4eb89ec647/"
+    name: UPDATE /announcements/:id - 200
+    description: |-
+      ### Todos os campos de envio são obrigatórios
+      #### Essa rota precisa de autenticação
+      #### Apenas anunciantes possuem permissão para acessar a rota
+
+      #
+
+      - type: string;
+      - title: string;
+      - published: boolean;
+      - description: string;
+      - vehicle: {
+      		type: string;
+          price: string;
+          year: string;
+          mileage: number;
+          coverImage: string;
+          galleryImages: [
+      			{
+      				imageUrl: string
+      			}, 
+      			{
+      				imageUrl: string
+      			}
+          ]
+      	}
+
+      #
+
+      ### Exemplo de requisição:
+
+      {
+      	"type": "sale",
+      	"title": "anuncio",
+      	"published": false,
+      	"description": " a descrição",
+      	"vehicle":{
+      		"type": "car",
+          "price": 100.000,
+          "year": "2070/12/01",
+          "mileage": 4000,
+          "coverImage": " url",
+          "galleryImages": [
+      			{
+      				"imageUrl": "k"
+      			}, 
+      			{
+      				"imageUrl": "esss"
+      			}
+          ]
+      	}
+      }
+
+      ### Retorno esperado
+
+      {
+      	"message": "announcement updated",
+      	"announcement": {
+      		"id": "eee4ed96-6b27-4d95-b8b6-6a4eb89ec647",
+      		"type": "sale",
+      		"title": "anuncio",
+      		"description": " a descrição",
+      		"isActive": false,
+      		"createdAt": "2023-02-27T03:27:49.862Z",
+      		"updatedAt": "2023-02-27T13:50:26.463Z",
+      		"deleteAt": null,
+      		"vehicle": {
+      			"id": "9b5a0e52-9f74-4038-8fd7-b24534787cf2",
+      			"type": "car",
+      			"price": 100,
+      			"year": "2070-12-01",
+      			"mileage": 4000,
+      			"coverImage": " url",
+      			"createdAt": "2023-02-27T03:27:49.840Z",
+      			"updatedAt": "2023-02-27T13:50:26.437Z",
+      			"deleteAt": null,
+      			"galleryImages": [
+      				{
+      					"id": "99d69d55-d2bc-4479-82d3-3c5e2cc3a3e5",
+      					"imageUrl": "k",
+      					"createdAt": "2023-02-27T13:50:26.412Z",
+      					"deleteAt": null
+      				},
+      				{
+      					"id": "de7c4e0b-38ee-4eb3-a7ac-ddb63f29b397",
+      					"imageUrl": "e",
+      					"createdAt": "2023-02-27T13:50:26.412Z",
+      					"deleteAt": null
+      				}
+      			]
+      		},
+      		"advertiser": {
+      			"id": "e508ab78-5b8f-4a83-ba43-f6520af8108d",
+      			"name": "Geovane Oliveira",
+      			"email": "geovane@gmail.com",
+      			"cpf": "86178824505",
+      			"phone": "73988440863",
+      			"description": "descrição",
+      			"birthdate": "2000-03-17T03:00:00.000Z",
+      			"isAdvertiser": true,
+      			"isActive": true,
+      			"createdAt": "2023-02-27T03:25:01.402Z",
+      			"updatedAt": "2023-02-27T03:25:01.402Z",
+      			"deleteAt": null
+      		}
+      	}
+      }
+
+      **STATUS 200
+    method: PATCH
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"type": "sale",
+        	"title": "anuncio",
+        	"published": false,
+        	"description": " a descrição",
+        	"vehicle":{
+        		"type": "car",
+            "price": 100.000,
+            "year": "2070/12/01",
+            "mileage": 4000,
+            "coverImage": " url",
+            "galleryImages": [
+        			{
+        				"imageUrl": "k"
+        			}, 
+        			{
+        				"imageUrl": "esss"
+        			}
+            ]
+        	}
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_f9312053e43148fb8e0d24d632c91789
+    authentication:
+      type: bearer
+      token: "{% response 'body', 'req_9006addac983440ea8e8c891fb9d6206',
+        'b64::JC5hY2Nlc3NfdG9rZW4=::46b', 'never', 60 %}"
+    metaSortKey: -1676487853818
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_af365ed187154cf7a1eef873151b5b1f
+    parentId: fld_df567d87316e445888e8ab6e0d031f84
+    modified: 1677894698489
+    created: 1677074774300
+    url: "{{ _.baseUrl }}/announcements/"
+    name: GET ALL  /announcements -200
+    description: |-
+      ### Todos os campos de envio são obrigatórios
+      #### Essa rota não precisa de autenticação
+
+      #
+
+      ### Retorno esperado
+
+      [
+      	{
+      		"id": "806e2f73-8c45-43b5-a21e-006556b72723",
+      		"type": "eeaa",
+      		"title": "Esse é o anuncio",
+      		"description": "Essa é a descrição",
+      		"isActive": true,
+      		"createdAt": "2023-03-03T06:32:55.683Z",
+      		"updatedAt": "2023-03-03T06:32:55.699Z",
+      		"deleteAt": null,
+      		"vehicle": {
+      			"id": "cabb9daa-00b0-40aa-b19e-0e455f3e595e",
+      			"type": "motorcycle",
+      			"price": 400,
+      			"year": "2022",
+      			"mileage": 400,
+      			"coverImage": "cover url",
+      			"createdAt": "2023-03-03T06:32:55.649Z",
+      			"updatedAt": "2023-03-03T06:32:55.704Z",
+      			"galleryImages": [
+      				{
+      					"id": "ea4ee522-23b1-43db-a5d4-dffa015c290c",
+      					"imageUrl": "qe",
+      					"createdAt": "2023-03-03T06:32:55.637Z",
+      					"deleteAt": null
+      				},
+      				{
+      					"id": "aabcede5-2183-45ec-950b-ef2e610c90f7",
+      					"imageUrl": "isso",
+      					"createdAt": "2023-03-03T06:32:55.637Z",
+      					"deleteAt": null
+      				}
+      			]
+      		},
+      		"advertiser": {
+      			"id": "841cc2e5-06ea-4419-b6e6-eeede7d0cd25",
+      			"name": "Lara Oliveira",
+      			"email": "oliveira@gmail.com",
+      			"cpf": "86178824505",
+      			"phone": "73988440863",
+      			"description": "descrição",
+      			"birthdate": "2000-03-17T03:00:00.000Z",
+      			"isAdvertiser": true,
+      			"isActive": true,
+      			"pin": null,
+      			"createdAt": "2023-03-03T06:27:24.291Z",
+      			"updatedAt": "2023-03-03T06:27:24.291Z",
+      			"deleteAt": null
+      		},
+      		"comments": []
+      	}
+      ]
+
+      **STATUS 200
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1676484142445
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_6adf22076bdf48c6b3b5946e351f5e48
+    parentId: fld_df567d87316e445888e8ab6e0d031f84
+    modified: 1677894459204
+    created: 1677597387457
+    url: "{{ _.baseUrl }}/announcements/dbb4406a-16a8-4954-bf68-69a604bddd50"
+    name: GET ONE /announcements/:id - 200
+    description: |-
+      ### Todos os campos de envio são obrigatórios
+      #### Essa rota não precisa de autenticação
+
+      #
+
+      ### Retorno esperado
+
+      {
+      	"id": "dbb4406a-16a8-4954-bf68-69a604bddd50",
+      	"type": "eeaa",
+      	"title": "Esse é o anuncio",
+      	"description": "Essa é a descrição",
+      	"isActive": true,
+      	"createdAt": "2023-02-27T21:49:23.764Z",
+      	"updatedAt": "2023-02-27T21:49:23.772Z",
+      	"deleteAt": null,
+      	"vehicle": {
+      		"id": "0fdfc2c9-be8f-4711-9ea7-963ffcd4c076",
+      		"type": "car",
+      		"price": 400,
+      		"year": "2022-12-01",
+      		"mileage": 400,
+      		"coverImage": "cover url",
+      		"createdAt": "2023-02-27T21:49:23.751Z",
+      		"updatedAt": "2023-02-27T21:49:23.775Z",
+      		"deleteAt": null,
+      		"galleryImages": [
+      			{
+      				"id": "a158d752-451f-41a4-8b72-a24c4789ee07",
+      				"imageUrl": "qe",
+      				"createdAt": "2023-02-27T21:49:23.746Z",
+      				"deleteAt": null
+      			},
+      			{
+      				"id": "fe0bcb4d-0f4e-4e67-9884-3dd6e111d443",
+      				"imageUrl": "isso",
+      				"createdAt": "2023-02-27T21:49:23.746Z",
+      				"deleteAt": null
+      			}
+      		]
+      	},
+      	"advertiser": {
+      		"id": "e508ab78-5b8f-4a83-ba43-f6520af8108d",
+      		"name": "Geovane Oliveira",
+      		"email": "geovane@gmail.com",
+      		"cpf": "86178824505",
+      		"phone": "73988440863",
+      		"description": "descrição",
+      		"birthdate": "2000-03-17T03:00:00.000Z",
+      		"isAdvertiser": true,
+      		"isActive": true,
+      		"createdAt": "2023-02-27T03:25:01.402Z",
+      		"updatedAt": "2023-02-27T03:25:01.402Z",
+      		"deleteAt": null
+      	}
+      }
+
+      **STATUS 200
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1676483214601.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_0426be0e014448b48e4c683e0f1817c9
+    parentId: fld_df567d87316e445888e8ab6e0d031f84
+    modified: 1677895587865
+    created: 1677531000286
+    url: "{{ _.baseUrl }}/announcements/84fcd1f7-0e32-409d-a4d6-84725f63b1e9/"
+    name: DELETE /announcements/:id - 204
+    description: |-
+      ### Todos os campos de envio são obrigatórios
+      #### Essa rota precisa de autenticação
+      #### Apenas anunciantes possuem permissão para acessar a rota
+      #### Apenas o dono do anúncio pode acessar essa rota
+
+      #
+
+      ### Retorno esperado
+
+      {
+      	"message": "Announcement deleted"
+      }
+
+      **STATUS 204
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication:
+      type: bearer
+      token: "{% response 'body', 'req_9006addac983440ea8e8c891fb9d6206',
+        'b64::JC5hY2Nlc3NfdG9rZW4=::46b', 'never', 60 %}"
+    metaSortKey: -1676482286758.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_eead228a54934d32a59f4ed03d6ef5ce
+    parentId: fld_41a120f4d12e4b3cbcec8e4a64b439a5
+    modified: 1677895525255
+    created: 1676476719699
+    url: "{{ _.baseUrl }}/users/"
+    name: CREATE /users - 201
+    description: |-
+      ### Todos os campos de envio são obrigatórios
+      #### Essa rota precisa de autenticação
+
+      #
+
+      - name: string;
+      - email: string;
+      - password: string;
+      - cpf: string;
+      - phone: string;
+      - description: string;
+      - birthdate: string;
+      - isAdvertiser: boolean;
+      - address: {
+      		zipCode: string;
+      		number: string;
+      		city: string;
+      		road: string;
+      		complement: string;
+      		state: string;
+      };
+
+      #
+
+      ### Exemplo de requisição:
+
+      {
+      	"name": "Lara Oliveira",
+      	"email": "oliveira@gmail.com",
+      	"password": "Geovane1*",
+      	"cpf": "86178824505",
+      	"phone": "73988440863",
+      	"description": "descrição",
+      	"birthdate": "2000/03/17",
+      	"isAdvertiser": true,
+      	"address": {
+      		"zipCode": "557-455",
+      		"number": "078",
+      		"city": "Jequié",
+      		"road": "rua",
+      		"complement":"complemento",
+      		"state": "BA"
+      	}
+      }
+
+      ### Retorno esperado
+
+      {
+      	"name": "Lara Oliveira",
+      	"email": "oliveira@gmail.com",
+      	"cpf": "86178824505",
+      	"phone": "73988440863",
+      	"description": "descrição",
+      	"birthdate": "2000-03-17T03:00:00.000Z",
+      	"isAdvertiser": true,
+      	"pin": null,
+      	"deleteAt": null,
+      	"id": "841cc2e5-06ea-4419-b6e6-eeede7d0cd25",
+      	"isActive": true,
+      	"createdAt": "2023-03-03T06:27:24.291Z",
+      	"updatedAt": "2023-03-03T06:27:24.291Z"
+      }
+
+      **STATUS 201
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"name": "Lara Oliveira",
+        	"email": "oliveira@gmail.com",
+        	"password": "Geovane1*",
+        	"cpf": "86178824505",
+        	"phone": "73988440863",
+        	"description": "descrição",
+        	"birthdate": "2000/03/17",
+        	"isAdvertiser": true,
+        	"address": {
+        		"zipCode": "557-455",
+        		"number": "078",
+        		"city": "Jequié",
+        		"road": "rua",
+        		"complement":"complemento",
+        		"state": "BA"
+        	}
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_0c076e55a364415d9820904c44202f84
+    authentication: {}
+    metaSortKey: -1676476719699
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_41a120f4d12e4b3cbcec8e4a64b439a5
+    parentId: wrk_e2e064f3986846cd9a9eec71dce9ac00
+    modified: 1676488091223
+    created: 1676488091223
+    name: Users
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1676488091223
+    _type: request_group
+  - _id: req_8294fe97b50c45ee94a3767519a60db5
+    parentId: fld_41a120f4d12e4b3cbcec8e4a64b439a5
+    modified: 1677895296267
+    created: 1677809974944
+    url: "{{ _.baseUrl }}/users/recover/"
+    name: RECOVER PASS  users/recover - 200
+    description: |-
+      ### Todos os campos de envio são obrigatórios
+      #### Essa rota precisa de autenticação
+      #### Rota de recuperação de senha usando pin enviado por email
+
+      #
+
+      - password: string; 
+      -	pin: number;
+
+      #
+
+      ### Exemplo de requisição:
+
+      {
+      	"password": "Geovane1*", 
+      	"pin": 66265
+      }
+
+      ### Retorno esperado
+
+      {
+      	"message": "Password changed successfully!"
+      }
+
+      **STATUS 200
+    method: PATCH
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"password": "Geovane1*", 
+        	"pin": 66265
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_9cbc46217dea4ee28b72a0791e7d03d7
+    authentication: {}
+    metaSortKey: -1676333116129
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_010f65148913465eb4402807ed28e9cd
+    parentId: fld_41a120f4d12e4b3cbcec8e4a64b439a5
+    modified: 1677895519236
+    created: 1677354151312
+    url: "{{ _.baseUrl }}/users/ff422811-d7ba-4969-841b-97609ef30603/,"
+    name: GET ONE /users/:id - 200
+    description: |-
+      ### Todos os campos de envio são obrigatórios
+      #### Essa rota não precisa de autenticação
+
+      #
+
+      ### Retorno esperado
+
+      {
+      	"id": "ff422811-d7ba-4969-841b-97609ef30603",
+      	"name": "Geovane Oliveira",
+      	"email": "silva00geovane@gmail.com",
+      	"cpf": "86178824505",
+      	"phone": "73988440863",
+      	"description": "descrição",
+      	"birthdate": "2000-03-17T03:00:00.000Z",
+      	"isAdvertiser": false,
+      	"isActive": true,
+      	"pin": "75627",
+      	"createdAt": "2023-03-03T01:40:56.762Z",
+      	"updatedAt": "2023-03-03T04:05:12.829Z",
+      	"deleteAt": null
+      }
+
+      **STATUS 200
+    method: GET
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"name": "Geovane Oliveira",
+        	"email": "geovane@gmail.com",
+        	"password": "Geovane1*",
+        	"cpf": "86178824505",
+        	"phone": "73988440863",
+        	"description": "descrição",
+        	"birthdate": "2000/03/17",
+        	"isAdvertiser": true,
+        	"address": {
+        		"zipCode": "557-455",
+        		"number": "078",
+        		"city": "Jequié",
+        		"road": "rua",
+        		"complement":"complemento",
+        		"state": "BA"
+        	}
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_0c076e55a364415d9820904c44202f84
+    authentication: {}
+    metaSortKey: -1676189512559
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_423149f3d9c6267fd31b93217f5738c16fa80a8c
+    parentId: wrk_e2e064f3986846cd9a9eec71dce9ac00
+    modified: 1676482814706
+    created: 1676476717111
+    name: Base Environment
+    data: {}
+    dataPropertyOrder: {}
+    color: null
+    isPrivate: false
+    metaSortKey: 1676476717111
+    _type: environment
+  - _id: jar_423149f3d9c6267fd31b93217f5738c16fa80a8c
+    parentId: wrk_e2e064f3986846cd9a9eec71dce9ac00
+    modified: 1676476717113
+    created: 1676476717113
+    name: Default Jar
+    cookies: []
+    _type: cookie_jar
+  - _id: spc_22fe816b24da4f199dffb905234e4691
+    parentId: wrk_e2e064f3986846cd9a9eec71dce9ac00
+    modified: 1676476717104
+    created: 1676476717104
+    fileName: M6-Project
+    contents: ""
+    contentType: yaml
+    _type: api_spec
+  - _id: env_32707c9e094641e6b7e39d9ffacbf313
+    parentId: env_423149f3d9c6267fd31b93217f5738c16fa80a8c
+    modified: 1677271295209
+    created: 1676482822467
+    name: dev
+    data:
+      baseUrl: localhost:3000
+    dataPropertyOrder:
+      "&":
+        - baseUrl
+    color: null
+    isPrivate: false
+    metaSortKey: 1676482822467
+    _type: environment

@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { updateAddressController } from "../controllers/address/update.controller";
 
 import { createUserController } from "../controllers/user/create.controller";
 import { deleteUserController } from "../controllers/user/delete.controller";
@@ -16,8 +17,9 @@ const routes = Router();
 export const userRouter = () => {
     routes.post('', verifyExist, createUserController);
     routes.patch('/recover/', verifyPin, recoverPasswordController);
-    routes.get('/:id', verifyId, getOneUserController);
+    routes.get('/:id', verifyAuthToken, verifyId, getOneUserController);
     routes.patch('/:id', verifyAuthToken, verifyId, verifyOwnerAccount, updateUserController);
+    routes.patch('/:id/address/',verifyAuthToken, verifyId, verifyOwnerAccount,updateAddressController)
     routes.delete('/:id', verifyAuthToken, verifyId, verifyOwnerAccount, deleteUserController);
 
     return routes;

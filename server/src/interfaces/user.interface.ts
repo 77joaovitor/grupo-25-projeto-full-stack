@@ -1,4 +1,4 @@
-interface Address {
+export interface AddressRequest {
     zipCode: string;
     state: string;
     city: string;
@@ -16,7 +16,7 @@ export interface UserRequest {
     description: string;
     birthdate: string;
     isAdvertiser: boolean;
-    address: Address;
+    address: AddressRequest;
 }
 export interface UserUpdateRequest {
     name: string;
@@ -26,7 +26,7 @@ export interface UserUpdateRequest {
     phone: string;
     description: string;
     birthdate: string;
-    address: Address;
+    address: AddressRequest;
 }
 
 export interface UserSessionRequest {

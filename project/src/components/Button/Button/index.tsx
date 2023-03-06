@@ -14,6 +14,7 @@ export const Button = ({
         <>  {
             as === "a" ?
                 <ButtonLink
+                    onClick={onClick}
                     className={className}
                     href={`#${id}`}
                 >
@@ -21,6 +22,7 @@ export const Button = ({
                 </ButtonLink>
                 :
                 <ButtonType
+                    
                     id={id}
                     className={className}
                     type={type}
