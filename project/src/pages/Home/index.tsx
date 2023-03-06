@@ -16,11 +16,9 @@ import { AnnouncementResponse } from "../../interfaces/announcement.interface";
 
 export const Home = (): JSX.Element => {
   const {
-    announcementsCars,
-    announcementsMotorcycle,
-    allAnnouncementByAdvertiser,
     allAnnouncements,
   } = AnnouncementContext();
+  
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -59,7 +57,9 @@ export const Home = (): JSX.Element => {
   return (
     <>
       <Header />
-      <PresentationSection>
+      <PresentationSection
+        id="home"
+      >
         <p>Velocidade e experiência em um lugar feito para você</p>
         <span>Um ambiente feito para você explorar o seu melhor</span>
 
@@ -112,8 +112,12 @@ export const Home = (): JSX.Element => {
             responsive={responsive}
             removeArrowOnDeviceType={["tablet", "mobile"]}
           >
-            {announcementsMotorcycle &&
-              announcementsMotorcycle.map((announcement, index) => (
+            {allAnnouncements &&
+                allAnnouncements
+                  .filter(
+                    (elem: AnnouncementResponse) => elem.vehicle.type === "motorcycle"
+                  )
+                  .map((announcement, index) => (
                 <ProductCard key={index} announcement={announcement} />
               ))}
           </ContainerList>

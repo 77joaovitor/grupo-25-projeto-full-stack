@@ -4,6 +4,7 @@ import { Button } from "../../components/Button";
 import { Footer } from "../../components/Footer";
 import Header from "../../components/Header";
 import { CreateAnnouncement } from "../../components/Modal/CreateAnnouncement";
+import { ModalSuccessAnnouncement } from "../../components/Modal/CreateAnnouncement/alertSuccess";
 import { DeleteAnnouncement } from "../../components/Modal/DeleteAnnouncement";
 import { UpdateAnnouncement } from "../../components/Modal/UpdateAnnouncement";
 import ProductCard from "../../components/ProductCard";
@@ -70,7 +71,7 @@ export const ProfileAdmin = (): JSX.Element => {
       {<CreateAnnouncement />}
       {<UpdateAnnouncement />}
       {<DeleteAnnouncement />}
-
+      {<ModalSuccessAnnouncement />}
       {user.isAdvertiser ? 
         <>
           <Header />

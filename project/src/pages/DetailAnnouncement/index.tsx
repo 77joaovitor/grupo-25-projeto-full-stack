@@ -18,7 +18,9 @@ export const DetailAnnouncement = () => {
   return (
     <Container>
       <Header />
-      <div className="container-main-detailAnnou">
+      <div className="container-main-detailAnnou"
+        id="home"
+      >
         <div className="container1">
           <div className="container-main-desktop">
             <div className="conteiner-first-desktop">

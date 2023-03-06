@@ -8,38 +8,54 @@ import { UserContext } from "../../context/user/userContext";
 import MenuDesktop from "../MenuDesktop";
 import MenuMobile from "../MenuMobile";
 import { Container } from "./style";
+import { UpdateModalProfile } from "../Modal/UpdateProfile";
+import { UpdateModalAddress } from "../Modal/UpdateAddress";
+import Loading from "../Loading";
 
 const Header = () => {
-  const { auth } = UserContext();
-  const [menuOpen, setMenuOpen] = useState(false);
+  const { menuOpen, setMenuOpen } = UserContext();
 
   const isWide = useMedia({
     minWidth: 700,
   });
   const navigate = useNavigate();
   return (
-    <Container>
-      <div className="logo">
-        <img src={logo} alt="" />
-      </div>
-      {
-        isWide &&
-        <MenuDesktop />
-      }
-      {/* </div> */}
-      <div className="menuMobile">
-        {menuOpen ? (
-          <GrClose size={16} onClick={() => setMenuOpen((old) => !old)} />
-        ) : (
-          <FiMenu size={26} onClick={() => setMenuOpen((old) => !old)} />
+    <>
+      {<UpdateModalProfile />}
+      {<UpdateModalAddress />}
+      {<Loading />}
+      <Container>
+        <figure className="logo"
+          onClick={
+            () => navigate('/')
+          }
+        >
+          <img src={logo} alt="" />
+        </figure>
+        {
+          isWide &&
+          <MenuDesktop />
+        }
+        
+        {
+          !isWide &&
+
+          <div className="menuMobile">
+            {menuOpen ? (
+              <GrClose size={16} onClick={() => setMenuOpen(!menuOpen)} />
+            ) : (
+              <FiMenu size={26} onClick={() => setMenuOpen(!menuOpen)} />
+            )}
+          </div>
+        }
+        {menuOpen && (
+          <div className="menuMobileHeader">
+            <MenuMobile />
+          </div>
         )}
-      </div>
-      {menuOpen && (
-        <div className="menuMobileHeader">
-          <MenuMobile />
-        </div>
-      )}
-    </Container>
+
+      </Container>
+    </>
   );
 };
 

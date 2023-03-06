@@ -1,5 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { SessionContext } from "../../context";
 import { UserSessionRequest } from "../../interfaces/user.interface";
@@ -10,13 +12,17 @@ import { BoxForm } from "./style";
 
 export const FormLogin = () => {
 
-  const { createSession } = SessionContext()
+  const { createSession, showPassword, setShowPassword } = SessionContext();
+
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
   const { register, handleSubmit, formState: { errors } } = useForm<UserSessionRequest>({
     resolver: yupResolver(userSessionRequestSchema)
   });
 
   return (
-    <BoxForm onSubmit={handleSubmit(createSession)}>
+    <BoxForm action="" onSubmit={handleSubmit(createSession)}>
       <h2>Login</h2>
 
       <InputUserSession 
@@ -29,6 +35,7 @@ export const FormLogin = () => {
         type="email"
       />
 
+      
       <InputUserSession 
         register={register}
         errors={errors}
@@ -36,8 +43,15 @@ export const FormLogin = () => {
         placeholder="Digitar senha"
         name="password"
         key='password'
-        type="password"
+        type={showPassword ? 'text' : 'password'}
       />
+      <span onClick={handleShowPassword} className='eye'>
+        {showPassword ? 
+        
+        <BsFillEyeFill />:
+        <BsFillEyeSlashFill /> 
+        }
+      </span>
 
       <Link to={"/recovery"}
         className='link-recovery'

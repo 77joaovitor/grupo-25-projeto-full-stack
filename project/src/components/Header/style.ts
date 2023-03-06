@@ -9,7 +9,7 @@ export const Container = styled.header`
   align-items: center;
   justify-content: space-between;
   background: #ffff;
-  padding: 3%;
+  padding: 5%;
   width: 100vw;
   height: 4rem;
   border-bottom: 2px solid #dee2e6;
@@ -27,10 +27,11 @@ export const Container = styled.header`
   }
   @media (min-width: 700px) {
     .menuMobile {
-      display: none;
+      /* display: none; */
     }
+    padding: 35px;
     .menuDesktop {
-      display: flex;
+      /* display: flex; */
       /* justify-content: ; */
     }
   }
