@@ -12,3 +12,8 @@ export interface UserResponse {
 	updatedAt: Date;
 	deleteAt: null | Date
 }
+
+export interface UserSessionRequest {
+	email: string;
+	password: string;
+}

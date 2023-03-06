@@ -4,7 +4,7 @@ import {
   AnnouncementResponse,
   UpdateAnnouncementRequest,
 } from "./announcement.interface";
-import { UserResponse } from "./user.interface";
+import { UserResponse, UserSessionRequest } from "./user.interface";
 
 export interface Props {
   children: ReactNode;
@@ -48,4 +48,17 @@ export interface IUserContext {
   user: UserResponse;
   setUser: Dispatch<SetStateAction<UserResponse>>;
   getUser: (id: string) => void;
+  isLoading: boolean;
+  setIsLoading: Function;
+  reload: boolean;
+  setReload: Function;
+  isDropdown: boolean;
+  setIsDropDown: Function;
+
 }
+
+
+export interface SessionProviderData {
+  createSession: (data: UserSessionRequest) => void;
+  logout: () => void;
+};

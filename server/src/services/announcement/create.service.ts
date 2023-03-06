@@ -5,7 +5,8 @@ import { AnnouncementRequest } from "../../interfaces/announcement.interface";
 import { createVehicleService } from "../vehicle/create.service";
 
 export const createAnnouncementService = async (
-  body: AnnouncementRequest
+  body: AnnouncementRequest,
+  id: string
 ): Promise<Announcement> => {
   const { vehicle, description, title, type } = body;
   const announcementRepository = AppDataSource.getRepository(Announcement);
@@ -13,7 +14,7 @@ export const createAnnouncementService = async (
 
   const userRepository = AppDataSource.getRepository(User);
 
-  const user = await userRepository.findOneBy({ email: "Joao@gmail.com" });
+  const user = await userRepository.findOneBy({ id });
 
   console.log(vehicle);
   const newVehicle: Vehicle = await createVehicleService(vehicle);
@@ -49,6 +50,7 @@ export const createAnnouncementService = async (
         galleryImages: true,
       },
       advertiser: true,
+      comments: true,
     },
   });
 

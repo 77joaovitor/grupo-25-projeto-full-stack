@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
 import { AnnouncementRequest, AnnouncementResponse, UpdateAnnouncementRequest } from "./announcement.interface";
+import { UserSessionRequest } from "./user.interface";
 
 export interface PropsButton {
     children: ReactNode;
@@ -11,8 +12,6 @@ export interface PropsButton {
     className?: string;
     defaultChecked?: boolean;
 }
-
-
 
 export interface PropsInputAnnouncement {
   id?: string;
@@ -38,6 +37,26 @@ export interface PropsInputAnnouncement {
   placeholder?: string;
   defaultValue?: string
 }
+
+
+export interface PropsInputSession {
+  id?: string;
+  inputGallery?:number
+  value?: string;
+  label?: string;
+  errors: FieldErrors<UserSessionRequest>
+  file?: boolean;
+  textarea?: boolean;
+  type?: 'text' | 'email' | 'number' | 'textarea' | 'file' | 'button' | 'checkbox' | 'password' | 'file';
+  onClick?: React.MouseEventHandler<HTMLButtonElement> | any;
+  register: UseFormRegister<UserSessionRequest>;
+  name:
+    |   'email'
+    |  'password'
+  placeholder?: string;
+  defaultValue?: string
+}
+
 
 export interface PropsInputUpdateAnnouncement {
     id?: string;

@@ -1,17 +1,49 @@
-import { Container } from "./style";
-import car from "../../assets/car.png";
-import { useContext } from "react";
-import { AnnouncementContext } from "../../context";
 import { useNavigate } from "react-router-dom";
+import car from "../../assets/car.png";
+import { AnnouncementContext } from "../../context";
+import { getToken } from "../../context/session/auth";
+import { UserContext } from "../../context/user/userContext";
+import { Container } from "./style";
 import Header from "../../components/Header";
 import InitialLetterName from "../../components/InitialLetterName";
 import { Footer } from "../../components/Footer";
 import { AnnouncementResponse } from "../../interfaces/announcement.interface";
+import { api } from "../../util/api";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 
 export const DetailAnnouncement = () => {
+  const [coments, setComents] = useState([]);
+
   const navigate = useNavigate();
-  const { detailAnoucements, getAllAnnouncementByAdvertiser } =
+  const { detailAnoucements, reload, getAllAnnouncementByAdvertiser } =
     AnnouncementContext();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  useEffect(() => {
+    if (detailAnoucements === undefined) {
+    }
+    api
+      .get(`/announcements/${detailAnoucements.id}/comments`)
+      .then((res: any) => setComents(res.data))
+      .catch((err) => console.log(err));
+  }, []);
+
+  const postComent = (data: any) => {
+    api
+      .post(`announcements/${detailAnoucements.id}/comments`, data)
+      .then((res) =>
+        setComents((oldComents): any => [res?.data, ...oldComents])
+      )
+      .catch((err) => console.log(err));
+  };
+
+  const { user } = UserContext();
+  const token = getToken();
   return (
     <Container>
       <Header />
@@ -81,8 +113,22 @@ export const DetailAnnouncement = () => {
                         "advertiserID",
                         detailAnoucements?.advertiser.id
                       );
+                      {
+                        token
+                          ? user.isAdvertiser
+                            ? user.id === detailAnoucements.advertiser.id &&
+                              getAllAnnouncementByAdvertiser(
+                                detailAnoucements?.advertiser.id
+                              )(navigate("/profile/admin"))
+                            : navigate("/profile")
+                          : navigate("/profile");
+                      }
 
-                      navigate("/profile");
+                      {
+                        // token ? user.isAdvertiser ?
+                        // getAllAnnouncementByAdvertiser(detailAnoucements?.advertiser.id)
+                        // :
+                      }
                       getAllAnnouncementByAdvertiser(
                         detailAnoucements?.advertiser.id
                       );
@@ -96,17 +142,17 @@ export const DetailAnnouncement = () => {
             <div className="container-third-desktop">
               <div className="coments">
                 <h1>Comentários</h1>
-                <div className="coments-name">
-                  <InitialLetterName name="JL" />
-                  <h4>Júlia Lima</h4>
-                  <h5>há 3 dias</h5>
-                </div>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
-                  ut nesciunt totam eligendi obcaecati culpa aliquam accusamus
-                  sapiente facere eius iusto et ipsam eum dolorum, enim
-                  quibusdam sequi magnam beatae.
-                </p>
+                {coments &&
+                  coments.map((elem: any, index) => (
+                    <div key={index}>
+                      <div className="coments-name">
+                        <InitialLetterName name="JL" />
+                        <h4>{elem?.user?.name}</h4>
+                        <h5>{elem?.createdAt?.slice(0, 10)}</h5>
+                      </div>
+                      <p>{elem?.body as any}</p>
+                    </div>
+                  ))}
               </div>
 
               <div className="peapleComents">
@@ -116,10 +162,12 @@ export const DetailAnnouncement = () => {
                   />
                   <h4>{detailAnoucements?.advertiser?.name}</h4>
                 </div>
-                <div className="input">
-                  <textarea placeholder="Digite algo" />
-                  <button className="comentButton">Comentar</button>
-                </div>
+                <form className="input" onSubmit={handleSubmit(postComent)}>
+                  <textarea placeholder="Digite algo" {...register("body")} />
+                  <button className="comentButton" type="submit">
+                    Comentar
+                  </button>
+                </form>
               </div>
             </div>
           </div>

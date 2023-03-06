@@ -18,8 +18,23 @@ export interface UserRequest {
     isAdvertiser: boolean;
     address: Address;
 }
+export interface UserUpdateRequest {
+    name: string;
+    email: string;
+    password: string;
+    cpf: string;
+    phone: string;
+    description: string;
+    birthdate: string;
+    address: Address;
+}
 
 export interface UserSessionRequest {
     email: string
     password: string
+}
+
+export interface UserRecoveryPasswordRequest {
+    password: string;
+    pin: number;
 }

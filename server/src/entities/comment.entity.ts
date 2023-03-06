@@ -11,6 +11,9 @@ class Comment {
     @Column({ type: 'text' })
     body: string;
 
+    @CreateDateColumn()
+    createdAt: Date;
+
     @ManyToOne(() => User)
     user: User;
 
