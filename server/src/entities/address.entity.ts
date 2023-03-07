@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn ,Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn ,Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, ManyToOne, OneToOne, JoinColumn } from 'typeorm';
 import User from './user.entity';
 
 @Entity('addresses')
@@ -34,7 +34,8 @@ class Address {
     @DeleteDateColumn()
     deleteAt: Date;
 
-    @ManyToOne(() => User, {onDelete: 'CASCADE'})
+    @OneToOne(() => User)
+    @JoinColumn()
     user: User;    
 
 }

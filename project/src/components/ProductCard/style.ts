@@ -34,9 +34,9 @@ export const Container = styled.div`
     > h3 {
       color: rgba(33, 37, 41, 1);
       font-size: 16px;
-      height: 3.5rem;
     }
     > p {
+      margin: 10px 0px;
       color: rgba(73, 80, 87, 1);
       font-size: 14px;
       height: 3rem;

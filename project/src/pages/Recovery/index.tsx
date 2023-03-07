@@ -33,7 +33,7 @@ const RecoveryPageFunction = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(formSchema) });
+  } = useForm();
   const submitEmail = async (data: any) => {
     try {
       const response = await api.post("email", data);

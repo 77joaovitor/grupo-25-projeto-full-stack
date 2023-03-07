@@ -46,12 +46,13 @@ export const AnnouncementProvider = ({ children }: Props) => {
   const [allAnnouncements, setAllAnnouncements] = useState<
     AnnouncementResponse[]
   >([]);
-  const [reload, setReload] = useState<boolean>(false);
   const [isAnnouncementPublished, setIsAnnouncementPublished] =
     useState<boolean>(false);
   const [isOpenModalDeleteAnnouncement, setIsOpenModalDeleteAnnouncement] =
     useState<boolean>(false);
-  const { user, setUser, getUser } = UserContext();
+  const [isModalSuccessCreate, setIsModalSuccessCreate] = useState<boolean>(false)
+ 
+  const { setUserAdvertiser, getUser, reload, setReload } = UserContext();
 
   const createAnnouncement = async (data: AnnouncementRequest) => {
     setIsLoading(true);
@@ -71,6 +72,7 @@ export const AnnouncementProvider = ({ children }: Props) => {
       });
 
       setAnnouncement(response.data);
+      setIsModalSuccessCreate(!isModalSuccessCreate)
       setReload(!reload);
 
       setTimeout(() => {
@@ -177,6 +179,12 @@ export const AnnouncementProvider = ({ children }: Props) => {
           return element.advertiser.id === advertiserId;
         }
       );
+      const advertiser = allAnnouncementByAdvertiserId.find(elem => {
+        return elem.advertiser.id === advertiserId
+      })?.advertiser
+      
+      advertiser && setUserAdvertiser(advertiser)
+
       setAllAnnouncementByAdvertiser(allAnnouncementByAdvertiserId);
       return allAnnouncementByAdvertiserId;
     } catch (error) {}
@@ -235,8 +243,9 @@ export const AnnouncementProvider = ({ children }: Props) => {
 			setIsOpenModalDeleteAnnouncement,
 			allAnnouncements,
 			reload, 
-			
 			setReload,
+      isModalSuccessCreate, 
+      setIsModalSuccessCreate,
 			}}>
 			{children}
 		</Context.Provider>

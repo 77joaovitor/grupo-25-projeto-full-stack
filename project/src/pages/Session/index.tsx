@@ -7,7 +7,9 @@ export const Login = (): JSX.Element => {
     return (
         <ContainerSession>
             <Header />
-            <ContainerMain>
+            <ContainerMain
+                id="home"
+            >
                 <FormLogin />
             </ContainerMain>
             <Footer />

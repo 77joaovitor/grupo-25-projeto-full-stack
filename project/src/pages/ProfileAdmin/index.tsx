@@ -4,6 +4,7 @@ import { Button } from "../../components/Button";
 import { Footer } from "../../components/Footer";
 import Header from "../../components/Header";
 import { CreateAnnouncement } from "../../components/Modal/CreateAnnouncement";
+import { ModalSuccessAnnouncement } from "../../components/Modal/CreateAnnouncement/alertSuccess";
 import { DeleteAnnouncement } from "../../components/Modal/DeleteAnnouncement";
 import { UpdateAnnouncement } from "../../components/Modal/UpdateAnnouncement";
 import ProductCard from "../../components/ProductCard";
@@ -25,7 +26,7 @@ export const ProfileAdmin = (): JSX.Element => {
     isOpenModalCreateAnnouncement,
     allAnnouncementByAdvertiser,
   } = AnnouncementContext();
-  
+
   const { user } = UserContext();
   const navigate = useNavigate();
 
@@ -70,8 +71,8 @@ export const ProfileAdmin = (): JSX.Element => {
       {<CreateAnnouncement />}
       {<UpdateAnnouncement />}
       {<DeleteAnnouncement />}
-
-      {user.isAdvertiser ? 
+      {<ModalSuccessAnnouncement />}
+      {user.isAdvertiser ? (
         <>
           <Header />
           <PresentationSection id="home">
@@ -82,16 +83,17 @@ export const ProfileAdmin = (): JSX.Element => {
 
               <p>
                 Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy text
-                ever since the 1500s
+                industry. Lorem Ipsum has been the industry's standard dummy
+                text ever since the 1500s
               </p>
 
               {user.isAdvertiser && (
                 <Button
                   onClick={() =>
-                    setIsOpenModalCreateAnnouncement(!isOpenModalCreateAnnouncement)
+                    setIsOpenModalCreateAnnouncement(
+                      !isOpenModalCreateAnnouncement
+                    )
                   }
-
                 >
                   Criar anuncio
                 </Button>
@@ -124,10 +126,16 @@ export const ProfileAdmin = (): JSX.Element => {
                 {allAnnouncementByAdvertiser &&
                   allAnnouncementByAdvertiser
                     .filter(
-                      (elem: AnnouncementResponse) => elem.vehicle.type === "car"
+                      (elem: AnnouncementResponse) =>
+                        elem.vehicle.type === "car"
                     )
                     .map((announcement, index) => (
-                      <ProductCard key={index} announcement={announcement} />
+                      <ProductCard
+                        isOwner={true}
+                        isAdvertisePage={true}
+                        key={index}
+                        announcement={announcement}
+                      />
                     ))}
               </ContainerList>
             </BoxContent>
@@ -143,15 +151,24 @@ export const ProfileAdmin = (): JSX.Element => {
                       (elem: AnnouncementResponse) =>
                         elem.vehicle.type === "motorcycle"
                     )
-                    .map((announcement: AnnouncementResponse, index: number) => (
-                      <ProductCard key={index} announcement={announcement} />
-                    ))}
+                    .map(
+                      (announcement: AnnouncementResponse, index: number) => (
+                        <ProductCard
+                          isOwner={true}
+                          isAdvertisePage={true}
+                          key={index}
+                          announcement={announcement}
+                        />
+                      )
+                    )}
               </ContainerList>
             </BoxContent>
           </ContainerMain>
           <Footer />
-        </> : navigate("/")
-      }
+        </>
+      ) : (
+        navigate("/")
+      )}
     </>
   );
 };

@@ -4,7 +4,7 @@ import {
   AnnouncementResponse,
   UpdateAnnouncementRequest,
 } from "./announcement.interface";
-import { UserResponse, UserSessionRequest } from "./user.interface";
+import { AddressRequest, UserRegisterRequest, UserResponse, UserSessionRequest, UserUpdateRequest } from "./user.interface";
 
 export interface Props {
   children: ReactNode;
@@ -38,8 +38,9 @@ export interface AnnouncementProviderData {
   isOpenModalDeleteAnnouncement: boolean;
   reload: boolean
   allAnnouncements: AnnouncementResponse[]
-
  setReload: Function;
+ isModalSuccessCreate: boolean; 
+ setIsModalSuccessCreate: Function;
 }
 
 export interface IUserContext {
@@ -54,11 +55,25 @@ export interface IUserContext {
   setReload: Function;
   isDropdown: boolean;
   setIsDropDown: Function;
-
+  isModalUpdateProfile: boolean;
+  setIsModalUpdateProfile: Function;
+  updateProfile: (data: UserUpdateRequest) => void;
+  createProfile: (data: UserRegisterRequest) => void;
+  updateAddress: (data: AddressRequest) => void;
+  isModalUpdateAddress: boolean;
+  setIsModalUpdateAddress: Function;
+  menuOpen: boolean;
+  setMenuOpen: Function;
+  isAdvertiser: boolean
+  setIsAdvertiser: Function
+  userAdvertiser: UserResponse;
+  setUserAdvertiser: Function;
 }
 
 
 export interface SessionProviderData {
   createSession: (data: UserSessionRequest) => void;
   logout: () => void;
+  showPassword: boolean;
+  setShowPassword: Function;
 };

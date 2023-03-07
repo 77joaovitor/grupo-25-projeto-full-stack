@@ -1,5 +1,5 @@
 import { AxiosError, AxiosResponse } from 'axios';
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useState } from 'react';
 import { api } from '../../util/api';
 import { UserSessionRequest } from '../../interfaces/user.interface';
 import { Props, SessionProviderData } from '../../interfaces/contexts.interface';
@@ -13,6 +13,7 @@ const Context = createContext<SessionProviderData>({} as SessionProviderData)
 export const SessionProvider = ({ children }: Props) => {
 	const navigate = useNavigate();
 	const { setReload, reload, setIsLoading } = UserContext();
+	const [showPassword, setShowPassword] = useState<boolean>(false);
 
 
 	const createSession = async (data: UserSessionRequest) => {
@@ -27,14 +28,12 @@ export const SessionProvider = ({ children }: Props) => {
 			setTimeout( () => {
 				
 				const {access_token: token} = response.data;
-	
-				if (api.defaults.headers != null) {
-					api.defaults.headers.common.Authorization =  `Bearer ${token}` 
-				};
 				
 				login(token);
 				
 				setIsLoading(false);
+				
+				setShowPassword(!showPassword)
 
 				setReload(!reload);	
 
@@ -64,6 +63,8 @@ export const SessionProvider = ({ children }: Props) => {
 		<Context.Provider value={{
 			createSession,
 			logout,
+			showPassword, 
+			setShowPassword,
 		}}>
 			{children}
 		</Context.Provider>

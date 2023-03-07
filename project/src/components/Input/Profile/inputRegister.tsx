@@ -1,8 +1,8 @@
 import { BsExclamationCircle } from "react-icons/bs";
-import { PropsInputAnnouncement, PropsInputSession } from "../../../interfaces/component.interface";
+import { PropsInputAnnouncement, PropsInputUser } from "../../../interfaces/component.interface";
 import { ContainerInput } from "./style";
 
-export const InputUserSession = ({
+export const InputRegister = ({
 	register,
 	value,
 	label,
@@ -15,7 +15,7 @@ export const InputUserSession = ({
 	name,
 	placeholder,
 	defaultValue
-}: PropsInputSession): JSX.Element => {
+}: PropsInputUser): JSX.Element => {
 	// const a = inputGallery! as const
 	
 	return (
@@ -86,18 +86,26 @@ export const InputUserSession = ({
 								}
 							</div>
 							{
-                                <input
-                                    {...register(name)}
-                                    type={type}
-                                    name={name}
-                                    id={id}
-                                    placeholder={placeholder}
-                                    onChange={
-                                        (e) => e.target.value
-                                    }
-                                />
-
-								
+								file ?
+									<input
+										// {...register(`galleryImages.${inputGallery!}.imageUrl` as const, {
+										// 	required: true
+										// })}
+											type={type}
+											id={id}
+											placeholder={placeholder}
+									/>
+									:
+									<input
+										{...register(name)}
+										type={type}
+										name={name}
+										id={id}
+										placeholder={placeholder}
+										onChange={
+											(e) => e.target.value
+										}
+									/>
 							}
 						</div>
 				}

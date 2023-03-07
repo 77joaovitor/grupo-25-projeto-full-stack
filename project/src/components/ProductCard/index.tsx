@@ -8,7 +8,11 @@ import { useRef } from "react";
 import { Button } from "../Button";
 import { UserContext } from "../../context/user/userContext";
 
-const ProductCard = ({ announcement }: PropsAnnouncementCard) => {
+const ProductCard = ({
+  announcement,
+  isAdvertisePage,
+  isOwner,
+}: PropsAnnouncementCard) => {
   const {
     setDetailAnoucements,
     setIsOpenModalUpdateAnnouncement,
@@ -17,8 +21,14 @@ const ProductCard = ({ announcement }: PropsAnnouncementCard) => {
     setReload,
     reload,
   } = AnnouncementContext();
-
+  function priceFormat(value: number) {
+    let price = value.toString().split("").reverse().join("").replace(".", "");
+    price = price.replace(/(\d{2})/, "$1,");
+    price = price.replace(/(\d{3}(?!$))/g, "$1.");
+    return price.split("").reverse().join("");
+  }
   const { user, setUser, getUser } = UserContext();
+  const isAutorizated = isAdvertisePage && user.isAdvertiser;
 
   const navigate = useNavigate();
 
@@ -41,15 +51,17 @@ const ProductCard = ({ announcement }: PropsAnnouncementCard) => {
             <h3>{announcement.title}</h3>
             <p>
               {announcement.description.length > 70
-                ? announcement.description.substring(0, 60) + "..."
+                ? announcement.description.substring(0, 80) + "..."
                 : announcement.description}
             </p>
-            <div className="userConteiner">
-              <span className="logoName">
-                {announcement.advertiser.name[0]}
-              </span>{" "}
-              <span>{announcement.advertiser.name}</span>
-            </div>
+            {isOwner ? null : (
+              <div className="userConteiner">
+                <span className="logoName">
+                  {announcement.advertiser.name[0]}
+                </span>
+                <span>{announcement.advertiser.name}</span>
+              </div>
+            )}
             <div className="infoContainer">
               <div className="kmAndAge">
                 <span className="km">{announcement.vehicle.mileage}</span>{" "}
@@ -57,10 +69,12 @@ const ProductCard = ({ announcement }: PropsAnnouncementCard) => {
                   {announcement.vehicle.year.toString()}
                 </span>
               </div>
-              <span className="price">R$ {announcement.vehicle.price}</span>
+              <span className="price">
+                R$ {priceFormat(announcement.vehicle.price)}
+              </span>
             </div>
           </section>
-          {user.isAdvertiser && (
+          {isAutorizated && (
             <BoxButton>
               <Button
                 className="btn_edit"
