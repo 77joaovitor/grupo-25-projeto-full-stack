@@ -41,7 +41,7 @@ export const UpdateModalAddress = (): JSX.Element => {
 
                             <InputModalAddress 
                                 label="CEP"
-                                placeholder={user?.addresses?.zipCode}
+                                value={user?.addresses?.zipCode}
                                 key={user?.addresses?.zipCode+user?.id}
                                 register={register}
                                 name='zipCode'
@@ -51,7 +51,7 @@ export const UpdateModalAddress = (): JSX.Element => {
                             <BoxInput>
                                 <InputModalAddress 
                                     label="Estado"
-                                    placeholder={user?.addresses?.state}
+                                    value={user?.addresses?.state}
                                     key={user?.addresses?.state+user?.id}
                                     register={register}
                                     name='state'
@@ -60,7 +60,7 @@ export const UpdateModalAddress = (): JSX.Element => {
 
                                 <InputModalAddress 
                                     label="Cidade"
-                                    placeholder={user?.addresses?.city}
+                                    value={user?.addresses?.city}
                                     key={user?.addresses?.city}
                                     register={register}
                                     name='city'
@@ -70,16 +70,17 @@ export const UpdateModalAddress = (): JSX.Element => {
 
                             <InputModalAddress 
                                 label="Rua"
-                                placeholder={user?.addresses?.road}
+                                value={user?.addresses?.road}
                                 key={user?.addresses?.road}
                                 register={register}
                                 name='road'
                                 type="text"
                             />
                             
-                            <InputModalAddress 
+                           <BoxInput>
+                           <InputModalAddress 
                                 label="Número"
-                                placeholder={user?.addresses?.number}
+                                value={user?.addresses?.number}
                                 key={user?.addresses?.number}
                                 register={register}
                                 name='number'
@@ -87,13 +88,14 @@ export const UpdateModalAddress = (): JSX.Element => {
                             />
 
                             <InputModalAddress 
-                                label="Data de nascimento"
-                                placeholder={user?.addresses?.complement}
+                                label="Complemento"
+                                value={user?.addresses?.complement}
                                 key={user?.addresses?.complement}
                                 register={register}
                                 name='complement'
                                 type="text"
                             />
+                           </BoxInput>
 
                             <BoxButton>
                                 <Button

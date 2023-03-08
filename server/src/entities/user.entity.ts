@@ -20,7 +20,7 @@ class User {
     @Exclude()
     password: string;
 
-    @Column({ length: 11 })
+    @Column({ length: 14, nullable: true })
     cpf: string;
 
     @Column({ length: 20 })
@@ -38,8 +38,8 @@ class User {
     @Column({ default: true })
     isActive: boolean;
 
-    @Column({type: 'decimal', nullable: true})
-    pin: number | null
+    @Column({ nullable: true})
+    pin: string
 
     @CreateDateColumn()
     createdAt: Date;

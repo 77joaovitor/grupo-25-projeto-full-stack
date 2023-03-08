@@ -2,7 +2,7 @@ import AppDataSource from "../../data-source";
 import { User } from "../../entities";
 import sendEmail from "../../util/sendCodePass";
 import * as cache from "memory-cache";  
-
+import * as bcrypt from 'bcrypt';
 
 const sendEmailService = async (to: string): Promise<void> => {
   const userRepository = AppDataSource.getRepository(User);
@@ -11,20 +11,15 @@ const sendEmailService = async (to: string): Promise<void> => {
 
   if(pin < 0){ pin = pin*-1 }
 
+  const hashPin = await bcrypt.hash(pin.toString(), 10)
+
   const user = await userRepository.findOneBy({
     email: to
   })
-  cache.put("EMAIL_USER", to, 600000)
 
-  setTimeout(() => {
-    if (cache.get("EMAIL_USER")) {
-      console.log('Valor em cache:', cache.get("EMAIL_USER"));
-    } else {
-      console.log('Chave não encontrada no cache');
-    }
-  }, 15000);
+  cache.put("EMAIL_USER", user?.email, 600000)
 
-  user!.pin = pin
+  user!.pin = hashPin
 
   userRepository.save(user!);
 
@@ -38,7 +33,7 @@ const sendEmailService = async (to: string): Promise<void> => {
   await sendEmail({ subject, text: htmlText, to });
 
   setTimeout(() => {
-    user!.pin = null
+    user!.pin = ''
 
     userRepository.save(user!); // Remove o código PIN depois de 5 minutos
     

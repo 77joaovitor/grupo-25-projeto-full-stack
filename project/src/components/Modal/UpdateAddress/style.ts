@@ -31,7 +31,7 @@ export const FormUpdate = styled.form`
     padding: 20px;
     gap: 7px;
     padding-top: 20px;
-    height: 605px;
+    height: fit-content;
     position: absolute;
     width: 90%;
 

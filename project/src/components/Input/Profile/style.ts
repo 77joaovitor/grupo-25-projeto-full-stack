@@ -1,5 +1,51 @@
 import styled from 'styled-components';
+import InputMask from 'react-input-mask';
 
+export const InputCpf = styled(InputMask)`
+   display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px 16px;
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    color: #000000;
+    border: 1px solid #E9ECEF;
+    border-radius: 4px;
+    :focus, :focus-visible{
+      outline: none;
+    }
+`
+export const InputPhone = styled(InputMask)`
+   display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px 16px;
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    color: #000000;
+    border: 1px solid #E9ECEF;
+    border-radius: 4px;
+    :focus, :focus-visible{
+      outline: none;
+    }
+`
+export const InputBirthdate = styled(InputMask)`
+   display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px 16px;
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    color: #000000;
+    border: 1px solid #E9ECEF;
+    border-radius: 4px;
+    :focus, :focus-visible{
+      outline: none;
+    }
+`
 export const ContainerInput = styled.div`
   display: flex;
   flex-direction: column;

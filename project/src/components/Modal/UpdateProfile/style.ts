@@ -24,9 +24,9 @@ export const FormUpdate = styled.form`
     border-radius: 8px;
     justify-content: center;
     align-items: center;
-    padding: 29px;
-    gap: 20px;
-
+    padding: 25px;
+    gap: 10px;
+height: fit-content;
     position: absolute;
     width: 90%;
 
@@ -56,6 +56,9 @@ export const FormUpdate = styled.form`
         display: flex;
         align-items: flex-start;
         margin: 10px;
+    }
+    label{
+        font-size: 12px;
     }
 
     input{

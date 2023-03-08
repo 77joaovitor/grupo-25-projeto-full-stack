@@ -1,6 +1,64 @@
+import { forwardRef, useRef } from "react";
 import { BsExclamationCircle } from "react-icons/bs";
-import { PropsInputAnnouncement, PropsInputProfile } from "../../../interfaces/component.interface";
+import InputMask from "react-input-mask";
+import { PropsInputProfile } from "../../../interfaces/component.interface";
 import { ContainerInput } from "./style";
+
+interface InputMaskProps {
+	value: string;
+	onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+	onBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
+	onFocus: (event: React.FocusEvent<HTMLInputElement>) => void;
+	mask: string;
+	name?: string;
+  }
+
+const InputVerify = ({register, mask, name, type, value}: any) => {
+	const ref = useRef(forwardRef)
+	
+	if(type === 'cpf') {
+		return (
+			
+			<InputMask
+				ref={ref}
+				{...register(name)}
+				mask={'999.999.999-99'}
+				// name={name}
+				name={name}
+				defaultValue={value}
+			/>
+		)
+	}
+
+	else if(type === 'phone') {
+		return (
+			
+			<InputMask
+
+			ref={ref}
+			{...register(name)}
+				mask={'(99) 9 9999-9999'}
+				// name={name}
+				name={name}
+				defaultValue={value}
+			/>
+		)
+	}
+	else {
+		return (
+			
+			<InputMask
+
+			ref={ref}
+			{...register(name)}
+				mask={"99/99/9999"}
+				// name={name}
+				name={name}
+				defaultValue={value}
+			/>
+		)
+	}
+}	
 
 export const InputModalProfile = ({
 	register,
@@ -14,10 +72,10 @@ export const InputModalProfile = ({
 	type,
 	name,
 	placeholder,
-	defaultValue
+	defaultValue,
+	setValue,
 }: PropsInputProfile): JSX.Element => {
-	// const a = inputGallery! as const
-	
+
 	return (
 		<>
 			<ContainerInput>
@@ -51,7 +109,7 @@ export const InputModalProfile = ({
 							</div>
 							<textarea
 								{...register(name)}
-								value={value}
+								defaultValue={value}
 								name={name}
 								id={id}
 								cols={20}
@@ -86,17 +144,21 @@ export const InputModalProfile = ({
 								}
 							</div>
 							{
-								 
+								name !== "cpf" && name !== "phone" && name !== "birthdate" ?
 									<input
 										{...register(name)}
 										type={type}
 										name={name}
+										defaultValue={value}
+
 										id={id}
 										placeholder={placeholder}
-										onChange={
-											(e) => e.target.value
-										}
 									/>
+									: <InputVerify 
+										register={register} name={name} type={name} value={value}
+									/>
+
+
 							}
 						</div>
 				}

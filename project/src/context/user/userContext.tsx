@@ -46,10 +46,9 @@ const UserProvider = ({ children }: Props) => {
   const createProfile = async (data: UserRegisterRequest) => {
     try {
       setIsLoading(true);
-      console.log(data);
-
-      const response = await api.post("/users/", {
-        ...data,
+     
+      const response = await api.post('/users/', {
+        ...data, 
         address: {
           zipCode: data.zipCode,
           number: data.number,
@@ -89,10 +88,10 @@ const UserProvider = ({ children }: Props) => {
           progress: undefined,
           theme: "light",
         });
+        setIsLoading(false);
         error.response?.status === 500 &&
           setTimeout(() => {
-            setIsLoading(false);
-
+  
             logout();
             navigate("/error", { replace: true });
           }, 5000);
@@ -102,26 +101,35 @@ const UserProvider = ({ children }: Props) => {
 
   const updateProfile = async (data: UserUpdateRequest) => {
     try {
-      // setIsLoading(true);
-
+      setIsLoading(true);
+      
       const response = await api.patch(`users/${user.id}`, {
         ...data,
       });
+      
+      console.log(response.data);
+      
 
-      setTimeout(() => {
-        // setIsLoading(false);
-        setIsModalUpdateProfile(!isModalUpdateProfile);
+      setTimeout( () => {
+				
+        setIsLoading(false);
+        setIsModalUpdateProfile(!isModalUpdateProfile)
         setUser(response.data);
         setReload(!reload);
+        
       }, 500);
     } catch (error) {
-      if (error instanceof AxiosError) {
-        error.response?.status === 500 &&
-          setTimeout(() => {
-            logout();
-            navigate("/error", { replace: true });
-          }, 5000);
-      }
+      if(error instanceof AxiosError){
+        setIsLoading(false);
+        console.log(error);
+
+				error.response?.status === 500 && setTimeout(() => {
+	
+					logout()
+					navigate('/error', {replace: true});
+	
+				}, 5000);
+			}
     }
   };
 
@@ -131,23 +139,29 @@ const UserProvider = ({ children }: Props) => {
       const response = await api.patch(`users/${user.id}/address`, {
         ...data,
       });
-      setUser(response.data);
-      console.log(response.data);
-
-      setTimeout(() => {
+      setUser(response.data)
+     
+      
+      setTimeout( () => {
+				
         setIsLoading(false);
         setUser(response.data);
         setIsModalUpdateAddress(!isModalUpdateAddress);
         setReload(!reload);
+        
       }, 500);
     } catch (error) {
-      if (error instanceof AxiosError) {
-        error.response?.status === 500 &&
-          setTimeout(() => {
-            logout();
-            navigate("/error", { replace: true });
-          }, 5000);
-      }
+      if(error instanceof AxiosError){
+        setIsLoading(false);
+        console.log(error);
+
+				error.response?.status === 500 && setTimeout(() => {
+	
+					logout()
+					navigate('/error', {replace: true});
+	
+				}, 5000);
+			}
     }
   };
   return (

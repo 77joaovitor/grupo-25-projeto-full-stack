@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { FieldErrors, UseFormRegister } from "react-hook-form";
+import { FieldErrors, UseFormRegister, UseFormSetValue } from "react-hook-form";
 import {
   AnnouncementRequest,
   AnnouncementResponse,
@@ -81,6 +81,7 @@ export interface PropsInputSession {
 }
 export interface PropsInputProfile {
   id?: string;
+  setValue?: UseFormSetValue<UserUpdateRequest>
   inputGallery?: number;
   value?: string;
   label?: string;

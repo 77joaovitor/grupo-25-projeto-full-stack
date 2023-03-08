@@ -92,6 +92,7 @@ export const InputModalAddress = ({
 										type={type}
 										name={name}
 										id={id}
+										defaultValue={value}
 										placeholder={placeholder}
 										onChange={
 											(e) => e.target.value

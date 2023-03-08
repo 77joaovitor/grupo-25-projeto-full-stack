@@ -14,6 +14,7 @@ import { api } from "../../util/api";
 import { getToken, logout } from "../session/auth";
 import jwt_decode from "jwt-decode";
 import { UserContext } from "../user/userContext";
+import { useNavigate } from "react-router-dom";
 
 const Context = createContext<AnnouncementProviderData>(
   {} as AnnouncementProviderData
@@ -54,6 +55,8 @@ export const AnnouncementProvider = ({ children }: Props) => {
  
   const { setUserAdvertiser, getUser, reload, setReload } = UserContext();
 
+  const navigate = useNavigate()
+
   const createAnnouncement = async (data: AnnouncementRequest) => {
     setIsLoading(true);
 
@@ -71,19 +74,23 @@ export const AnnouncementProvider = ({ children }: Props) => {
         },
       });
 
-      setAnnouncement(response.data);
-      setIsModalSuccessCreate(!isModalSuccessCreate)
-      setReload(!reload);
-
       setTimeout(() => {
         setIsLoading(false);
+        setAnnouncement(response.data);
+        setIsModalSuccessCreate(!isModalSuccessCreate)
+        setReload(!reload);
+
       }, 500);
     } catch (error) {
       if (error instanceof AxiosError) {
+        setIsLoading(false);
+        console.log(error);
+        
         error.response?.status === 500 &&
           setTimeout(() => {
+
             logout();
-            // navigate('/error', {replace: true});
+            navigate('/error', {replace: true});
           }, 5000);
       }
     }
@@ -109,18 +116,20 @@ export const AnnouncementProvider = ({ children }: Props) => {
         }
       );
 
-      setAnnouncement(response.data);
-      setReload(!reload);
-
       setTimeout(() => {
         setIsLoading(false);
+        setAnnouncement(response.data);
+        setReload(!reload);
+
       }, 500);
     } catch (error) {
       if (error instanceof AxiosError) {
+        setIsLoading(false);
         error.response?.status === 500 &&
           setTimeout(() => {
+
             logout();
-            // navigate('/error', {replace: true});
+            navigate('/error', {replace: true});
           }, 5000);
       }
     }
@@ -163,12 +172,25 @@ export const AnnouncementProvider = ({ children }: Props) => {
 
   const deleteAnnouncement = async (announcementId: string) => {
     try {
+      setIsLoading(true);
+
       await api.delete(`/announcements/${announcementId}`);
-      setReload(!reload);
+
+      setTimeout(() => {
+        setIsLoading(false);
+        setReload(!reload);
+
+      }, 500);
+
     } catch (error) {
-      if (error instanceof AxiosError) {
-        console.log(error);
-      }
+      if(error instanceof AxiosError){
+        setIsLoading(false);
+				error.response?.status === 500 && setTimeout(() => {
+					logout()
+					navigate('/error', {replace: true});
+	
+				}, 5000);
+			}
     }
   };
 
