@@ -1,36 +1,37 @@
-import { yupResolver } from '@hookform/resolvers/yup';
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
-import * as yup from 'yup';
+import * as yup from "yup";
 import { SessionContext } from "../../context";
 import { UserContext } from "../../context/user/userContext";
 import { UserRegisterRequest } from "../../interfaces/user.interface";
-import { userRegisterSchema } from '../../schema/user.schema';
+import { userRegisterSchema } from "../../schema/user.schema";
 import { Button } from "../Button";
 import { InputRegister } from "../Input/Profile/inputRegister";
 import { BoxButton, BoxInput, BoxType, Container } from "./style";
-
+import { useState } from "react";
 
 const FormRegister = () => {
-
-  
-  const { createProfile, setIsAdvertiser } = UserContext()
+  const { createProfile, setIsAdvertiser, isAdvertiser } = UserContext();
 
   const { createSession, showPassword, setShowPassword } = SessionContext();
 
-  const { register, handleSubmit, formState: { errors } } = useForm<UserRegisterRequest>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<UserRegisterRequest>({
     resolver: yupResolver(userRegisterSchema),
-
-  })
-console.log(errors);
+  });
+  console.log(errors);
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
 
-  return <>
-
-    <Container onSubmit={handleSubmit(createProfile)} action="" >
+  return (
+    <>
+      <Container onSubmit={handleSubmit(createProfile)} action="">
         <div className="formText">
           <h2>Cadastro</h2>
           <span>Informações pessoais</span>
@@ -56,7 +57,7 @@ console.log(errors);
 
         <InputRegister
           errors={errors}
-          name='cpf'
+          name="cpf"
           label="CPF"
           placeholder="000.000.000-00"
           type="text"
@@ -65,7 +66,7 @@ console.log(errors);
 
         <InputRegister
           errors={errors}
-          name='phone'
+          name="phone"
           label="Celular"
           placeholder="(DDD) 90000-0000"
           type="text"
@@ -74,7 +75,7 @@ console.log(errors);
 
         <InputRegister
           errors={errors}
-          name='birthdate'
+          name="birthdate"
           label="Data de nascimento"
           placeholder="00/00/00"
           type="text"
@@ -83,7 +84,7 @@ console.log(errors);
 
         <InputRegister
           errors={errors}
-          name='description'
+          name="description"
           label="Descrição"
           placeholder="Digitar descrição"
           type="text"
@@ -95,7 +96,7 @@ console.log(errors);
 
         <InputRegister
           errors={errors}
-          name='zipCode'
+          name="zipCode"
           label="CEP"
           placeholder="00000.000"
           type="text"
@@ -103,10 +104,9 @@ console.log(errors);
         />
 
         <BoxInput>
-
           <InputRegister
             errors={errors}
-            name='state'
+            name="state"
             label="Estado"
             placeholder="Digitar Estado"
             type="text"
@@ -115,18 +115,17 @@ console.log(errors);
 
           <InputRegister
             errors={errors}
-            name='city'
+            name="city"
             label="Cidade"
             placeholder="Digitar cidade"
             type="text"
             register={register}
           />
-
         </BoxInput>
 
         <InputRegister
           errors={errors}
-          name='road'
+          name="road"
           label="Rua"
           placeholder="Digitar rua"
           type="text"
@@ -134,10 +133,9 @@ console.log(errors);
         />
 
         <BoxInput>
-
           <InputRegister
             errors={errors}
-            name='number'
+            name="number"
             label="Número"
             placeholder="Digitar número"
             type="text"
@@ -146,70 +144,65 @@ console.log(errors);
 
           <InputRegister
             errors={errors}
-            name='complement'
+            name="complement"
             label="Complemento"
             placeholder="Ex: apart 307"
             type="text"
             register={register}
           />
-
         </BoxInput>
 
-
         <BoxType>
-
           <span className="spanType">Tipo de conta</span>
           <BoxButton>
             <Button
-              onClick={
-                () => setIsAdvertiser(false)
-              }
+              onClick={() => {
+                setIsAdvertiser(false);
+              }}
               type="button"
+              className={isAdvertiser ? "buttonWhite" : "buttonBlue"}
             >
               Comprador
             </Button>
             <Button
-              onClick={
-                () => setIsAdvertiser(true)
-              }
+              onClick={() => {
+                setIsAdvertiser(true);
+              }}
               type="button"
-              className="buttonWhite">
+              className={!isAdvertiser ? "buttonWhite" : "buttonBlue"}
+            >
               Anunciante
             </Button>
-
           </BoxButton>
         </BoxType>
 
         <InputRegister
           errors={errors}
-          name='password'
+          name="password"
           label="Senha"
           placeholder="Digitar senha"
-          type={showPassword ? 'text' : 'password'}
+          type={showPassword ? "text" : "password"}
           register={register}
         />
 
-        <span onClick={handleShowPassword} className='eye'>
-          {showPassword ?
-
-            <BsFillEyeFill /> :
-            <BsFillEyeSlashFill />
-          }
+        <span onClick={handleShowPassword} className="eye">
+          {showPassword ? <BsFillEyeFill /> : <BsFillEyeSlashFill />}
         </span>
 
         <InputRegister
           errors={errors}
-          name='confirmPassword'
+          name="confirmPassword"
           label="Confirmar Senha"
           placeholder="Digitar senha"
           type="text"
           register={register}
         />
-        <button type='submit' className="buttonFinaly">
+        <button type="submit" className="buttonFinaly">
           Finalizar cadastro
         </button>
-    </Container>
-  </>
+      </Container>
+    </>
+  );
 };
 
 export default FormRegister;

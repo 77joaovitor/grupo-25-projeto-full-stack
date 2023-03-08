@@ -8,17 +8,18 @@ import { useRef } from "react";
 import { Button } from "../Button";
 import { UserContext } from "../../context/user/userContext";
 
-const ProductCard = ({ announcement }: PropsAnnouncementCard) => {
+const ProductCard = ({ announcement, isAdmPage }: PropsAnnouncementCard) => {
   const {
     setDetailAnoucements,
     setIsOpenModalUpdateAnnouncement,
     isOpenModalUpdateAnnouncement,
-    // getOneAnnouncement
     setReload,
     reload,
   } = AnnouncementContext();
 
   const { user, setUser, getUser } = UserContext();
+
+  const editAdm = user.isAdvertiser && isAdmPage;
 
   const navigate = useNavigate();
 
@@ -44,12 +45,14 @@ const ProductCard = ({ announcement }: PropsAnnouncementCard) => {
                 ? announcement.description.substring(0, 60) + "..."
                 : announcement.description}
             </p>
-            <div className="userConteiner">
-              <span className="logoName">
-                {announcement.advertiser.name[0]}
-              </span>{" "}
-              <span>{announcement.advertiser.name}</span>
-            </div>
+            {!isAdmPage && (
+              <div className="userConteiner">
+                <span className="logoName">
+                  {announcement.advertiser.name[0]}
+                </span>{" "}
+                <span>{announcement.advertiser.name}</span>
+              </div>
+            )}
             <div className="infoContainer">
               <div className="kmAndAge">
                 <span className="km">{announcement.vehicle.mileage}</span>{" "}
@@ -57,10 +60,15 @@ const ProductCard = ({ announcement }: PropsAnnouncementCard) => {
                   {announcement.vehicle.year.toString()}
                 </span>
               </div>
-              <span className="price">R$ {announcement.vehicle.price}</span>
+              <span className="price">
+                {announcement.vehicle.price.toLocaleString("pt-br", {
+                  style: "currency",
+                  currency: "BRL",
+                })}
+              </span>
             </div>
           </section>
-          {user.isAdvertiser && (
+          {editAdm && (
             <BoxButton>
               <Button
                 className="btn_edit"

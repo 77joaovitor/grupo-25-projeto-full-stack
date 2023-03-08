@@ -98,6 +98,7 @@ export const Container = styled.div`
       font-size: 16px;
       color: rgba(33, 37, 41, 1);
       font-weight: 500;
+      overflow: hidden;
     }
   }
 `;
