@@ -13,53 +13,15 @@ import {
 } from "./style";
 import { Footer } from "../../components/Footer";
 import { AnnouncementResponse } from "../../interfaces/announcement.interface";
+import { responsive, responsive3 } from "../../util/responsive";
 
 export const Home = (): JSX.Element => {
-  const {
-    allAnnouncements,
-  } = AnnouncementContext();
-  
-  const responsive = {
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 4,
-      slidesToSlide: 4, // optional, default to 1.
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 2,
-      slidesToSlide: 2, // optional, default to 1.
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1,
-      slidesToSlide: 1, // optional, default to 1.
-    },
-  };
-  const responsive2 = {
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 4,
-      slidesToSlide: 2, // optional, default to 1.
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 2,
-      slidesToSlide: 2, // optional, default to 1.
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1,
-      slidesToSlide: 1, // optional, default to 1.
-    },
-  };
+  const { allAnnouncements } = AnnouncementContext();
 
   return (
     <>
       <Header />
-      <PresentationSection
-        id="home"
-      >
+      <PresentationSection id="home">
         <p>Velocidade e experiência em um lugar feito para você</p>
         <span>Um ambiente feito para você explorar o seu melhor</span>
 
@@ -77,7 +39,7 @@ export const Home = (): JSX.Element => {
         <BoxContent>
           <h3>Leilão</h3>
           <ContainerList
-            responsive={responsive2}
+            responsive={responsive3}
             removeArrowOnDeviceType={["tablet", "mobile"]}
           >
             <AuctionCard />
@@ -101,7 +63,11 @@ export const Home = (): JSX.Element => {
                     (elem: AnnouncementResponse) => elem.vehicle.type === "car"
                   )
                   .map((announcement, index) => (
-                    <ProductCard key={index} announcement={announcement} />
+                    <ProductCard
+                      isAdmPage={false}
+                      key={index}
+                      announcement={announcement}
+                    />
                   ))}
             </ContainerList>
           </ListBox>
@@ -113,13 +79,18 @@ export const Home = (): JSX.Element => {
             removeArrowOnDeviceType={["tablet", "mobile"]}
           >
             {allAnnouncements &&
-                allAnnouncements
-                  .filter(
-                    (elem: AnnouncementResponse) => elem.vehicle.type === "motorcycle"
-                  )
-                  .map((announcement, index) => (
-                <ProductCard key={index} announcement={announcement} />
-              ))}
+              allAnnouncements
+                .filter(
+                  (elem: AnnouncementResponse) =>
+                    elem.vehicle.type === "motorcycle"
+                )
+                .map((announcement, index) => (
+                  <ProductCard
+                    isAdmPage={false}
+                    key={index}
+                    announcement={announcement}
+                  />
+                ))}
           </ContainerList>
         </BoxContent>
       </ListSection>

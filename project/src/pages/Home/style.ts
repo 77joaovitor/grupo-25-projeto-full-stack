@@ -109,4 +109,7 @@ export const ContainerList = styled(Carousel)`
   li {
     width: 300px;
   }
+  > button {
+    z-index: 0;
+  }
 `;

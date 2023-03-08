@@ -11,70 +11,57 @@ import { InputUserSession } from "../Input/Session/inputSession";
 import { BoxForm } from "./style";
 
 export const FormLogin = () => {
-
   const { createSession, showPassword, setShowPassword } = SessionContext();
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
-  const { register, handleSubmit, formState: { errors } } = useForm<UserSessionRequest>({
-    resolver: yupResolver(userSessionRequestSchema)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<UserSessionRequest>({
+    resolver: yupResolver(userSessionRequestSchema),
   });
 
   return (
     <BoxForm action="" onSubmit={handleSubmit(createSession)}>
       <h2>Login</h2>
 
-      <InputUserSession 
+      <InputUserSession
         register={register}
         errors={errors}
-        label='Email'
+        label="Email"
         placeholder="Digitar email"
         name="email"
-        key='mail'
+        key="mail"
         type="email"
       />
 
-      
-      <InputUserSession 
+      <InputUserSession
         register={register}
         errors={errors}
-        label='Senha'
+        label="Senha"
         placeholder="Digitar senha"
         name="password"
-        key='password'
-        type={showPassword ? 'text' : 'password'}
+        key="password"
+        type={showPassword ? "text" : "password"}
       />
-      <span onClick={handleShowPassword} className='eye'>
-        {showPassword ? 
-        
-        <BsFillEyeFill />:
-        <BsFillEyeSlashFill /> 
-        }
+      <span onClick={handleShowPassword} className="eye">
+        {showPassword ? <BsFillEyeFill /> : <BsFillEyeSlashFill />}
       </span>
 
-      <Link to={"/recovery"}
-        className='link-recovery'
-      >
+      <Link to={"/recovery"} className="link-recovery">
         Esqueci minha senha
       </Link>
 
-      <Button
-        type="submit"
-      >
-        Entrar
-      </Button>
+      <Button type="submit">Entrar</Button>
 
       <span>Ainda não possui conta?</span>
 
-      <Link
-        className="link-register"
-        to="/register"
-      >
+      <Link className="link-register" to="/register">
         Cadastrar
       </Link>
-
     </BoxForm>
-  )
+  );
 };
-

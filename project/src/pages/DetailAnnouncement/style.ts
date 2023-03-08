@@ -122,7 +122,7 @@ export const Container = styled.main`
     gap: 10px;
     align-items: flex-start;
   }
-  button {
+  .info > button {
     background-color: #5126ea;
     color: white;
     display: flex;
@@ -182,6 +182,7 @@ export const Container = styled.main`
   }
   .peapleAnnouncement-button {
     background-color: black;
+    color: white;
     display: flex;
     justify-content: center;
     margin-top: 0.5rem;
