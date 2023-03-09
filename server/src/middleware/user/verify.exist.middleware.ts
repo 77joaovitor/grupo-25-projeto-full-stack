@@ -7,14 +7,13 @@ import { userRequestSchema } from "../../schema/user/user.schema";
 const verifyExist = async (req: Request, res: Response, next: NextFunction) => {
     try {
 
-        const serialized = await userRequestSchema.validate(req.body, {
-        });
+
         
         const userRepository = AppDataSource.getRepository(User);
         
         const user = await userRepository.findOne({
            where: {
-            email: serialized.email
+            email: req.body.email
            }
         });
 
