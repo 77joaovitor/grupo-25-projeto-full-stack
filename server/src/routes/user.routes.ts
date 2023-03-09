@@ -3,6 +3,7 @@ import { updateAddressController } from "../controllers/address/update.controlle
 
 import { createUserController } from "../controllers/user/create.controller";
 import { deleteUserController } from "../controllers/user/delete.controller";
+import { getAllUserController } from "../controllers/user/getAll.controller";
 import { getOneUserController } from "../controllers/user/getOne.controller";
 import { recoverPasswordController } from "../controllers/user/recover.controller";
 import { updateUserController } from "../controllers/user/update.controller";
@@ -18,6 +19,7 @@ export const userRouter = () => {
     routes.post('', verifyExist, createUserController);
     routes.patch('/recover/', verifyPin, recoverPasswordController);
     routes.get('/:id', verifyAuthToken, verifyId, getOneUserController);
+    routes.get('', getAllUserController);
     routes.patch('/:id', verifyAuthToken, verifyId, verifyOwnerAccount, updateUserController);
     routes.patch('/:id/address/',verifyAuthToken, verifyId, verifyOwnerAccount,updateAddressController)
     routes.delete('/:id', verifyAuthToken, verifyId, verifyOwnerAccount, deleteUserController);

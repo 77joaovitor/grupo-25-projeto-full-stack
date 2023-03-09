@@ -46,6 +46,7 @@ const UserProvider = ({ children }: Props) => {
   const createProfile = async (data: UserRegisterRequest) => {
     try {
       setIsLoading(true);
+    
      
       const response = await api.post('/users/', {
         ...data, 
@@ -59,7 +60,7 @@ const UserProvider = ({ children }: Props) => {
         },
         isAdvertiser: isAdvertiser,
       });
-
+      console.log(response.data);
       toast.success(response.data.message, {
         position: "top-right",
         autoClose: 5000,
@@ -78,6 +79,7 @@ const UserProvider = ({ children }: Props) => {
       }, 500);
     } catch (error) {
       if (error instanceof AxiosError) {
+        setIsLoading(false);
         toast.error("Algo deu errado!", {
           position: "top-right",
           autoClose: 5000,
@@ -88,7 +90,6 @@ const UserProvider = ({ children }: Props) => {
           progress: undefined,
           theme: "light",
         });
-        setIsLoading(false);
         error.response?.status === 500 &&
           setTimeout(() => {
   
