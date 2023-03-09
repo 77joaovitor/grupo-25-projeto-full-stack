@@ -13,6 +13,10 @@ export const ContainerProfileModal = styled.div`
     color: #000000;
     background: rgba(18, 18, 20, 0.3);
     overflow-y: auto;
+    ::-webkit-scrollbar {
+        width: 0px;   
+        border: 1px solid ;
+    }   
 `
 export const BoxInput = styled.div`
     display: flex;
@@ -31,7 +35,7 @@ export const FormUpdate = styled.form`
     padding: 20px;
     gap: 7px;
     padding-top: 20px;
-    height: 605px;
+    height: fit-content;
     position: absolute;
     width: 90%;
 

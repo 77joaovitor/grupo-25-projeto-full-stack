@@ -9,7 +9,7 @@ export const Container = styled.main`
       #f1f3f5 80%,
       #5126ea 20%
     );
-    /* justify-content: center; */
+    padding:50px 0px;
   }
   .container1 {
     display: flex;
@@ -31,12 +31,21 @@ export const Container = styled.main`
     border-radius: 5px;
     margin: 10px;
     padding: 2rem;
+    p{
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 24px;
+        color: #495057;
+        text-align: justify;
+        word-wrap: break-word;
+        width: 100%;
+    }
   }
   .peapleComents {
-    background-color: white;
+    background: #FDFDFD;
     border-radius: 5px;
     margin: 10px;
-    padding: 20px;
+    padding: 35px 25px;
     display: flex;
     flex-direction: column;
   }
@@ -71,14 +80,36 @@ export const Container = styled.main`
     position: inherit;
     display: flex;
     justify-content: center;
-    width: 35%;
+    width: 40%;
   }
+
+  .box{
+      display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-content: center;
+    padding: 30px 40px;
+    margin: 10px;
+    height: 700px;
+      height: 100%;
+      background: #ffff;
+      width: 100%;
+    }
   .coments {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 30px;
     background-color: white;
     border-radius: 5px;
-    margin: 10px;
-    padding: 2rem;
-  }
+    padding: 1.5rem 1rem;
+    height: 700px;
+    overflow-y: auto;
+    ::-webkit-scrollbar {
+        width: 0px;   
+        border: 1px solid ;
+    }  
+    }
   .fotoPrincipal {
     background-color: white;
     border-radius: 5px;
@@ -92,8 +123,9 @@ export const Container = styled.main`
     margin: 10px;
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 30px 40px;
     height: 15rem;
+    gap: 20px;
     justify-content: space-around;
     span {
       background-color: #edeafd;
@@ -106,7 +138,8 @@ export const Container = styled.main`
     > button {
       padding: 0.2rem 0.5rem;
       justify-content: center;
-      width: 40%;
+      width: 100px;
+      height: 38px;
     }
   }
   .info-text {
@@ -148,6 +181,7 @@ export const Container = styled.main`
   .fotos {
     display: flex;
     flex-wrap: wrap;
+    gap: 10px;
     max-width: 400px;
     align-items: center;
     justify-content: center;
@@ -221,6 +255,13 @@ export const Container = styled.main`
   }
 
   @media (min-width: 1024px) {
+    .info-text {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: flex-start;
+    flex-direction: row;
+  }
     .container1 {
       margin: auto;
     }
@@ -237,6 +278,7 @@ export const Container = styled.main`
       width: 50%;
       .logoPrincipal {
         height: 20rem;
+        width: 80%;
       }
     }
     .container2 {
@@ -249,12 +291,41 @@ export const Container = styled.main`
       gap: 10px;
     }
     .container-third-desktop {
-      width: 85%;
+      padding: 10px;
+      width: 87%;
+      
+      h2{
+        font-weight: 600;
+        font-size: 20px;
+line-height: 25px;
+        color: #212529;
+        position: relative;
+        z-index: 9999;
+        inset: 0;
+
+      }
     }
     aside {
     }
+    .box{
+      display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 10px;
+    height: 700px;
+      height: 100%;
+      background: #ffff;
+      width: 56.5%;
+    }
     .coments {
-      width: 57%;
+      display: flex;
+      margin: 0;
+      flex-direction: column;
+      gap: 25px;
+      width: 100%;
+      height: 690px;
+      overflow-y: auto;
+
     }
     .peapleComents {
       width: 57%;

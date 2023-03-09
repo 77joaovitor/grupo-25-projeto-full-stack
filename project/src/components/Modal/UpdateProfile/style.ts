@@ -6,13 +6,17 @@ export const ContainerProfileModal = styled.div`
     justify-content: center;
     padding: 20px 0 ;
       
-    z-index: 9999;
+    z-index: 99999;
     inset: 0;
     width: 100%;
     height: 100%;
     color: #000000;
     background: rgba(18, 18, 20, 0.3);
     overflow-y: auto;
+    ::-webkit-scrollbar {
+        width: 0px;   
+        border: 1px solid ;
+    }   
 `
 
 export const FormUpdate = styled.form`
@@ -24,9 +28,9 @@ export const FormUpdate = styled.form`
     border-radius: 8px;
     justify-content: center;
     align-items: center;
-    padding: 29px;
-    gap: 20px;
-
+    padding: 25px;
+    gap: 10px;
+height: fit-content;
     position: absolute;
     width: 90%;
 
@@ -56,6 +60,9 @@ export const FormUpdate = styled.form`
         display: flex;
         align-items: flex-start;
         margin: 10px;
+    }
+    label{
+        font-size: 12px;
     }
 
     input{

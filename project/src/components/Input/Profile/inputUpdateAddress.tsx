@@ -1,6 +1,28 @@
 import { BsExclamationCircle } from "react-icons/bs";
 import { PropsInputAddress } from "../../../interfaces/component.interface";
 import { ContainerInput } from "./style";
+import InputMask from "react-input-mask";
+import { forwardRef, useRef } from "react";
+
+
+const InputVerify = ({register, mask, name, type, value}: any) => {
+	const ref = useRef(forwardRef)
+
+
+	return (
+		
+		<InputMask
+			ref={ref}
+			{...register(name)}
+			mask={'99.999-999'}
+			// name={name}
+			name={name}
+			defaultValue={value}
+		/>
+	)
+	
+
+}
 
 export const InputModalAddress = ({
 	register,
@@ -87,16 +109,19 @@ export const InputModalAddress = ({
 							</div>
 							{
 								 
-									<input
-										{...register(name)}
-										type={type}
-										name={name}
-										id={id}
-										placeholder={placeholder}
-										onChange={
-											(e) => e.target.value
-										}
-									/>
+								name !== "zipCode" ?
+								 <input
+									 {...register(name)}
+									 type={type}
+									 name={name}
+									 defaultValue={value}
+
+									 id={id}
+									 placeholder={placeholder}
+								 />
+								 : <InputVerify 
+									 register={register} name={name} type={name} value={value}
+								 />
 							}
 						</div>
 				}

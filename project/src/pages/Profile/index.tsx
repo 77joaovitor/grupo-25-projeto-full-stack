@@ -10,6 +10,7 @@ import {
   BoxContent,
   ContainerList,
   ContainerMain,
+  Message,
   PresentationSection,
   ProfileContent,
   UserInformation,
@@ -18,7 +19,7 @@ import {
 export const Profile = (): JSX.Element => {
   const { allAnnouncementByAdvertiser } = AnnouncementContext();
 
-  const { userAdvertiser } = UserContext();
+  const { userAdvertiser, isDropdown, setIsDropDown } = UserContext();
 
   const navigate = useNavigate();
 
@@ -27,7 +28,11 @@ export const Profile = (): JSX.Element => {
       {userAdvertiser?.isAdvertiser ? (
         <>
           <Header />
-          <PresentationSection id="home">
+          <PresentationSection id="home"
+             onClick={
+              () => isDropdown && setIsDropDown(false)
+            }
+          >
             <ProfileContent>
               <UserInformation>
                 <span className="logoName">
@@ -37,14 +42,16 @@ export const Profile = (): JSX.Element => {
               </UserInformation>
 
               <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s
+               {userAdvertiser?.description}
               </p>
             </ProfileContent>
           </PresentationSection>
 
-          <ContainerMain>
+          <ContainerMain
+             onClick={
+              () => isDropdown && setIsDropDown(false)
+            }
+          >
             <BoxContent id="cars">
               <h3>Carros</h3>
               <ContainerList
@@ -64,6 +71,15 @@ export const Profile = (): JSX.Element => {
                         announcement={announcement}
                       />
                     ))}
+                    {
+                      allAnnouncementByAdvertiser
+                      .filter(
+                        (elem: AnnouncementResponse) =>
+                          elem.vehicle.type === "car"
+                      ).length === 0 && <Message>
+                      <p>Anunciante sem anúncios disponíveis</p>
+                  </Message> 
+                    }
               </ContainerList>
             </BoxContent>
             <BoxContent id="motorcycles">
@@ -87,6 +103,15 @@ export const Profile = (): JSX.Element => {
                         />
                       )
                     )}
+                      {
+                      allAnnouncementByAdvertiser
+                      .filter(
+                        (elem: AnnouncementResponse) =>
+                          elem.vehicle.type === "motorcycle"
+                      ).length === 0 && <Message>
+                      <p>Anunciante sem anúncios disponíveis</p>
+                  </Message> 
+                    }
               </ContainerList>
             </BoxContent>
           </ContainerMain>

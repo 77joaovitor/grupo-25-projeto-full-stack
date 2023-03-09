@@ -19,7 +19,20 @@ rgba(255, 255, 255, 1);
 
 
 }
+*::-webkit-scrollbar {
+        width: 5px;   
+        border: 1px solid ;
+    }   
 
+    *::-webkit-scrollbar-track{
+        background: #F4F4F4; 
+    } 
+    *::-webkit-scrollbar-thumb{
+        background-color: #A1A1A1;
+        border-radius: 100px;    
+        border: 1px solid #A1A1A1
+
+    }
 * {
     box-sizing: border-box;
     color: #1a1a1a;

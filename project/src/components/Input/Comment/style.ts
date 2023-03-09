@@ -1,51 +1,5 @@
 import styled from 'styled-components';
-import InputMask from 'react-input-mask';
 
-export const InputCpf = styled(InputMask)`
-   display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 0px 16px;
-    width: 100%;
-    height: 100%;
-    background: #ffffff;
-    color: #000000;
-    border: 1px solid #E9ECEF;
-    border-radius: 4px;
-    :focus, :focus-visible{
-      outline: none;
-    }
-`
-export const InputPhone = styled(InputMask)`
-   display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 0px 16px;
-    width: 100%;
-    height: 100%;
-    background: #ffffff;
-    color: #000000;
-    border: 1px solid #E9ECEF;
-    border-radius: 4px;
-    :focus, :focus-visible{
-      outline: none;
-    }
-`
-export const InputBirthdate = styled(InputMask)`
-   display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 0px 16px;
-    width: 100%;
-    height: 100%;
-    background: #ffffff;
-    color: #000000;
-    border: 1px solid #E9ECEF;
-    border-radius: 4px;
-    :focus, :focus-visible{
-      outline: none;
-    }
-`
 export const ContainerInput = styled.div`
   display: flex;
   flex-direction: column;
@@ -56,12 +10,12 @@ export const ContainerInput = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 0px 16px;
+    padding: 16px;
     width: 100%;
     height: 100%;
-    background: #ffffff;
     color: #000000;
     border: 1px solid #E9ECEF;
+    background: #FDFDFD;
     border-radius: 4px;
     :focus, :focus-visible{
       outline: none;
@@ -69,7 +23,7 @@ export const ContainerInput = styled.div`
   };
 
  textarea{
-    height: 80px;
+    height: 180px;
 
   }
 
@@ -79,7 +33,10 @@ export const ContainerInput = styled.div`
     
     height: 78px;
     gap: 10px;
-    
+    .eye{
+      position: relative;
+      top: 0;
+    }
   }
   .box_description{
     display: flex;

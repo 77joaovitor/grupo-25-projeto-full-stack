@@ -12,10 +12,9 @@ const verifyExist = async (req: Request, res: Response, next: NextFunction) => {
         
         const userRepository = AppDataSource.getRepository(User);
         
-        console.log(serialized.email);
         const user = await userRepository.findOne({
            where: {
-            email: req.body.email
+            email: serialized.email
            }
         });
 

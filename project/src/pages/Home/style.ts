@@ -112,4 +112,13 @@ export const ContainerList = styled(Carousel)`
   > button {
     z-index: 0;
   }
+
 `;
+
+export const Message = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  width: 92vw;
+`

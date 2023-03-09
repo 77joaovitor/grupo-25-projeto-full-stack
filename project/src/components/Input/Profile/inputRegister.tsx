@@ -1,6 +1,70 @@
 import { BsExclamationCircle } from "react-icons/bs";
 import { PropsInputAnnouncement, PropsInputUser } from "../../../interfaces/component.interface";
 import { ContainerInput } from "./style";
+import InputMask from "react-input-mask";
+import { forwardRef, useRef } from "react";
+
+const InputVerify = ({register, mask, name, type, value}: any) => {
+	const ref = useRef(forwardRef)
+	
+	if(type === 'cpf') {
+		return (
+			
+			<InputMask
+				ref={ref}
+				{...register(name)}
+				mask={'999.999.999-99'}
+				// name={name}
+				name={name}
+				defaultValue={value}
+			/>
+		)
+	}
+	if(type === 'zipCode') {
+		return (
+			
+			<InputMask
+				ref={ref}
+				{...register(name)}
+				mask={'99.999-999'}
+				// name={name}
+				name={name}
+				defaultValue={value}
+			/>
+		)
+	}
+
+	else if(type === 'phone') {
+		return (
+			
+			<InputMask
+
+			ref={ref}
+			{...register(name)}
+				mask={'(99) 9 9999-9999'}
+				// name={name}
+				name={name}
+				defaultValue={value}
+			/>
+		)
+	}
+	else {
+		return (
+			
+			<InputMask
+
+			ref={ref}
+			{...register(name)}
+				mask={"99/99/9999"}
+				// name={name}
+				name={name}
+				defaultValue={value}
+			/>
+		)
+	}
+}	
+
+
 
 export const InputRegister = ({
 	register,
@@ -96,15 +160,19 @@ export const InputRegister = ({
 											placeholder={placeholder}
 									/>
 									:
+					
+									name !== "cpf" && name !== "phone" && name !== "birthdate" && name !== "zipCode" ?
 									<input
 										{...register(name)}
 										type={type}
 										name={name}
+										defaultValue={value}
+
 										id={id}
 										placeholder={placeholder}
-										onChange={
-											(e) => e.target.value
-										}
+									/>
+									: <InputVerify 
+										register={register} name={name} type={name} value={value}
 									/>
 							}
 						</div>

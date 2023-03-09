@@ -147,9 +147,25 @@ export const BoxContent = styled.div`
 
 export const ContainerList = styled(Carousel)`
     display: flex;
-
+    .react-multiple-carousel__arrow--left {
+    left: calc(1% + 1px);
+  }
+  li {
+    width: 300px;
+  }
+  > button {
+    z-index: 0;
+  }
     gap: 5px;
     padding: 0;
 
     list-style-type: none;
+`
+
+export const Message = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  width: 92vw;
 `
