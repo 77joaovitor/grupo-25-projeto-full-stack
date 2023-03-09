@@ -75,6 +75,7 @@ export const AnnouncementProvider = ({ children }: Props) => {
       });
 
       setTimeout(() => {
+        setIsOpenModalCreateAnnouncement(!isOpenModalCreateAnnouncement)
         setIsLoading(false);
         setAnnouncement(response.data);
         setIsModalSuccessCreate(!isModalSuccessCreate)
@@ -194,6 +195,27 @@ export const AnnouncementProvider = ({ children }: Props) => {
     }
   };
 
+  const createComment = async (data: any) => {
+    try {
+      setIsLoading(true);
+      const response = await api.post(`/announcements/${detailAnoucements?.id}/comments/`,{
+        ...data
+      });
+
+      setTimeout(() => {
+        setIsLoading(false);
+        setReload(!reload);
+
+      }, 500);
+      
+    } catch (error) {
+      if(error instanceof AxiosError){
+        console.log(error);
+        
+      }
+    }
+  }
+
   const getAllAnnouncementByAdvertiser = (advertiserId: string) => {
     try {
       const allAnnouncementByAdvertiserId = allAnnouncements.filter(
@@ -268,6 +290,7 @@ export const AnnouncementProvider = ({ children }: Props) => {
 			setReload,
       isModalSuccessCreate, 
       setIsModalSuccessCreate,
+      createComment,
 			}}>
 			{children}
 		</Context.Provider>

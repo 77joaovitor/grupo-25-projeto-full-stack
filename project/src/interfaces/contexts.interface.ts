@@ -41,6 +41,7 @@ export interface AnnouncementProviderData {
  setReload: Function;
  isModalSuccessCreate: boolean; 
  setIsModalSuccessCreate: Function;
+ createComment: (data: any) => void
 }
 
 export interface IUserContext {

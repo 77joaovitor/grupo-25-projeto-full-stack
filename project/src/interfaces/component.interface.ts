@@ -3,7 +3,10 @@ import { FieldErrors, UseFormRegister, UseFormSetValue } from "react-hook-form";
 import {
   AnnouncementRequest,
   AnnouncementResponse,
+  Comment,
+  RequestComment,
   UpdateAnnouncementRequest,
+  UserComment,
 } from "./announcement.interface";
 import {
   AddressRequest,
@@ -208,6 +211,36 @@ export interface PropsInputUser {
   // | `galleryImages.${string}.imageUrl`
   placeholder?: string;
   defaultValue?: string;
+}
+
+export interface PropsInputComment {
+  id?: string;
+  inputGallery?: number;
+  value?: string;
+  label?: string;
+  errors?: FieldErrors<RequestComment>;
+  file?: boolean;
+  textarea?: boolean;
+  type?:
+    | "text"
+    | "number"
+    | "textarea"
+    | "file"
+    | "button"
+    | "checkbox"
+    | "password"
+    | "file";
+  onClick?: React.MouseEventHandler<HTMLButtonElement> | any;
+  register: UseFormRegister<RequestComment>;
+  name:
+    | "body";
+  // | `galleryImages.${string}.imageUrl`
+  placeholder?: string;
+  defaultValue?: string;
+}
+
+export interface PropsComment {
+  comment: Comment
 }
 
 export interface PropsAnnouncementCard {

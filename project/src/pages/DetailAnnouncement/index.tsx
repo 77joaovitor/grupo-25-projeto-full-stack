@@ -7,13 +7,15 @@ import { Container } from "./style";
 import Header from "../../components/Header";
 import InitialLetterName from "../../components/InitialLetterName";
 import { Footer } from "../../components/Footer";
+import { FormComment } from "../../components/FormComment";
+import { CommentCard } from "../../components/CommentCard";
 
 export const DetailAnnouncement = () => {
   const navigate = useNavigate();
   const { detailAnoucements, getAllAnnouncementByAdvertiser } =
     AnnouncementContext();
 
-  const { user } = UserContext();
+  const { user, isDropdown, setIsDropDown } = UserContext();
   const token = getToken();
   return (
     <Container>
@@ -21,7 +23,11 @@ export const DetailAnnouncement = () => {
       <div className="container-main-detailAnnou"
         id="home"
       >
-        <div className="container1">
+        <div className="container1"
+           onClick={
+            () => isDropdown && setIsDropDown(false)
+          }
+        >
           <div className="container-main-desktop">
             <div className="conteiner-first-desktop">
               <div className="fotoPrincipal">
@@ -43,7 +49,7 @@ export const DetailAnnouncement = () => {
                     </span>
                     <span>{detailAnoucements?.vehicle?.mileage} KM</span>
                   </div>
-                  <h4>R$ {detailAnoucements?.vehicle?.price}</h4>
+                  <p>R$ {detailAnoucements?.vehicle?.price}</p>
                 </div>
                 <button>Comprar</button>
               </div>
@@ -58,12 +64,12 @@ export const DetailAnnouncement = () => {
                 <div className="container2">
                   <h1>Fotos</h1>
                   <div className="fotos">
-                    <img className="details" src={car} alt="" />
-                    <img className="details" src={car} alt="" />
-                    <img className="details" src={car} alt="" />
-                    <img className="details" src={car} alt="" />
-                    <img className="details" src={car} alt="" />
-                    <img className="details" src={car} alt="" />
+                    <img className="details" src={detailAnoucements?.vehicle?.galleryImages[0].imageUrl} alt="" />
+                    <img className="details" src={detailAnoucements?.vehicle?.galleryImages[0].imageUrl} alt="" />
+                    <img className="details" src={detailAnoucements?.vehicle?.galleryImages[0].imageUrl} alt="" />
+                    <img className="details" src={detailAnoucements?.vehicle?.galleryImages[0].imageUrl} alt="" />
+                    <img className="details" src={detailAnoucements?.vehicle?.galleryImages[0].imageUrl} alt="" />
+                    <img className="details" src={detailAnoucements?.vehicle?.galleryImages[0].imageUrl} alt="" />
                   </div>
                 </div>
 
@@ -73,11 +79,7 @@ export const DetailAnnouncement = () => {
                   />
                   <h2>{detailAnoucements?.advertiser?.name}</h2>
                   <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Pariatur magni, officia voluptates accusantium cumque
-                    laudantium atque facilis mollitia tempora recusandae
-                    praesentium hic, veritatis nisi dolor vitae repellat magnam
-                    cum quidem?
+                   {detailAnoucements?.advertiser?.description}
                   </p>
                   <button
                     className="peapleAnnouncement-button"
@@ -89,7 +91,7 @@ export const DetailAnnouncement = () => {
                 {
                   token ? user.isAdvertiser ? user.id === detailAnoucements.advertiser.id &&
                     (getAllAnnouncementByAdvertiser(detailAnoucements?.advertiser.id))
-                    (navigate("/profile/admin") )
+                    (navigate("/profile/") )
                   :
                   navigate("/profile")
                   :
@@ -112,32 +114,23 @@ export const DetailAnnouncement = () => {
             </aside>
           </div>
             <div className="container-third-desktop">
-              <div className="coments">
-                <h1>Comentários</h1>
-                <div className="coments-name">
-                  <InitialLetterName name="JL" />
-                  <h4>Júlia Lima</h4>
-                  <h5>há 3 dias</h5>
-                </div>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
-                  ut nesciunt totam eligendi obcaecati culpa aliquam accusamus
-                  sapiente facere eius iusto et ipsam eum dolorum, enim
-                  quibusdam sequi magnam beatae.
-                </p>
+              <div className="box">
+                <h2>Comentários</h2>
+              <ul className="coments">
+                {
+                  detailAnoucements?.comments && 
+                  detailAnoucements?.comments?.map((comment, index) => (
+                    <CommentCard 
+                      key={index}
+                      comment={comment}
+                    />
+                  ))
+                }
+              </ul>
               </div>
 
               <div className="peapleComents">
-                <div className="peapleComents-peap">
-                  <InitialLetterName
-                    name={detailAnoucements?.advertiser?.name[0]}
-                  />
-                  <h4>{detailAnoucements?.advertiser?.name}</h4>
-                </div>
-                <div className="input">
-                  <textarea placeholder="Digite algo" />
-                  <button className="comentButton">Comentar</button>
-                </div>
+               <FormComment />
               </div>
             </div>
           </div>

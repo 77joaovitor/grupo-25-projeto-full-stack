@@ -14,7 +14,10 @@ export const getAllAnnouncementsService = async (): Promise<Announcement[]> => {
                 galleryImages: true,
             },
             advertiser: true,
-            comments: true,
+            comments: {
+                // body: true,  
+                user: true,
+            },
         }
     }));
 }

@@ -14,6 +14,10 @@ export const Container = styled.div`
     color: #000000;
     background: rgba(18, 18, 20, 0.3);
     overflow-y: auto;
+    ::-webkit-scrollbar {
+        width: 0px;   
+        border: 1px solid ;
+    }   
 `
 
 export const BoxContent = styled.div`

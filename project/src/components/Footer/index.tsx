@@ -1,4 +1,4 @@
-import { ContainerFooter, ContainerButton } from "./style";
+import { ContainerFooter, ContainerButton, BoxContent } from "./style";
 import logo from '../../assets/Motors_shop_footer.svg'
 import { Button, ButtonModal } from "../Button";
 import { MdOutlineKeyboardArrowUp } from 'react-icons/md'
@@ -6,7 +6,8 @@ import { MdOutlineKeyboardArrowUp } from 'react-icons/md'
 export const Footer = (): JSX.Element => {
     return (
         <ContainerFooter>
-            <h3><img src={logo} alt="Logo" /></h3>
+           <BoxContent>
+           <h4><img src={logo} alt="Logo" /></h4>
             <span>© 2022 -  Todos os direitos reservados.</span>
            {/* <ContainerButton> */}
            <Button 
@@ -16,6 +17,7 @@ export const Footer = (): JSX.Element => {
                 
                 <p><MdOutlineKeyboardArrowUp size={20} className="icon"/></p>
             </Button>
+           </BoxContent>
            {/* </ContainerButton> */}
         </ContainerFooter>
     )

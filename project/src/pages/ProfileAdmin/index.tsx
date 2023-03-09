@@ -13,6 +13,7 @@ import { AnnouncementContext } from "../../context";
 import { UserContext } from "../../context/user/userContext";
 import { AnnouncementResponse } from "../../interfaces/announcement.interface";
 import { responsive, responsive3 } from "../../util/responsive";
+import { Message } from "../Home/style";
 import {
   PresentationSection,
   ContainerMain,
@@ -54,9 +55,7 @@ export const ProfileAdmin = (): JSX.Element => {
               </UserInformation>
 
               <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s
+              {user?.description}
               </p>
 
               {user.isAdvertiser && (
@@ -108,6 +107,15 @@ export const ProfileAdmin = (): JSX.Element => {
                         announcement={announcement}
                       />
                     ))}
+                    {
+                       allAnnouncementByAdvertiser
+                       .filter(
+                         (elem: AnnouncementResponse) =>
+                           elem.vehicle.type === "car"
+                       ).length === 0 && <Message>
+                       <p>Anunciante sem anúncios disponíveis</p>
+                   </Message> 
+                    }
               </ContainerList>
             </BoxContent>
             <BoxContent id="motorcycles">
@@ -131,6 +139,15 @@ export const ProfileAdmin = (): JSX.Element => {
                         />
                       )
                     )}
+                    {
+                        allAnnouncementByAdvertiser
+                        .filter(
+                          (elem: AnnouncementResponse) =>
+                            elem.vehicle.type === "motorcycle"
+                        ).length === 0 && <Message>
+                        <p>Anunciante sem anúncios disponíveis</p>
+                    </Message> 
+                    }
               </ContainerList>
             </BoxContent>
           </ContainerMain>

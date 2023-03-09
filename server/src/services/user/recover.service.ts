@@ -1,5 +1,3 @@
-import * as bcrypt from 'bcrypt';
-import * as cache from "memory-cache";
 import AppDataSource from "../../data-source";
 import { User } from "../../entities";
 import * as bcrypt from "bcrypt";
