@@ -1,16 +1,17 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
-  width: 300px;
+export const Container = styled.div<{isActive?: boolean}>`
+  width: 100%;
   height: 370px;
-  max-width: 300px;
+  /* max-width: 300px; */
 
   margin-bottom: 20px;
   flex: none;
   .imageProduct {
+    
     background: rgba(233, 236, 239, 1);
     margin-bottom: 20px;
-    max-width: 95%;
+    max-width: 100%;
     max-height: 160px;
     display: flex;
     justify-content: center;
@@ -19,16 +20,34 @@ export const Container = styled.div`
     cursor: pointer;
     img {
       width: 100%;
-      height: 100%;
-      max-height: 160px;
+      height: 170px;
     }
     figcaption {
       display: none;
     }
+
+    .active{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      
+      top: 20px;
+      left: 20px;
+
+      padding: 8px;
+      width: 51px;
+      height: 24px;
+
+      border-radius: 4px;
+      
+      background-color: ${(props) => props.isActive === true ? '#4529E6':  '#ADB5BD'} ;
+      color: ${(props) => props.isActive === true ? '#FFF':  '#ADB5BD'} ;
+    }
   }
-  section {
+  .descriptionProduct {
     margin-bottom: 20px;
-    max-width: 95%;
+    max-width: 100%;
     display: flex;
     flex-direction: column;
     > h3 {

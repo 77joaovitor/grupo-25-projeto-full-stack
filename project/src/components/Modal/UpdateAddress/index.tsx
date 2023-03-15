@@ -4,8 +4,7 @@ import { UserContext } from "../../../context/user/userContext"
 import { AddressRequest } from "../../../interfaces/user.interface";
 import { Button, ButtonModal } from "../../Button";
 import { InputModalAddress } from "../../Input/Profile/inputUpdateAddress";
-import { BoxTitle } from "../style";
-import { BoxButton, BoxInput, ContainerProfileModal, FormUpdate } from "./style"
+import { BoxButton, BoxTitle,BoxInput, ContainerProfileModal, FormUpdate } from "./style"
 
 
 export const UpdateModalAddress = (): JSX.Element => {

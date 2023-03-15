@@ -1,10 +1,7 @@
 import { Container, BoxButton } from "./style";
-import car from "../../assets/car.png";
-import moto from "../../assets/moto.png";
 import { PropsAnnouncementCard } from "../../interfaces/component.interface";
 import { AnnouncementContext } from "../../context";
 import { useNavigate } from "react-router-dom";
-import { useRef } from "react";
 import { Button } from "../Button";
 import { UserContext } from "../../context/user/userContext";
 
@@ -17,16 +14,16 @@ const ProductCard = ({ announcement, isAdmPage }: PropsAnnouncementCard) => {
     reload,
   } = AnnouncementContext();
 
-  const { user, setUser, getUser } = UserContext();
+  const { user } = UserContext();
 
   const editAdm = user.isAdvertiser && isAdmPage;
 
   const navigate = useNavigate();
 
   return (
-    <>
-      {
-        <Container>
+    
+      
+        <Container isActive={announcement.isActive}>
           <figure className="imageProduct">
             <img
               src={announcement.vehicle.coverImage}
@@ -37,8 +34,9 @@ const ProductCard = ({ announcement, isAdmPage }: PropsAnnouncementCard) => {
                 navigate("/announcement/");
               }}
             />
+            <span className="active">{announcement.isActive ? "Ativo" : "Inativo"}</span>
           </figure>
-          <section className="descriptionProduct">
+          <div className="descriptionProduct">
             <h3>{announcement.title}</h3>
             <p>
               {announcement.description.length > 70
@@ -55,7 +53,7 @@ const ProductCard = ({ announcement, isAdmPage }: PropsAnnouncementCard) => {
             )}
             <div className="infoContainer">
               <div className="kmAndAge">
-                <span className="km">{announcement.vehicle.mileage}</span>{" "}
+                <span className="km">{announcement.vehicle.mileage + " km"}</span>{" "}
                 <span className="age">
                   {announcement.vehicle.year.toString()}
                 </span>
@@ -67,7 +65,7 @@ const ProductCard = ({ announcement, isAdmPage }: PropsAnnouncementCard) => {
                 })}
               </span>
             </div>
-          </section>
+          </div>
           {editAdm && (
             <BoxButton>
               <Button
@@ -82,25 +80,20 @@ const ProductCard = ({ announcement, isAdmPage }: PropsAnnouncementCard) => {
                 Editar
               </Button>
 
-              <Button className="btn_see">Ver como</Button>
+              <Button 
+              className="btn_see"
+              onClick={() => {
+                setDetailAnoucements(announcement);
+                localStorage.setItem("announcementID", announcement?.id);
+                navigate("/announcement/");
+              }}
+              >Ver como</Button>
             </BoxButton>
           )}
         </Container>
-      }
-    </>
+      
+    
   );
 };
 
 export default ProductCard;
-
-// {
-
-//   "type": "motorcycle",
-
-//   "title": "honda bis",
-
-//   "description": " a;lskjfs asjksakdjh hiiuuuu lkjdpkjhs lkjhsai kjnashdf lkjasdhj lkjsas ",
-
-//   "advertiser": "User",
-
-// }

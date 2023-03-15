@@ -51,7 +51,7 @@ export const InputModalUpdateAnnouncement = ({
 							</div>
 							<textarea
 								{...register(name)}
-								value={value}
+								defaultValue={value}
 								name={name}
 								id={id}
 								cols={20}
@@ -89,17 +89,20 @@ export const InputModalUpdateAnnouncement = ({
 								file ?
 									<input
 										{...register(`galleryImages.${inputGallery!}.imageUrl` as const, {
-											required: true
+											required: true,value: value
 										})}
-											type={type}
-											id={id}
-											placeholder={placeholder}
+										
+										type={type}
+										id={id}
+										placeholder={placeholder}
+										defaultValue={value}
 									/>
 									:
 									<input
 										{...register(name)}
 										type={type}
 										name={name}
+										defaultValue={value}
 										id={id}
 										placeholder={placeholder}
 										onChange={

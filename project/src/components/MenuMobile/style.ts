@@ -33,7 +33,14 @@ export const Container = styled.div`
   }
   
   .loginOptions {
+    display: flex;
     padding: 0.8rem 28px;
+    gap: 10px;
+    .btn-link{
+      color: #FFFF;
+      background-color:  #5126ea;
+
+    }
     .loginOpitonsAuth {
       display: flex;
       flex-direction: column;

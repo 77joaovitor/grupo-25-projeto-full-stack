@@ -8,6 +8,7 @@ export const Button = ({
     defaultChecked,
     onClick,
     type,
+    disabled,
     as
 }: PropsButton): JSX.Element => {
     return (
@@ -22,7 +23,7 @@ export const Button = ({
                 </ButtonLink>
                 :
                 <ButtonType
-                    
+                    disabled={disabled}
                     id={id}
                     className={className}
                     type={type}

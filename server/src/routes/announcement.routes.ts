@@ -20,7 +20,7 @@ export const announcementRouter = () => {
   routes.post("/",verifyAuthToken, verifyIsAdvertiser, createAnnouncementController);
   routes.get("/", getAllAnnouncementsController);
   routes.get("/:id", verifyExistAnnouncement, getOneAnnouncementController);
-  routes.patch("/:id/", verifyAuthToken, verifyIsAdvertiser, verifyExistAnnouncement, updateAnnouncementController);
+  routes.put("/:id/", verifyAuthToken, verifyIsAdvertiser, verifyExistAnnouncement, updateAnnouncementController);
   routes.delete("/:id/", verifyAuthToken, verifyIsAdvertiser, verifyAuthToken, verifyExistAnnouncement, verifyAnnouncementOwner, deleteAnnouncementController);
   routes.get("/:advertiserId/", verifyAdvertiserId, getAllByAdvertiserController);
   routes.post("/:id/comments", verifyAuthToken, verifyExistAnnouncement, createCommentController);

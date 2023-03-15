@@ -26,7 +26,6 @@ export const userUpdateService = async (data: UserUpdateRequest, id: string): Pr
         password: data.password ? await bcrypt.hash(data.password, 10) : user?.password,
         description: data.description ? data.description : user?.description,
         email: data.email ? data.email : user?.email,
-        
     });
 
     const userUpdated = await userRepository.findOne({

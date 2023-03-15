@@ -1,6 +1,8 @@
-import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Footer } from "../../components/Footer";
 import Header from "../../components/Header";
+import InitialLetterName from "../../components/InitialLetterName";
 import ProductCard from "../../components/ProductCard";
 import { AnnouncementContext } from "../../context";
 import { UserContext } from "../../context/user/userContext";
@@ -17,15 +19,19 @@ import {
 } from "./style";
 
 export const Profile = (): JSX.Element => {
-  const { allAnnouncementByAdvertiser } = AnnouncementContext();
-
+  const { allAnnouncementByAdvertiser, reload, setReload } = AnnouncementContext();
+  
   const { userAdvertiser, isDropdown, setIsDropDown } = UserContext();
+  const { pathname } = useLocation()
 
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
-      {userAdvertiser?.isAdvertiser ? (
+      {userAdvertiser?.isAdvertiser && (
         <>
           <Header />
           <PresentationSection id="home"
@@ -33,12 +39,19 @@ export const Profile = (): JSX.Element => {
               () => isDropdown && setIsDropDown(false)
             }
           >
-            <ProfileContent>
+            <ProfileContent id="home">
+              <InitialLetterName
+                className="logoName"
+                name={userAdvertiser.name[0]}
+                width={4}
+                heigth={4}
+                fontSize={4}
+              />
               <UserInformation>
-                <span className="logoName">
-                  {userAdvertiser.name && userAdvertiser?.name[0]}
-                </span>{" "}
-                <span>{userAdvertiser.name}</span>
+                <div className="box-info-user">
+                  <span>{userAdvertiser.name}</span>
+                  <span className="span-advertiser">Anunciante</span>
+                </div>
               </UserInformation>
 
               <p>
@@ -55,6 +68,7 @@ export const Profile = (): JSX.Element => {
             <BoxContent id="cars">
               <h3>Carros</h3>
               <ContainerList
+                infinite={true}
                 responsive={responsive}
                 removeArrowOnDeviceType={["tablet", "mobile"]}
               >
@@ -70,18 +84,21 @@ export const Profile = (): JSX.Element => {
                         key={index}
                         announcement={announcement}
                       />
-                    ))}
-                    {
-                      allAnnouncementByAdvertiser
-                      .filter(
-                        (elem: AnnouncementResponse) =>
-                          elem.vehicle.type === "car"
-                      ).length === 0 && <Message>
-                      <p>Anunciante sem anúncios disponíveis</p>
+                    ))
+                }
+                {
+                  allAnnouncementByAdvertiser
+                  .filter(
+                    (elem: AnnouncementResponse) =>
+                      elem.vehicle.type === "car"
+                  ).length === 0 &&
+                  <Message>
+                    <p>Anunciante sem anúncios disponíveis</p>
                   </Message> 
-                    }
+                }
               </ContainerList>
             </BoxContent>
+
             <BoxContent id="motorcycles">
               <h3>Motos</h3>
               <ContainerList
@@ -117,8 +134,6 @@ export const Profile = (): JSX.Element => {
           </ContainerMain>
           <Footer />
         </>
-      ) : (
-        navigate("/")
       )}
     </>
   );

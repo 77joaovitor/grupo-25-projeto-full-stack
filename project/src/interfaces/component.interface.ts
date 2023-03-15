@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { FieldErrors, UseFormRegister, UseFormSetValue } from "react-hook-form";
+import { FieldErrors, UseFormRegister, UseFormSetValue, UseFormWatch } from "react-hook-form";
 import {
   AnnouncementRequest,
   AnnouncementResponse,
@@ -22,6 +22,7 @@ export interface PropsButton {
   as?: "a";
   onClick?: React.MouseEventHandler<HTMLButtonElement> | any;
   className?: string;
+  disabled?: boolean;
   defaultChecked?: boolean;
 }
 
@@ -182,6 +183,7 @@ export interface PropsInputUser {
   errors: FieldErrors<UserRegisterRequest>;
   file?: boolean;
   textarea?: boolean;
+  cep?: boolean;
   type?:
     | "text"
     | "number"
@@ -207,10 +209,42 @@ export interface PropsInputUser {
     | "number"
     | "complement"
     | "password"
-    | "confirmPassword";
+    | "confirmPassword"
+    | "pin";
   // | `galleryImages.${string}.imageUrl`
   placeholder?: string;
   defaultValue?: string;
+  setValue?: UseFormSetValue<UserRegisterRequest>
+}
+
+export interface PropsInputCep{
+  placeholder?: string;
+  register: UseFormRegister<UserRegisterRequest>;
+  name:
+    | "name"
+    | "email"
+    | "cpf"
+    | "phone"
+    | "birthdate"
+    | "description"
+    | "zipCode"
+    | "state"
+    | "city"
+    | "road"
+    | "number"
+    | "complement"
+    | "password"
+    | "confirmPassword";
+  type:
+  | "phone"
+  | "zipCode"
+  | "cpf"
+  | "birthdate";
+
+  value?: string;
+  onBlur: (data: string) =>  Promise<void> | undefined
+  setValue?: UseFormSetValue<UserRegisterRequest>
+
 }
 
 export interface PropsInputComment {

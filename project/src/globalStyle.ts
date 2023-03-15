@@ -62,16 +62,25 @@ html, body {
     font-family: Open-Sans, Helvetica, Sans-Serif;
 
   }
+  input, textarea{
+    background: transparent;
+    :focus{
+            border: 1px solid blue;
+            transition: 400ms;
+        }
+
+  }
   textarea{
     margin:0;
     padding:0;
     font-family: Open-Sans, Helvetica, Sans-Serif;
 
   }
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
+
+  h1 {
+    font-size: 3.2em;
+    line-height: 1.1;
+  }
 
 button {
   border-radius: 8px;

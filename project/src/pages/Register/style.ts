@@ -10,6 +10,10 @@ export const ContainerMain = styled.main`
    align-items: center;
     background: #f1f3f5;
     padding: 20px 0;
+
+    input, textarea{
+        background-color: transparent;
+    }
 `
 
 export const ContainerRegister = styled.div`

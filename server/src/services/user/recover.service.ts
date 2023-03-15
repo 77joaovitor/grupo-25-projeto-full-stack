@@ -23,13 +23,16 @@ export const recoverPasswordService = async (body: UserRecoveryPasswordRequest):
         email: valorString!
     });
 
-  const hashPassword = await bcrypt.hash(password, 10);
-
-  user!.password = hashPassword;
-
-    user!.pin = '';
-
-  userRepository.save(user!);
+  await userRepository.update(user!.id, {
+    birthdate: user?.birthdate,
+    cpf: user?.cpf,
+    name: user?.name,
+    phone: user?.phone,
+    password: body.password && await bcrypt.hash(body.password, 10),
+    description: user?.description,
+    email: user?.email,
+    pin: '',
+  })
 
   cache.del("EMAIL_USER");
 

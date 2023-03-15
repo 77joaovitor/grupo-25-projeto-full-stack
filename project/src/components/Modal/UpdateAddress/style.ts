@@ -4,6 +4,7 @@ export const ContainerProfileModal = styled.div`
     position: fixed;
     display: flex;
     justify-content: center;
+    align-items: center;
     padding: 20px 0 ;
       
     z-index: 9999;
@@ -151,4 +152,11 @@ export const BoxContent = styled.div`
         padding: 37px 27px;
     }
     
+`
+
+export const BoxTitle = styled.div`
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
 `

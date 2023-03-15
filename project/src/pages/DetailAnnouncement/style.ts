@@ -17,9 +17,10 @@ export const Container = styled.main`
   }
   .logoPrincipal {
     background-color: white;
-    width: 95%;
+    width: 90%;
     padding: 1rem;
     height: 16rem;
+    border-radius: 4px;
   }
   h1 {
     font-size: 20px;
@@ -84,17 +85,17 @@ export const Container = styled.main`
   }
 
   .box{
-      display: flex;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     justify-content: center;
     padding: 30px 40px;
     margin: 10px;
-    height: 700px;
-      height: 100%;
-      background: #ffff;
-      width: 100%;
-    }
+    max-height: 700px;
+    height: 100%;
+    background: #ffff;
+    width: 100%;
+  }
   .coments {
     display: flex;
     flex-direction: column;
@@ -103,7 +104,7 @@ export const Container = styled.main`
     background-color: white;
     border-radius: 5px;
     padding: 1.5rem 1rem;
-    height: 700px;
+    height: 100%;
     overflow-y: auto;
     ::-webkit-scrollbar {
         width: 0px;   
@@ -170,6 +171,8 @@ export const Container = styled.main`
     height: 300px;
     border: 10px solid white;
     background-color: #f1f3f5;
+    border-radius: 4px;
+
   }
   .container {
     background-color: white;
@@ -183,13 +186,14 @@ export const Container = styled.main`
     flex-wrap: wrap;
     gap: 10px;
     max-width: 400px;
-    align-items: center;
-    justify-content: center;
+    /* align-items: center;
+    justify-content: center; */
+
   }
   .details {
-    width: 30%;
+    width: 100px;
     height: 70px;
-    border-radius: 5px;
+    border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -247,11 +251,12 @@ export const Container = styled.main`
     padding: 2rem;
     max-width: 500px;
     border-radius: 5px;
+    height: 262px;
     background-color: white;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: center;
+    /* justify-content: space-between; */
   }
 
   @media (min-width: 1024px) {
@@ -297,7 +302,7 @@ export const Container = styled.main`
       h2{
         font-weight: 600;
         font-size: 20px;
-line-height: 25px;
+        line-height: 25px;
         color: #212529;
         position: relative;
         z-index: 9999;
@@ -312,7 +317,7 @@ line-height: 25px;
     flex-direction: column;
     justify-content: space-between;
     margin: 10px;
-    height: 700px;
+    max-height: 700px;
       height: 100%;
       background: #ffff;
       width: 56.5%;
@@ -323,7 +328,7 @@ line-height: 25px;
       flex-direction: column;
       gap: 25px;
       width: 100%;
-      height: 690px;
+      min-height: 200px;
       overflow-y: auto;
 
     }
@@ -332,3 +337,11 @@ line-height: 25px;
     }
   }
 `;
+
+export const Message = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  width: 100%;
+`

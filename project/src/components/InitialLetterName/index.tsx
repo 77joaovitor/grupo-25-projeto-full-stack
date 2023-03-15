@@ -4,11 +4,12 @@ export interface ILatterName {
   width?: number;
   heigth?: number;
   fontSize?: number;
+  className?: string;
 }
-const InitialLetterName = ({ name, width, heigth, fontSize }: ILatterName) => {
+const InitialLetterName = ({ name, width, heigth, fontSize, className }: ILatterName) => {
   return (
     <Container name={name} width={width} heigth={heigth} fontSize={fontSize}>
-      <span>{name}</span>
+      <span className={className}>{name}</span>
     </Container>
   );
 };

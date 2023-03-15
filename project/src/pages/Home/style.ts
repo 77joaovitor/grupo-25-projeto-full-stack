@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Carousel from "react-multi-carousel";
+import Carousel from 'react-multi-carousel'
 import "react-multi-carousel/lib/styles.css";
 
 export const PresentationSection = styled.section`
@@ -8,8 +8,8 @@ export const PresentationSection = styled.section`
   justify-content: center;
   align-items: center;
   padding: 4%;
-  gap: 52px;
-  height: 584px;
+  gap: 80px;
+  height: 700px;
 
   p {
     font-weight: 600;
@@ -26,6 +26,16 @@ export const PresentationSection = styled.section`
   a,
   button {
     color: #fdfdfd;
+    
+  }
+
+  a{
+    :hover{
+      color: #5126ea;
+      border: 1px solid #5126ea;
+      background: #fdfdfd;
+      transition: 400ms;
+    }
   }
 
   background: #5126ea;
@@ -65,12 +75,23 @@ export const BoxButton = styled.div`
   }
 `;
 
+
 export const ListSection = styled.div`
   display: flex;
   flex-direction: column;
   gap: 50px;
   padding: 4%;
   width: 100%;
+
+  .box-1{
+    height: 600px;
+
+  }
+  @media (min-width: 1030px) {
+    .box-1{
+      height: 390px;
+    }
+  }
 `;
 export const ListBox = styled.div`
   display: flex;
@@ -81,29 +102,21 @@ export const ListBox = styled.div`
 `;
 
 export const BoxContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
   width: 100%;
-  position: relative;
-  .divCarouselCar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: absolute;
-    width: 92vw;
-    top: 138px;
-  }
-  .divCarouselMoto {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: absolute;
-    width: 92vw;
-    top: 138px;
+  padding-bottom: 20px;
+  height: 522px;
+  .react-multi-carousel-item {
+    padding: 10px;
+    
   }
 `;
+
 export const ContainerList = styled(Carousel)`
-  display: flex;
-  box-sizing: border-box;
-  .react-multiple-carousel__arrow--left {
+    display: flex;
+    .react-multiple-carousel__arrow--left {
     left: calc(1% + 1px);
   }
   li {
@@ -111,9 +124,19 @@ export const ContainerList = styled(Carousel)`
   }
   > button {
     z-index: 0;
+    scale: 0;
   }
+  :hover{
+    button{
+        display: flex;
+        scale: 1;
+        transition: 500ms;
+    }
+}
+    padding: 0;
 
-`;
+    list-style-type: none;
+`
 
 export const Message = styled.div`
   display: flex;

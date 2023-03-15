@@ -1,70 +1,9 @@
+import axios from "axios";
+import { useRef } from "react";
 import { BsExclamationCircle } from "react-icons/bs";
-import { PropsInputAnnouncement, PropsInputUser } from "../../../interfaces/component.interface";
+import { PropsInputUser } from "../../../interfaces/component.interface";
+import { InputVerify } from "../InputMaskVerify";
 import { ContainerInput } from "./style";
-import InputMask from "react-input-mask";
-import { forwardRef, useRef } from "react";
-
-const InputVerify = ({register, mask, name, type, value}: any) => {
-	const ref = useRef(forwardRef)
-	
-	if(type === 'cpf') {
-		return (
-			
-			<InputMask
-				ref={ref}
-				{...register(name)}
-				mask={'999.999.999-99'}
-				// name={name}
-				name={name}
-				defaultValue={value}
-			/>
-		)
-	}
-	if(type === 'zipCode') {
-		return (
-			
-			<InputMask
-				ref={ref}
-				{...register(name)}
-				mask={'99.999-999'}
-				// name={name}
-				name={name}
-				defaultValue={value}
-			/>
-		)
-	}
-
-	else if(type === 'phone') {
-		return (
-			
-			<InputMask
-
-			ref={ref}
-			{...register(name)}
-				mask={'(99) 9 9999-9999'}
-				// name={name}
-				name={name}
-				defaultValue={value}
-			/>
-		)
-	}
-	else {
-		return (
-			
-			<InputMask
-
-			ref={ref}
-			{...register(name)}
-				mask={"99/99/9999"}
-				// name={name}
-				name={name}
-				defaultValue={value}
-			/>
-		)
-	}
-}	
-
-
 
 export const InputRegister = ({
 	register,
@@ -78,10 +17,35 @@ export const InputRegister = ({
 	type,
 	name,
 	placeholder,
-	defaultValue
+	defaultValue,
+	cep,
+	setValue,
 }: PropsInputUser): JSX.Element => {
-	// const a = inputGallery! as const
+	const inputRef = useRef(null);
+
 	
+	const handleCepData = async (eventValue: string) => {
+		if (eventValue.length === 9) {
+			const response = await axios.get(`https://viacep.com.br/ws/${eventValue}/json/`)
+			
+			if (response.status === 200) {
+				console.log(response.data);
+				
+				setValue!("city", response.data.localidade);
+				setValue!("road", response.data.logradouro);
+				setValue!("state", response.data.uf);
+				setValue!("zipCode", response.data.cep);
+			} else {
+				console.log(response.data);
+				
+				setValue!("city", '');
+				setValue!("road", '');
+				setValue!("state", '');
+				setValue!("zipCode", '');
+			}
+		}
+	}
+
 	return (
 		<>
 			<ContainerInput>
@@ -155,25 +119,45 @@ export const InputRegister = ({
 										// {...register(`galleryImages.${inputGallery!}.imageUrl` as const, {
 										// 	required: true
 										// })}
-											type={type}
-											id={id}
-											placeholder={placeholder}
-									/>
-									:
-					
-									name !== "cpf" && name !== "phone" && name !== "birthdate" && name !== "zipCode" ?
-									<input
-										{...register(name)}
 										type={type}
-										name={name}
-										defaultValue={value}
-
 										id={id}
 										placeholder={placeholder}
+										ref={inputRef}
+
 									/>
-									: <InputVerify 
-										register={register} name={name} type={name} value={value}
-									/>
+									:
+
+									name !== "cpf" && name !== "phone" && name !== "birthdate" && name !== "zipCode" ?
+										<input
+											{...register(name)}
+											type={type}
+											name={name}
+											defaultValue={value}
+											id={id}
+											placeholder={placeholder}
+										/>
+										:
+										cep ?
+											<InputVerify
+												register={register}
+												name={name}
+												type={name}
+												value={value}
+												onBlur={handleCepData}
+												placeholder={placeholder}
+
+
+											/>
+											:
+											<InputVerify
+												register={register}
+												name={name}
+												type={name}
+												value={value}
+												onBlur={handleCepData}
+												placeholder={placeholder}
+
+											/>
 							}
 						</div>
 				}

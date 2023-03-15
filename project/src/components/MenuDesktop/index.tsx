@@ -16,6 +16,8 @@ const MenuDesktop = () => {
     setIsModalUpdateAddress,
     isModalUpdateAddress,
     setAuth,
+    setReload,
+    reload
   } = UserContext();
 
   const navigate = useNavigate();
@@ -68,7 +70,12 @@ const MenuDesktop = () => {
                       Editar Endereço
                     </Button>
                     {user.isAdvertiser && (
-                      <Button onClick={() => navigate("/profile/admin")}>
+                      <Button onClick={
+                        () => {
+                          navigate("/profile/admin")
+                          setReload(!reload)
+                        }
+                      }>
                         Meus Anúncios
                       </Button>
                     )}

@@ -53,39 +53,52 @@ export const BoxContent = styled.div`
     
 `
 export const FormCreate = styled.form`
-    position: absolute;
-    z-index: 0;
-    
     background: #ffff;
     width: 90%;
     display: flex;
     flex-direction: column;
-    background: #FFFFFF;
     border-radius: 8px;
     justify-content: center;
     align-items: center;
-    padding: 0px 16px 32px;
-    gap: 37px;
-    
-    position: absolute;
-    width: 90%;
+    padding: 23px;
+    margin-top: 200px;
+    gap: 10px;
+
+    width: 100%;
+    height: fit-content;
+
+    label{
+        font-size: 12px;
+    }
+
+    .label{
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 24px;
+    }
 
     .button_del_input{
        display: flex;
        flex-direction: row-reverse;
        button{
            position: relative;
-           right: 33px;
+           right: 20px;
            width: max-content;
            height: max-content;
            padding: 0;
         }
     }  
-
+    
+    
     @media (min-width: 580px) {
         width: 520px;
     }
+    
+        @media (min-height: 585px) {
+            margin-top: 150px;
+        }
 `
+
 
 
 export const BoxType = styled.div`
@@ -94,12 +107,7 @@ export const BoxType = styled.div`
     gap: 10px;
     width: 100%;
 
-    label{
-        font-weight: 500;
-        font-size: 14px;
-        line-height: 24px;
-    }
-
+   
 `
 
 export const BoxButton = styled.div`
@@ -112,6 +120,25 @@ export const BoxButton = styled.div`
     button{
         width: 50%;
     }
+
+    .buttonWhite {
+        background-color: white;
+        color: black;
+        border-radius: 5px;
+        border: 1px solid #E9ECEF;
+        transition: 400ms;
+        :hover{
+        border: #5126ea solid 1px;
+
+        }
+    }
+  .buttonBlue {
+    background-color: #5126ea;
+    color: white;
+    border-radius: 5px;
+    border: #5126ea solid 1px;
+    transition: 500ms;
+  }
 
     .cancel_btn{
         width: 146px;

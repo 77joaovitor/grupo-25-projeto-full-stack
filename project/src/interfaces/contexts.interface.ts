@@ -12,22 +12,16 @@ export interface Props {
 
 export interface AnnouncementProviderData {
   createAnnouncement: (data: AnnouncementRequest) => void;
-  setAnnouncement: Function;
-  announcement: AnnouncementResponse;
   setIsOpenModalCreateAnnouncement: Function;
   isOpenModalCreateAnnouncement: boolean;
   setAnnouncementType: Function;
   announcementType: string;
   setVehicleType: Function;
   vehicleType: string;
-  setInputs: Function;
   setIsAnnouncementPublished: Function;
   isAnnouncementPublished: boolean;
   isOpenModalUpdateAnnouncement: boolean;
   setIsOpenModalUpdateAnnouncement: Function;
-  inputs: JSX.Element;
-  announcementsCars: AnnouncementResponse[];
-  announcementsMotorcycle: AnnouncementResponse[];
   detailAnoucements: AnnouncementResponse;
   setDetailAnoucements: Function;
   getAllAnnouncementByAdvertiser: Function;
@@ -38,10 +32,12 @@ export interface AnnouncementProviderData {
   isOpenModalDeleteAnnouncement: boolean;
   reload: boolean
   allAnnouncements: AnnouncementResponse[]
- setReload: Function;
- isModalSuccessCreate: boolean; 
- setIsModalSuccessCreate: Function;
+  setReload: Function;
+  isModalSuccessCreate: boolean; 
+  setIsModalSuccessCreate: Function;
  createComment: (data: any) => void
+ allAnnouncementByAdvertiserAdmin: AnnouncementResponse[];
+ setAllAnnouncementByAdvertiserAdmin: Function;
 }
 
 export interface IUserContext {
@@ -69,6 +65,10 @@ export interface IUserContext {
   setIsAdvertiser: Function
   userAdvertiser: UserResponse;
   setUserAdvertiser: Function;
+  isOpenRecovery: boolean;
+  setIsOpenRecovery: Function;
+  submitEmail: (data: UserSessionRequest) => void;
+  submitPass: (data: UserRegisterRequest) => void;
 }
 
 

@@ -17,6 +17,8 @@ const MenuMobile = () => {
     isModalUpdateProfile,
     setIsModalUpdateAddress,
     setIsModalUpdateProfile,
+    reload,
+    setReload
   } = UserContext();
   const navigate = useNavigate();
 
@@ -89,7 +91,10 @@ const MenuMobile = () => {
                       onClick={() => {
                         setIsDropDown(!isDropdown);
                         setMenuOpen(!menuOpen);
+                        setReload(!reload)
+
                         navigate("/profile/admin");
+
                       }}
                     >
                       Meus Anúncios
@@ -113,7 +118,9 @@ const MenuMobile = () => {
           <>
             <Button
               className="btn-link"
+              as="a"
               onClick={() => {
+                setMenuOpen(!menuOpen)
                 navigate("/login");
               }}
             >
@@ -122,6 +129,7 @@ const MenuMobile = () => {
             <Button
               className="btn-register"
               onClick={() => {
+                setMenuOpen(!menuOpen)
                 navigate("/register");
               }}
             >
@@ -129,14 +137,6 @@ const MenuMobile = () => {
             </Button>
           </>
         )}
-
-        {/* {auth ? (
-          <div> Nome</div>
-        ) : (
-          <div className="loginOpitonsAuth">
-            Fazer login <button>Cadastrar</button>
-          </div>
-        )} */}
       </div>
     </Container>
   );

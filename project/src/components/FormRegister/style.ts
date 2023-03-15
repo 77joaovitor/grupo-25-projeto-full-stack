@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.form`
   background-color: white;
   width: 90%;
-  padding: 4%;
+  padding: 2.5%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -27,18 +27,17 @@ export const Container = styled.form`
     font-size: 13px;
     width: 100%;
   }
+
   h2 {
     width: fit-content;
     margin: 0;
   }
-  .spanType {
-    margin-bottom: 20px;
-  }
+
   .formButton {
     display: flex;
   }
-  button {
-    background-color: #5126ea;
+
+  /* button {
     color: white;
     border-radius: 5px;
     border-style: none;
@@ -49,42 +48,48 @@ export const Container = styled.form`
     display: flex;
     align-items: center;
     justify-content: center;
-  }
+  } */
 
   .buttonWhite {
     background-color: white;
     color: black;
     border-radius: 5px;
-    border-color: black;
-    border: black solid 1px;
+    border: 1px solid #E9ECEF;
+    transition: 400ms;
+    :hover{
+      border: #5126ea solid 1px;
+
+    }
   }
   .buttonBlue {
     background-color: #5126ea;
     color: white;
     border-radius: 5px;
-    border-color: black;
     border: #5126ea solid 1px;
+    transition: 500ms;
   }
   .buttonFinaly {
+    width: 100%;
     background-color: #5126ea;
     color: white;
-    border-radius: 5px;
-    border-style: none;
-    width: 300px;
-    height: 45px;
-    margin: 30px;
-    padding: 10px;
 
     display: flex;
     align-items: center;
     justify-content: center;
+    :hover{
+    
+        background-color: white;
+        color: black;
+      transition: 400ms;
+    }
   }
 
-  .eye {
+  .eye, .eye-2 {
     height: 0px;
     position: relative;
     top: -50px;
     left: 90%;
+    cursor: pointer;
   }
 
   @media (min-width: 470px) {

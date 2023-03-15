@@ -50,6 +50,7 @@ export interface UserRegisterRequest {
 	complement: string;
 	state: string;
 	confirmPassword: string
+	pin?: string; 
 }
 
 export interface AddressRequest {
@@ -66,3 +67,8 @@ export interface UserSessionRequest {
 	password: string;
 }
 
+export interface RecoveryRequest {
+	pin: number;
+	password: string;
+	confirmPassword: string;
+}

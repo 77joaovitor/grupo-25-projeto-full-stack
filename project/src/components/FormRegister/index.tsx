@@ -14,16 +14,21 @@ import { useState } from "react";
 const FormRegister = () => {
   const { createProfile, setIsAdvertiser, isAdvertiser } = UserContext();
 
-  const { createSession, showPassword, setShowPassword } = SessionContext();
+  const { showPassword, setShowPassword } = SessionContext();
 
-  const {
+  const [cepData, setCepData] = useState({})
+
+  const { 
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
+    watch
   } = useForm<UserRegisterRequest>({
     resolver: yupResolver(userRegisterSchema),
   });
-  console.log(errors);
+
+  
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -41,7 +46,7 @@ const FormRegister = () => {
           errors={errors}
           name="name"
           label="Nome"
-          placeholder="Ex: Samuel Leão"
+          placeholder="Ex: Geovane Oliveira"
           type="text"
           register={register}
         />
@@ -50,7 +55,7 @@ const FormRegister = () => {
           errors={errors}
           name="email"
           label="Email"
-          placeholder="Ex: samuel@kenzie.com.br"
+          placeholder="Ex: geovane@gmail.com.br"
           type="text"
           register={register}
         />
@@ -68,7 +73,7 @@ const FormRegister = () => {
           errors={errors}
           name="phone"
           label="Celular"
-          placeholder="(DDD) 90000-0000"
+          placeholder="(DDD) 9 0000-0000"
           type="text"
           register={register}
         />
@@ -77,7 +82,7 @@ const FormRegister = () => {
           errors={errors}
           name="birthdate"
           label="Data de nascimento"
-          placeholder="00/00/00"
+          placeholder="00/00/0000"
           type="text"
           register={register}
         />
@@ -99,7 +104,9 @@ const FormRegister = () => {
           name="zipCode"
           label="CEP"
           placeholder="00000.000"
+          cep={true}
           type="text"
+          setValue={setValue}
           register={register}
         />
 
@@ -111,7 +118,7 @@ const FormRegister = () => {
             placeholder="Digitar Estado"
             type="text"
             register={register}
-          />
+            />
 
           <InputRegister
             errors={errors}
@@ -120,7 +127,7 @@ const FormRegister = () => {
             placeholder="Digitar cidade"
             type="text"
             register={register}
-          />
+            />
         </BoxInput>
 
         <InputRegister
@@ -139,7 +146,7 @@ const FormRegister = () => {
             label="Número"
             placeholder="Digitar número"
             type="text"
-            register={register}
+              register={register}
           />
 
           <InputRegister
@@ -149,11 +156,11 @@ const FormRegister = () => {
             placeholder="Ex: apart 307"
             type="text"
             register={register}
-          />
+            />
         </BoxInput>
 
         <BoxType>
-          <span className="spanType">Tipo de conta</span>
+          <label className="spanType">Tipo de conta</label>
           <BoxButton>
             <Button
               onClick={() => {
@@ -194,12 +201,17 @@ const FormRegister = () => {
           name="confirmPassword"
           label="Confirmar Senha"
           placeholder="Digitar senha"
-          type="text"
+          type={showPassword ? "text" : "password"}
           register={register}
         />
-        <button type="submit" className="buttonFinaly">
+
+        <span onClick={handleShowPassword} className="eye-2">
+          {showPassword ? <BsFillEyeFill /> : <BsFillEyeSlashFill />}
+        </span>
+
+        <Button type="submit" className="buttonFinaly">
           Finalizar cadastro
-        </button>
+        </Button>
       </Container>
     </>
   );
