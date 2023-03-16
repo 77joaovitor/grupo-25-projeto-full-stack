@@ -1,11 +1,11 @@
+import { motion } from "framer-motion";
 import styled from "styled-components";
 
-export const ContainerProfileModal = styled.div`
+export const ContainerProfileModal = styled(motion.div)`
     position: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px 0 ;
       
     z-index: 9999;
     inset: 0;
@@ -24,7 +24,7 @@ export const BoxInput = styled.div`
     gap: 10px;
 `
 
-export const FormUpdate = styled.form`
+export const FormUpdate = styled(motion.form)`
     background: #ffff;
     width: 90%;
     display: flex;
@@ -37,7 +37,7 @@ export const FormUpdate = styled.form`
     gap: 7px;
     padding-top: 20px;
     height: fit-content;
-    position: absolute;
+    /* position: absolute; */
     width: 90%;
 
     .btn_close{
@@ -63,9 +63,8 @@ export const FormUpdate = styled.form`
     }
     .info{
         width: 100%;
-        display: flex;
-        align-items: flex-start;
-        margin: 10px;
+        height: fit-content;
+        padding: 10px 0;
     }
 
     input{
@@ -159,4 +158,9 @@ export const BoxTitle = styled.div`
     width: 100%;
     align-items: center;
     justify-content: space-between;
+    h3{
+        width: fit-content;
+        background-color: transparent;
+    }
+
 `

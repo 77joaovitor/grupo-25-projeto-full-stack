@@ -24,6 +24,14 @@ export interface PropsButton {
   className?: string;
   disabled?: boolean;
   defaultChecked?: boolean;
+  variants?: {
+    open: {
+      opacity: number,
+      y: number,
+      transition: { type: string, stiffness: number, damping: number }
+    },
+    closed: { opacity: number, y: number, transition: { duration: number } }
+  }
 }
 
 export interface PropsInputAnnouncement {

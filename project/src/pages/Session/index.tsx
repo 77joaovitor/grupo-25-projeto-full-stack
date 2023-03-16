@@ -9,7 +9,12 @@ export const Login = (): JSX.Element => {
         window.scrollTo(0, 0);
       }, []);
     return (
-        <ContainerSession>
+        <ContainerSession
+            initial={{ opacity: .5 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: .5 }}
+        >
             <Header />
             <ContainerMain
                 id="home"

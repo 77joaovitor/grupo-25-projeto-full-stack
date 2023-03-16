@@ -19,6 +19,7 @@ import {
 } from "./style";
 import { ContainerList } from "../Profile/style";
 import { useEffect } from "react";
+import { motion } from "framer-motion";
 
 export const ProfileAdmin = (): JSX.Element => {
   const {
@@ -40,7 +41,12 @@ export const ProfileAdmin = (): JSX.Element => {
       {<DeleteAnnouncement />}
       {<ModalSuccessAnnouncement />}
       {user.isAdvertiser && (
-        <>
+        <motion.div
+          initial={{ opacity: 0.5 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1 }}
+        >
           <Header />
           <PresentationSection id="home">
             <ProfileContent>
@@ -166,7 +172,7 @@ export const ProfileAdmin = (): JSX.Element => {
             </BoxContent>
           </ContainerMain>
           <Footer />
-        </>
+        </motion.div>
       )}
     </>
   );

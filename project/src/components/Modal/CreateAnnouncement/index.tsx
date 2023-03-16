@@ -1,4 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import { AnimatePresence } from "framer-motion";
 import { useFieldArray, useForm, useWatch } from "react-hook-form";
 import { IoMdClose } from "react-icons/io";
 import { TfiTrash } from 'react-icons/tfi';
@@ -38,17 +39,33 @@ export const CreateAnnouncement = (): JSX.Element => {
     });
 
     return (
-        <>
+        <AnimatePresence>
             {isOpenModalCreateAnnouncement &&
                 <Container
-                    // initial={{ opacity: 0 }}
-                    // animate={{ opacity: 1 }}
-                    // exit={{ opacity: 0 }}
-                    // transition={{ duration: 1 }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: .5 }}
                     onClick={() => setIsOpenModalCreateAnnouncement(!isOpenModalCreateAnnouncement)}
                 >
                     <BoxContentForm
                         onClick={(e) =>  e.stopPropagation()}
+                        initial={{scale: 0.5}}
+                        animate={{
+                            scale: 1,
+                            transition: { 
+                                type: "spring", 
+                                stiffness: 30
+                            }
+                        }}
+                        exit={{
+                            scale: 0.5,
+                            transition: { 
+                                type: "spring", 
+                                stiffness: 30
+                            }
+                        }}
+
                     >
                         <BoxTitle
                             onClick={(e) =>  e.stopPropagation()}
@@ -250,6 +267,6 @@ export const CreateAnnouncement = (): JSX.Element => {
                     </BoxContentForm>
                 </Container >
             }
-        </>
+        </AnimatePresence>
     )
 }

@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import { AnimatePresence } from "framer-motion";
 import { useForm } from "react-hook-form";
-import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
 import { SessionContext } from "../../../context";
 import { UserContext } from "../../../context/user/userContext";
@@ -8,42 +8,61 @@ import { UserUpdateRequest } from "../../../interfaces/user.interface";
 import { userUpdateSchema } from "../../../schema/user.schema";
 import { Button, ButtonModal } from "../../Button";
 import { InputModalProfile } from "../../Input/Profile/inputUpdateProfile";
-import { BoxTitle } from "./style";
-import { BoxButton, BoxContentForm, ContainerProfileModal, FormUpdate } from "./style";
+import { BoxButton, BoxContentForm, BoxTitle, ContainerProfileModal, FormUpdate } from "./style";
 
 
 export const UpdateModalProfile = (): JSX.Element => {
     const { setIsModalUpdateProfile, isModalUpdateProfile, user, updateProfile } = UserContext();
     const { showPassword, setShowPassword } = SessionContext();
-    
-    const { handleSubmit, register, setValue, formState: {errors} } = useForm<UserUpdateRequest>({
+
+    const { handleSubmit, register, setValue, formState: { errors } } = useForm<UserUpdateRequest>({
         resolver: yupResolver(userUpdateSchema)
     })
 
     return (
-        <>
+        <AnimatePresence>
             {
                 isModalUpdateProfile &&
                 <ContainerProfileModal
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: .5 }}
+
                     onClick={() => setIsModalUpdateProfile(!isModalUpdateProfile)}
                 >
-                    {/* <BoxContentForm> */}
                     <BoxContentForm
-                        onClick={(e) =>  e.stopPropagation()}
+                        onClick={(e) => e.stopPropagation()}
+                        initial={{ scale: 0.5 }}
+                        animate={{
+                            scale: 1,
+                            transition: {
+                                type: "spring",
+                                stiffness: 30
+                            }
+                        }}
+                        exit={{
+                            scale: 0.5,
+                            transition: {
+                                type: "spring",
+                                stiffness: 30
+                            }
+                        }}
+
                     >
-                        <BoxTitle 
-                            onClick={(e) =>  e.stopPropagation()}
+                        <BoxTitle
+                            onClick={(e) => e.stopPropagation()}
                         >
                             <h3>Editar perfil</h3>
-                            
-                                <ButtonModal
-                                    type="button"
-                                    className="btn_close"
-                                    onClick={() => setIsModalUpdateProfile(!isModalUpdateProfile)}
-                                >
-                                    <IoMdClose />
-                                </ButtonModal>
-                            
+
+                            <ButtonModal
+                                type="button"
+                                className="btn_close"
+                                onClick={() => setIsModalUpdateProfile(!isModalUpdateProfile)}
+                            >
+                                <IoMdClose />
+                            </ButtonModal>
+
                         </BoxTitle>
                         <FormUpdate
                             onClick={(e) => e.stopPropagation()}
@@ -52,7 +71,7 @@ export const UpdateModalProfile = (): JSX.Element => {
                             }
                             action=""
                         >
-                           
+
 
                             <span className="info">Informações pessoais</span>
 
@@ -137,6 +156,6 @@ export const UpdateModalProfile = (): JSX.Element => {
                     {/* </BoxContentForm> */}
                 </ContainerProfileModal>
             }
-        </>
+        </AnimatePresence>
     )
 }

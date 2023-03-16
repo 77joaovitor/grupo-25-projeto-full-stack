@@ -4,6 +4,7 @@ import { AnnouncementContext } from "../../context";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../Button";
 import { UserContext } from "../../context/user/userContext";
+import InitialLetterName from "../InitialLetterName";
 
 const ProductCard = ({ announcement, isAdmPage }: PropsAnnouncementCard) => {
   const {
@@ -45,10 +46,14 @@ const ProductCard = ({ announcement, isAdmPage }: PropsAnnouncementCard) => {
             </p>
             {!isAdmPage && (
               <div className="userConteiner">
-                <span className="logoName">
+                <InitialLetterName 
+                  name={announcement.advertiser.name[0]}  
+
+                />
+                {/* <span className="logoName">
                   {announcement.advertiser.name[0]}
                 </span>{" "}
-                <span>{announcement.advertiser.name}</span>
+                <span>{announcement.advertiser.name}</span> */}
               </div>
             )}
             <div className="infoContainer">

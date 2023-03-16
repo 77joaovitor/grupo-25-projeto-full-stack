@@ -18,8 +18,28 @@ export const ModalSuccessAnnouncement = (): JSX.Element => {
                     onClick={
                         () => setIsModalSuccessCreate(!isModalSuccessCreate)
                     }
+                    initial={{ opacity: 0.5 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: .5 }}
+            
                 >
-                    <BoxContent>
+                    <BoxContent
+                        initial={{scale: 0.5}}
+                        animate={{
+                            scale: 1,
+                            transition: { 
+                                type: "spring", 
+                                stiffness: 30
+                            }
+                        }}
+                        exit={{scale: 0.5,
+                            transition: { 
+                                type: "spring", 
+                                stiffness: 30
+                            }
+                        }}
+                    >
 
                         <BoxTitle>
                             <h2>Sucesso</h2>

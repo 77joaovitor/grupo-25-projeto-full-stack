@@ -1,6 +1,7 @@
+import { motion } from "framer-motion";
 import styled from "styled-components";
 
-export const Container = styled.main`
+export const Container = styled(motion.main)`
   .container-main-detailAnnou {
     /* display: flex; */
     background-image: linear-gradient(
@@ -21,6 +22,7 @@ export const Container = styled.main`
     padding: 1rem;
     height: 16rem;
     border-radius: 4px;
+    cursor: pointer;
   }
   h1 {
     font-size: 20px;
@@ -172,6 +174,7 @@ export const Container = styled.main`
     border: 10px solid white;
     background-color: #f1f3f5;
     border-radius: 4px;
+    cursor: pointer;
 
   }
   .container {
@@ -186,8 +189,7 @@ export const Container = styled.main`
     flex-wrap: wrap;
     gap: 10px;
     max-width: 400px;
-    /* align-items: center;
-    justify-content: center; */
+    cursor: pointer;
 
   }
   .details {
@@ -344,4 +346,72 @@ export const Message = styled.div`
   align-items: center;
   height: 300px;
   width: 100%;
+`
+
+export const BigImage = styled(motion.div)`
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+    
+  z-index: 9999;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  color: #000000;
+  background: rgba(18, 18, 20, 0.3);
+
+`
+
+export const BoxTitle = styled.div`
+    display: flex;
+    justify-content: space-between;
+    border-radius: 4px;
+
+    background-color:#f1f3f5;
+    width: 90%;
+    padding: 15px;
+    left: 0;
+    margin: 0 auto;
+    right: 0;
+    top: 20px;
+
+    .btn_close{
+        width: max-content;
+        padding: 0;
+    }
+
+    @media (min-width: 580px) {
+        width: 520px;
+    }
+`
+
+export const BoxShowImage = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  height: 400px;
+  background-color: #FFFF;
+  border-radius: 4px;
+  figure{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+
+    width: 100%;
+    height: 343px;
+    img{
+      height: 100%;
+      width: 100%;
+      border-radius: 4px;
+          border-top-left-radius: 0;
+    border-top-right-radius: 0;
+
+  }
+  }
+
+  @media (min-width: 580px) {
+    width: 520px;
+  }
 `

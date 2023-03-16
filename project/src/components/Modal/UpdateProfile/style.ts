@@ -1,6 +1,7 @@
+import { motion } from "framer-motion";
 import styled from "styled-components";
 
-export const ContainerProfileModal = styled.div`
+export const ContainerProfileModal = styled(motion.div)`
     position: fixed;
     display: flex;
     justify-content: center;
@@ -18,7 +19,7 @@ export const ContainerProfileModal = styled.div`
     }   
 `
 
-export const BoxContentForm = styled.div`
+export const BoxContentForm = styled(motion.div)`
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -164,7 +165,7 @@ export const BoxButton = styled.div`
 
 `
 
-export const BoxContent = styled.div`
+export const BoxContent = styled(motion.div)`
     display: flex;
     flex-direction: column;
     margin:auto 0;
