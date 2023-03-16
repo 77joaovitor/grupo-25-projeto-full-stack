@@ -1,11 +1,11 @@
+import { AnimatePresence } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { IoMdClose } from "react-icons/io";
 import { UserContext } from "../../../context/user/userContext"
 import { AddressRequest } from "../../../interfaces/user.interface";
 import { Button, ButtonModal } from "../../Button";
 import { InputModalAddress } from "../../Input/Profile/inputUpdateAddress";
-import { BoxTitle } from "../style";
-import { BoxButton, BoxInput, ContainerProfileModal, FormUpdate } from "./style"
+import { BoxButton, BoxTitle,BoxInput, ContainerProfileModal, FormUpdate } from "./style"
 
 
 export const UpdateModalAddress = (): JSX.Element => {
@@ -14,17 +14,36 @@ export const UpdateModalAddress = (): JSX.Element => {
     const {handleSubmit, register} = useForm<AddressRequest>()
     
     return (
-        <>
+        <AnimatePresence>
             {
                 isModalUpdateAddress && 
                     <ContainerProfileModal
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: .5 }}
                         onClick={() => setIsModalUpdateAddress(!isModalUpdateAddress)}
-                        >
+                    >
                         <FormUpdate
                             onClick={(e) =>  e.stopPropagation()}
                             onSubmit={
                                 handleSubmit(updateAddress)
                             }
+                            initial={{ scale: 0.5 }}
+                            animate={{
+                                scale: 1,
+                                transition: {
+                                    type: "spring",
+                                    stiffness: 30
+                                }
+                            }}
+                            exit={{
+                                scale: 0.5,
+                                transition: {
+                                    type: "spring",
+                                    stiffness: 30
+                                }
+                            }}
                         >
                             <BoxTitle>
                                 <h3>Editar endereço</h3>
@@ -114,6 +133,6 @@ export const UpdateModalAddress = (): JSX.Element => {
                         </FormUpdate>
                     </ContainerProfileModal>
             }        
-        </>
+        </AnimatePresence>
     )
 }

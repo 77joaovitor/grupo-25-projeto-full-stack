@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import AuctionCard from "../../components/AuctionCard";
 import { Button } from "../../components/Button";
 import { Footer } from "../../components/Footer";
@@ -15,23 +15,24 @@ import { AnnouncementResponse } from "../../interfaces/announcement.interface";
 import { responsive, responsive3 } from "../../util/responsive";
 import { Message } from "../Home/style";
 import {
-  PresentationSection,
-  ContainerMain,
-  UserInformation,
-  ProfileContent,
-  ContainerList,
-  BoxContent,
+  BoxContent,  ContainerMain, PresentationSection, ProfileContent, UserInformation
 } from "./style";
+import { ContainerList } from "../Profile/style";
+import { useEffect } from "react";
+import { motion } from "framer-motion";
 
 export const ProfileAdmin = (): JSX.Element => {
   const {
     setIsOpenModalCreateAnnouncement,
     isOpenModalCreateAnnouncement,
-    allAnnouncementByAdvertiser,
+    allAnnouncementByAdvertiserAdmin,
   } = AnnouncementContext();
 
-  const { user } = UserContext();
-  const navigate = useNavigate();
+  const { user, isDropdown, setIsDropDown } = UserContext();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
@@ -39,27 +40,37 @@ export const ProfileAdmin = (): JSX.Element => {
       {<UpdateAnnouncement />}
       {<DeleteAnnouncement />}
       {<ModalSuccessAnnouncement />}
-      {user.isAdvertiser ? (
-        <>
+      {user.isAdvertiser && (
+        <motion.div
+          initial={{ opacity: 0.5 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1 }}
+        >
           <Header />
           <PresentationSection id="home">
             <ProfileContent>
+              <InitialLetterName
+                className="logoName"
+                name={user.name[0]}
+                width={4}
+                heigth={4}
+                fontSize={4}
+              />
               <UserInformation>
-                <InitialLetterName
-                  name={user.name[0]}
-                  width={4}
-                  heigth={4}
-                  fontSize={4}
-                />
-                <span>{user.name}</span>
+                <div className="box-info-user">
+                  <span>{user.name}</span>
+                  <span className="span-advertiser">Anunciante</span>
+                </div>
               </UserInformation>
 
               <p>
-              {user?.description}
+                {user?.description}
               </p>
 
               {user.isAdvertiser && (
                 <Button
+                  className="btn-create"
                   onClick={() =>
                     setIsOpenModalCreateAnnouncement(
                       !isOpenModalCreateAnnouncement
@@ -72,9 +83,16 @@ export const ProfileAdmin = (): JSX.Element => {
             </ProfileContent>
           </PresentationSection>
 
-          <ContainerMain>
+          <ContainerMain
+              onClick={
+                () => isDropdown && setIsDropDown(false)
+              }
+          >
             {user.isAdvertiser && (
-              <BoxContent>
+              <BoxContent 
+                className="box-1"
+                id="rent"
+              >
                 <h3>Leilão</h3>
                 <ContainerList
                   responsive={responsive3}
@@ -92,10 +110,12 @@ export const ProfileAdmin = (): JSX.Element => {
               <h3>Carros</h3>
               <ContainerList
                 responsive={responsive}
+                infinite={true}
+              
                 removeArrowOnDeviceType={["tablet", "mobile"]}
               >
-                {allAnnouncementByAdvertiser &&
-                  allAnnouncementByAdvertiser
+                {allAnnouncementByAdvertiserAdmin &&
+                  allAnnouncementByAdvertiserAdmin
                     .filter(
                       (elem: AnnouncementResponse) =>
                         elem.vehicle.type === "car"
@@ -107,25 +127,25 @@ export const ProfileAdmin = (): JSX.Element => {
                         announcement={announcement}
                       />
                     ))}
-                    {
-                       allAnnouncementByAdvertiser
-                       .filter(
-                         (elem: AnnouncementResponse) =>
-                           elem.vehicle.type === "car"
-                       ).length === 0 && <Message>
-                       <p>Anunciante sem anúncios disponíveis</p>
-                   </Message> 
-                    }
+                {
+                  allAnnouncementByAdvertiserAdmin
+                    .filter(
+                      (elem: AnnouncementResponse) =>
+                        elem.vehicle.type === "car"
+                    ).length === 0 && <Message>
+                    <p>Anunciante sem anúncios disponíveis</p>
+                  </Message>
+                }
               </ContainerList>
             </BoxContent>
             <BoxContent id="motorcycles">
               <h3>Motos</h3>
               <ContainerList
                 responsive={responsive}
-                removeArrowOnDeviceType={["tablet", "mobile"]}
+                // removeArrowOnDeviceType={["tablet", "mobile"]}
               >
-                {allAnnouncementByAdvertiser &&
-                  allAnnouncementByAdvertiser
+                {allAnnouncementByAdvertiserAdmin &&
+                  allAnnouncementByAdvertiserAdmin
                     .filter(
                       (elem: AnnouncementResponse) =>
                         elem.vehicle.type === "motorcycle"
@@ -139,22 +159,20 @@ export const ProfileAdmin = (): JSX.Element => {
                         />
                       )
                     )}
-                    {
-                        allAnnouncementByAdvertiser
-                        .filter(
-                          (elem: AnnouncementResponse) =>
-                            elem.vehicle.type === "motorcycle"
-                        ).length === 0 && <Message>
-                        <p>Anunciante sem anúncios disponíveis</p>
-                    </Message> 
-                    }
+                {
+                  allAnnouncementByAdvertiserAdmin
+                    .filter(
+                      (elem: AnnouncementResponse) =>
+                        elem.vehicle.type === "motorcycle"
+                    ).length === 0 && <Message>
+                    <p>Anunciante sem anúncios disponíveis</p>
+                  </Message>
+                }
               </ContainerList>
             </BoxContent>
           </ContainerMain>
           <Footer />
-        </>
-      ) : (
-        navigate("/")
+        </motion.div>
       )}
     </>
   );

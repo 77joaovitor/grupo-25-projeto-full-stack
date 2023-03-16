@@ -58,14 +58,17 @@ export const ProfileContent = styled.div`
     padding: 40px 29px;
     padding-bottom: 20px;
 
+    .logoName {
+        color: rgba(233, 236, 239, 1);
+    }
+
     span{
         font-weight: 600;
         font-size: 20px;
         line-height: 25px;
-
-
         color: #212529;
     }
+
     p{
         text-align: justify;
         font-weight: 400;
@@ -85,11 +88,13 @@ export const ProfileContent = styled.div`
         border: 1px solid #4529E6;
         
         :focus,
-        :visited {
+        :visited, 
+        :hover {
             background-color: #4529E6;
             color: #fff;
             outline: none;
         }
+
     }
 `
 
@@ -102,19 +107,30 @@ export const UserInformation = styled.div`
     width: fit-content;
     gap: 15px;
 
+    .box-info-user{
+        display: flex;
+        gap: 15px;
+    }
 
-  .logoName {
-    display: flex;
-    border-radius: 50%;
-    background-color: rgba(69, 41, 230, 1);
-    justify-content: center;
-    align-items: center;
-    color: rgba(233, 236, 239, 1);
-    width: 80px;
-    height: 80px;
-    font-size: 14px;
-    font-weight: 500;
-  }
+    span{
+        font-size: 18px;
+    }
+
+    .span-advertiser{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 92px;
+        height: 26px;
+
+        background: #EDEAFD;
+        border-radius: 4px;
+        font-weight: 500;
+        font-size: 14px;        
+        line-height: 24px;
+        color: #4529E6;
+    }
   
 `
 
@@ -135,19 +151,31 @@ export const ContainerMain = styled.main`
         padding-top: 180px;
         
     }
-`
+    .box-1{
+    height: 600px;
 
+  }
+  @media (min-width: 1030px) {
+    .box-1{
+      height: 390px;
+    }
+  }
+`
 export const BoxContent = styled.div`
     display: flex;
     flex-direction: column;
     gap: 60px;
     width: 100%;
-`
+    height: 522px;
+    padding-bottom: 20px;
 
+    .react-multi-carousel-item {
+  padding:0 10px;
+  
+}
+`
 export const ContainerList = styled(Carousel)`
     display: flex;
-    gap: 5px;
-    padding: 0;
     .react-multiple-carousel__arrow--left {
     left: calc(1% + 1px);
   }
@@ -157,5 +185,8 @@ export const ContainerList = styled(Carousel)`
   > button {
     z-index: 0;
   }
+    gap: 5px;
+    padding: 0;
+
     list-style-type: none;
 `

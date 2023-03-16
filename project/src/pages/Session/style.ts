@@ -1,6 +1,7 @@
+import { motion } from "framer-motion";
 import styled from "styled-components";
 
-export const ContainerSession = styled.div`
+export const ContainerSession = styled(motion.div)`
     display: flex;
     flex-direction: column;
     justify-content: space-between;

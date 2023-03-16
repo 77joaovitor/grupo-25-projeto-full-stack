@@ -1,31 +1,27 @@
 import { AxiosError } from "axios";
-import { JwtPayload } from "jwt-decode";
+import jwt_decode, { JwtPayload } from "jwt-decode";
 import { createContext, useContext, useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import {
   AnnouncementRequest,
   AnnouncementResponse,
-  UpdateAnnouncementRequest,
+  UpdateAnnouncementRequest
 } from "../../interfaces/announcement.interface";
 import {
   AnnouncementProviderData,
-  Props,
+  Props
 } from "../../interfaces/contexts.interface";
 import { api } from "../../util/api";
 import { getToken, logout } from "../session/auth";
-import jwt_decode from "jwt-decode";
 import { UserContext } from "../user/userContext";
-import { useNavigate } from "react-router-dom";
 
 const Context = createContext<AnnouncementProviderData>(
   {} as AnnouncementProviderData
 );
 
 export const AnnouncementProvider = ({ children }: Props) => {
-  const [idDetailAnoucements, setIdDetailAnoucements] = useState(0);
   const [detailAnoucements, setDetailAnoucements] = useState(
-    {} as AnnouncementResponse
-  );
-  const [announcement, setAnnouncement] = useState<AnnouncementResponse>(
     {} as AnnouncementResponse
   );
   const [isOpenModalCreateAnnouncement, setIsOpenModalCreateAnnouncement] =
@@ -34,28 +30,25 @@ export const AnnouncementProvider = ({ children }: Props) => {
     useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [announcementType, setAnnouncementType] = useState<string>("");
-  const [vehicleType, setVehicleType] = useState<string>("");
-  const [inputs, setInputs] = useState<JSX.Element>({} as JSX.Element);
-  const [announcementsCars, setAnnouncementsCars] = useState<
-    AnnouncementResponse[]
-  >([]);
-  const [announcementsMotorcycle, setAnnouncementsMotorcycle] = useState<
-    AnnouncementResponse[]
-  >([]);
+  const [vehicleType, setVehicleType] = useState<string>("car");
   const [allAnnouncementByAdvertiser, setAllAnnouncementByAdvertiser] =
+    useState<AnnouncementResponse[]>([]);
+  const [allAnnouncementByAdvertiserAdmin, setAllAnnouncementByAdvertiserAdmin] =
     useState<AnnouncementResponse[]>([]);
   const [allAnnouncements, setAllAnnouncements] = useState<
     AnnouncementResponse[]
   >([]);
   const [isAnnouncementPublished, setIsAnnouncementPublished] =
-    useState<boolean>(false);
+    useState<boolean>(true);
   const [isOpenModalDeleteAnnouncement, setIsOpenModalDeleteAnnouncement] =
     useState<boolean>(false);
   const [isModalSuccessCreate, setIsModalSuccessCreate] = useState<boolean>(false)
- 
-  const { setUserAdvertiser, getUser, reload, setReload } = UserContext();
 
-  const navigate = useNavigate()
+  const { setUserAdvertiser, getUser, user, reload, setReload, userAdvertiser } = UserContext();
+
+  const navigate = useNavigate();
+
+  const { pathname } = useLocation()
 
   const createAnnouncement = async (data: AnnouncementRequest) => {
     setIsLoading(true);
@@ -74,24 +67,21 @@ export const AnnouncementProvider = ({ children }: Props) => {
         },
       });
 
-      setTimeout(() => {
         setIsOpenModalCreateAnnouncement(!isOpenModalCreateAnnouncement)
         setIsLoading(false);
-        setAnnouncement(response.data);
         setIsModalSuccessCreate(!isModalSuccessCreate)
         setReload(!reload);
 
-      }, 500);
     } catch (error) {
       if (error instanceof AxiosError) {
         setIsLoading(false);
         console.log(error);
-        
+
         error.response?.status === 500 &&
           setTimeout(() => {
 
             logout();
-            navigate('/error', {replace: true});
+            navigate('/error', { replace: true });
           }, 5000);
       }
     }
@@ -100,7 +90,8 @@ export const AnnouncementProvider = ({ children }: Props) => {
     setIsLoading(true);
 
     try {
-      const response = await api.post(
+      
+      const response = await api.put(
         `/announcements/${detailAnoucements.id}`,
         {
           ...data,
@@ -117,12 +108,24 @@ export const AnnouncementProvider = ({ children }: Props) => {
         }
       );
 
-      setTimeout(() => {
-        setIsLoading(false);
-        setAnnouncement(response.data);
-        setReload(!reload);
+      toast.update("Anúncio atualizado", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
 
+      setTimeout(() => {
+        setReload(!reload);
+        setIsOpenModalUpdateAnnouncement(!isOpenModalUpdateAnnouncement)
+        setIsLoading(false);
+        
       }, 500);
+
     } catch (error) {
       if (error instanceof AxiosError) {
         setIsLoading(false);
@@ -130,7 +133,7 @@ export const AnnouncementProvider = ({ children }: Props) => {
           setTimeout(() => {
 
             logout();
-            navigate('/error', {replace: true});
+            navigate('/error', { replace: true });
           }, 5000);
       }
     }
@@ -141,6 +144,14 @@ export const AnnouncementProvider = ({ children }: Props) => {
       const announcementID = localStorage.getItem("announcementID");
 
       const advertiserID = localStorage.getItem("advertiserID");
+
+      let decoded: JwtPayload = {
+        exp: 1,
+        iat: 1,
+        sub: "error",
+      };
+
+      const token = getToken();
 
       const response = await api.get("/announcements/");
 
@@ -156,13 +167,24 @@ export const AnnouncementProvider = ({ children }: Props) => {
       }
 
       if (advertiserID) {
-        const allAnnouncementByAdvertiserId = response.data.filter(
-          (element: AnnouncementResponse) => {
-            return element.advertiser.id === advertiserID;
-          }
-        );
+        if (token) {
+          decoded = jwt_decode(token!);
+        }
 
-        setAllAnnouncementByAdvertiser(allAnnouncementByAdvertiserId);
+        if (decoded.sub?.length! > 5) {
+
+          if (pathname === '/profile/admin') {
+
+            return getAllAnnouncementByAdvertiser(decoded.sub!)
+          }
+        }
+
+        if (pathname === '/profile/') {
+
+          getAllAnnouncementByAdvertiser(advertiserID)
+        }
+        getAllAnnouncementByAdvertiser(advertiserID)
+
       }
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -176,7 +198,17 @@ export const AnnouncementProvider = ({ children }: Props) => {
       setIsLoading(true);
 
       await api.delete(`/announcements/${announcementId}`);
-
+      toast.success("Anúncio deletado", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      
       setTimeout(() => {
         setIsLoading(false);
         setReload(!reload);
@@ -184,21 +216,21 @@ export const AnnouncementProvider = ({ children }: Props) => {
       }, 500);
 
     } catch (error) {
-      if(error instanceof AxiosError){
+      if (error instanceof AxiosError) {
         setIsLoading(false);
-				error.response?.status === 500 && setTimeout(() => {
-					logout()
-					navigate('/error', {replace: true});
-	
-				}, 5000);
-			}
+        error.response?.status === 500 && setTimeout(() => {
+          logout()
+          navigate('/error', { replace: true });
+
+        }, 5000);
+      }
     }
   };
 
   const createComment = async (data: any) => {
     try {
       setIsLoading(true);
-      const response = await api.post(`/announcements/${detailAnoucements?.id}/comments/`,{
+      const response = await api.post(`/announcements/${detailAnoucements?.id}/comments/`, {
         ...data
       });
 
@@ -207,35 +239,59 @@ export const AnnouncementProvider = ({ children }: Props) => {
         setReload(!reload);
 
       }, 500);
-      
+
     } catch (error) {
-      if(error instanceof AxiosError){
+      if (error instanceof AxiosError) {
         console.log(error);
-        
+
       }
     }
   }
 
-  const getAllAnnouncementByAdvertiser = (advertiserId: string) => {
+  const getAllAnnouncementByAdvertiser = async (advertiserId: string) => {
     try {
-      const allAnnouncementByAdvertiserId = allAnnouncements.filter(
-        (element) => {
+
+      const response = await api.get("/announcements/");
+
+      const allAnnouncementByAdvertiserId = response.data.filter(
+        (element: AnnouncementResponse) => {
           return element.advertiser.id === advertiserId;
         }
       );
-      const advertiser = allAnnouncementByAdvertiserId.find(elem => {
-        return elem.advertiser.id === advertiserId
-      })?.advertiser
-      
-      advertiser && setUserAdvertiser(advertiser)
 
-      setAllAnnouncementByAdvertiser(allAnnouncementByAdvertiserId);
+      if (pathname === '/profile/admin') {
+
+        if (allAnnouncementByAdvertiserId) {
+  
+          const advertiser = allAnnouncementByAdvertiserId.find((elem: AnnouncementResponse) => {
+            return elem?.advertiser.id === advertiserId
+          })?.advertiser
+  
+          advertiser && setUserAdvertiser(advertiser)
+        }
+
+        return setAllAnnouncementByAdvertiserAdmin(allAnnouncementByAdvertiserId)
+      }
+      if (pathname === '/profile/') {
+      
+        setAllAnnouncementByAdvertiser(allAnnouncementByAdvertiserId);
+        if (allAnnouncementByAdvertiserId) {
+  
+          const advertiser = allAnnouncementByAdvertiserId.find((elem: AnnouncementResponse) => {
+            return elem?.advertiser.id === advertiserId
+          })?.advertiser
+  
+          advertiser && setUserAdvertiser(advertiser)
+        }
+      }
+
       return allAnnouncementByAdvertiserId;
-    } catch (error) {}
+
+    } catch (error) { }
   };
 
+
   useEffect(() => {
-    getAnnouncements();
 
     let decoded: JwtPayload = {
       exp: 1,
@@ -249,52 +305,49 @@ export const AnnouncementProvider = ({ children }: Props) => {
       decoded = jwt_decode(token!);
     }
 
-		if (decoded.sub?.length! > 5){
-			// localStorage.removeItem('advertiserID')
-			// getAllAnnouncementByAdvertiser(decoded.sub!)
-			getUser(decoded.sub!);
-		} 
+    if (decoded.sub?.length! > 5) {
 
-		
-	}, [, reload])
+      getUser(decoded.sub!);
 
-	return (
-		<Context.Provider value={{
-			createAnnouncement,
-			setAnnouncement,
-			announcement,
-			setIsOpenModalCreateAnnouncement,
-			isOpenModalCreateAnnouncement,
-			announcementType,
-			setAnnouncementType,
-			setVehicleType,
-			vehicleType,
-			setInputs,
-			inputs,
-			announcementsCars,
-			announcementsMotorcycle,
-			setIsAnnouncementPublished,
-			isAnnouncementPublished,
-			detailAnoucements,
-			setDetailAnoucements,
-			getAllAnnouncementByAdvertiser,
-			allAnnouncementByAdvertiser,
-			isOpenModalUpdateAnnouncement,
-			setIsOpenModalUpdateAnnouncement,
-			updateAnnouncement,
-			deleteAnnouncement,
-			isOpenModalDeleteAnnouncement,
-			setIsOpenModalDeleteAnnouncement,
-			allAnnouncements,
-			reload, 
-			setReload,
-      isModalSuccessCreate, 
+    }
+
+    getAnnouncements();
+
+  }, [, reload])
+
+  return (
+    <Context.Provider value={{
+      createAnnouncement,
+      setIsOpenModalCreateAnnouncement,
+      isOpenModalCreateAnnouncement,
+      announcementType,
+      setAnnouncementType,
+      setVehicleType,
+      vehicleType,
+      setIsAnnouncementPublished,
+      isAnnouncementPublished,
+      detailAnoucements,
+      setDetailAnoucements,
+      getAllAnnouncementByAdvertiser,
+      allAnnouncementByAdvertiser,
+      isOpenModalUpdateAnnouncement,
+      setIsOpenModalUpdateAnnouncement,
+      updateAnnouncement,
+      deleteAnnouncement,
+      isOpenModalDeleteAnnouncement,
+      setIsOpenModalDeleteAnnouncement,
+      allAnnouncements,
+      reload,
+      setReload,
+      isModalSuccessCreate,
       setIsModalSuccessCreate,
       createComment,
-			}}>
-			{children}
-		</Context.Provider>
-	);
+      allAnnouncementByAdvertiserAdmin,
+      setAllAnnouncementByAdvertiserAdmin,
+    }}>
+      {children}
+    </Context.Provider>
+  );
 };
 
 export const AnnouncementContext = () => useContext(Context);

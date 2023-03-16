@@ -59,14 +59,21 @@ export const ContainerInput = styled.div`
     padding: 0px 16px;
     width: 100%;
     height: 100%;
-    background: #ffffff;
     color: #000000;
     border: 1px solid #E9ECEF;
     border-radius: 4px;
     :focus, :focus-visible{
       outline: none;
     }
+    
   };
+
+  input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    display: none;
+}
 
  textarea{
     height: 80px;

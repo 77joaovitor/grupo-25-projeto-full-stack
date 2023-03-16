@@ -4,6 +4,7 @@ import { Profile } from "./Profile";
 import { Register } from "./Register";
 import { ProfileAdmin } from "./ProfileAdmin";
 import { Login } from "./Session";
+import { Error } from "./Error";
 import Recovery from "./Recovery";
 
 export {
@@ -14,4 +15,5 @@ export {
   ProfileAdmin,
   Login,
   Recovery,
+  Error
 };

@@ -6,7 +6,7 @@ export const ListComment = styled.li`
     gap: 10px;
     list-style: none;
     width: 100%;
-    height: 180px;
+    /* height: fit-content; */
     border-bottom: 1px dashed  #868E96;
 
     h4{
@@ -35,7 +35,8 @@ export const ListComment = styled.li`
         color: #ffff;
     }
     p{
-        height: 160px;
+        /* height: fit-content; */
+        padding: 10px;
         font-weight: 400;
         font-size: 14px;
         line-height: 24px;

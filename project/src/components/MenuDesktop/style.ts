@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -88,14 +89,14 @@ export const Container = styled.div`
   filter: drop-shadow(0px 40px 40px rgba(0, 0, 0, 0.09));
 `;
 
-export const Dropdown = styled.div`
+export const Dropdown = styled(motion.div)`
   position: fixed;
   top: 90%;
   /* right: 20px; */
   display: flex;
   height: 16px;
   margin-left: 10px;
-  width: 43%;
+  width: 45%;
   z-index: 1001;
   /* height: 202px; */
   .svg {
@@ -105,7 +106,7 @@ export const Dropdown = styled.div`
   }
 `;
 
-export const DropdownContent = styled.div`
+export const DropdownContent = styled(motion.nav)`
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -118,7 +119,7 @@ export const DropdownContent = styled.div`
 
   color: red;
   margin: 0;
-  width: 200px;
+  width: 195px;
   height: max-content;
   padding: 20px;
   gap: 20px;

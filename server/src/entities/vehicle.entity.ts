@@ -29,7 +29,7 @@ class Vehicle {
   @Column({ type: "float" })
   mileage: number;
 
-  @Column({ length: 200 })
+  @Column()
   coverImage: string;
 
   @CreateDateColumn()

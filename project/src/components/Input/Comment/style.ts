@@ -21,7 +21,13 @@ export const ContainerInput = styled.div`
       outline: none;
     }
   };
-
+  
+  input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    display: none;
+}
  textarea{
     height: 180px;
 

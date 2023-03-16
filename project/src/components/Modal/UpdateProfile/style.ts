@@ -1,22 +1,84 @@
+import { motion } from "framer-motion";
 import styled from "styled-components";
 
-export const ContainerProfileModal = styled.div`
+export const ContainerProfileModal = styled(motion.div)`
     position: fixed;
     display: flex;
     justify-content: center;
-    padding: 20px 0 ;
+    align-items: center;
       
     z-index: 99999;
     inset: 0;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     color: #000000;
     background: rgba(18, 18, 20, 0.3);
-    overflow-y: auto;
     ::-webkit-scrollbar {
         width: 0px;   
         border: 1px solid ;
     }   
+`
+
+export const BoxContentForm = styled(motion.div)`
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    width: 90%;
+    height: 90vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    padding-top: 250px;
+    
+    background: #ffff;
+    border-radius: 4px;
+    ::-webkit-scrollbar {
+        width: 0px;   
+        border: 1px solid ;
+    }   
+
+    ::-webkit-scrollbar-track{
+        background: #F4F4F4; 
+    } 
+    scroll-behavior: smooth;
+    @media (min-height: 585px) {
+        padding-top: 200px;
+    }
+    @media (min-width: 580px) {
+        width: 520px;
+        /* padding-top: 200px; */
+
+    }
+`
+
+export const BoxTitle = styled.div`
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    z-index: 1;
+    inset: 9999;
+    border-radius: 4px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+
+    background-color: #ffff;
+    width: 90%;
+    padding: 20px;
+    left: 0;
+    margin: 0 auto;
+    right: 0;
+    top: 30px;
+
+    .btn_close{
+        width: max-content;
+        padding: 0;
+    }
+
+    @media (min-width: 580px) {
+        width: 520px;
+    }
 `
 
 export const FormUpdate = styled.form`
@@ -28,12 +90,11 @@ export const FormUpdate = styled.form`
     border-radius: 8px;
     justify-content: center;
     align-items: center;
-    padding: 25px;
+    padding: 15px;
     gap: 10px;
-height: fit-content;
-    position: absolute;
-    width: 90%;
+    height: max-content;
 
+    width: 90%;
     .btn_close{
         padding: 0;
     }
@@ -55,25 +116,20 @@ height: fit-content;
         top: -50px;
         left: 40%;
     }
+   
     .info{
         width: 100%;
         display: flex;
         align-items: flex-start;
         margin: 10px;
     }
+
     label{
         font-size: 12px;
     }
 
-    input{
-        :focus{
-            border: 1px solid #212529;
-        }
-    }
-
     @media (min-width: 580px) {
         width: 520px;
-        /* padding: 2%; */
     }
 `
 
@@ -109,7 +165,7 @@ export const BoxButton = styled.div`
 
 `
 
-export const BoxContent = styled.div`
+export const BoxContent = styled(motion.div)`
     display: flex;
     flex-direction: column;
     margin:auto 0;

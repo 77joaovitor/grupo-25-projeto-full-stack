@@ -58,15 +58,19 @@ export const FormCreate = styled.form`
     width: 90%;
     display: flex;
     flex-direction: column;
-    background: #FFFFFF;
     border-radius: 8px;
     justify-content: center;
     align-items: center;
-    padding: 0px 16px 32px;
-    gap: 37px;
+    padding: 23px;
+    margin-top: 300px;
+    gap: 10px;
 
-    position: absolute;
-    width: 90%;
+    width: 100%;
+    height: fit-content;
+
+    label{
+        font-size: 12px;
+    }
 
     .button_del_input{
        display: flex;
@@ -79,11 +83,15 @@ export const FormCreate = styled.form`
            padding: 0;
         }
     }  
-
-
+    
+    
     @media (min-width: 580px) {
         width: 520px;
     }
+    
+        @media (min-height: 585px) {
+            margin-top: 230px;
+        }
 `
 
 export const BoxTitle = styled.div`
@@ -112,25 +120,44 @@ export const BoxButton = styled.div`
     gap: 10px;
     width: 100%;
     font-size: 13.5px;
-    padding: 10px 10px;
+
     button{
         width: 50%;
     }
 
-    .cancel_btn{
-        /* width: 146px; */
-    height: 45px;
-    background: #F1F3F5;
-    font-size: 13.5px;
-    padding: 10px 10px;
+    .buttonWhite {
+        background-color: white;
+        color: black;
+        border-radius: 5px;
+        border: 1px solid #E9ECEF;
+        transition: 400ms;
+        :hover{
+        border: #5126ea solid 1px;
+
+        }
     }
+  .buttonBlue {
+    background-color: #5126ea;
+    color: white;
+    border-radius: 5px;
+    border: #5126ea solid 1px;
+    transition: 500ms;
+  }
+
+    .cancel_btn{
+        height: 45px;
+        background: #F1F3F5;
+        font-size: 13.5px;
+        padding: 10px 10px;
+    }
+
     .create_btn{
         background: #B0A6F0;
         color: #ffff;
         font-size: 13.5px;
-    padding: 10px 10px;
-    width: 40%;
-    height: 45px;
+        padding: 10px 10px;
+        width: 40%;
+        height: 45px;
     }
 
 `

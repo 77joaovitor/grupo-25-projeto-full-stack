@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import styled from "styled-components";
 
 export const ButtonLink = styled.a`
@@ -22,7 +23,7 @@ export const ButtonLink = styled.a`
 
 `
 
-export const ButtonType = styled.button`
+export const ButtonType = styled(motion.button)`
     display: flex;
     justify-content: center;
     align-items: center;
