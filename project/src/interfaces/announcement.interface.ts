@@ -18,6 +18,26 @@ interface Vehicle {
     ]
 }
 
+export interface UserComment {
+    id: string
+    name: string
+    email: string
+    cpf: string
+    phone: string
+    description: string
+    birthdate: string
+    isAdvertiser: boolean;
+    isActive: boolean;
+    pin: string,
+    createdAt: Date;
+    updatedAt: Date;
+    deleteAt: null
+}
+
+export interface RequestComment {
+    body: string
+}
+
 interface Advertiser {
     id: string;
     name: string;
@@ -33,6 +53,13 @@ interface Advertiser {
     deleteAt?: null;
 }
 
+export interface Comment {
+    id: string;
+    body: string
+    createdAt: string
+    user: UserComment;
+}
+
 export interface AnnouncementResponse {
 	id: string;
 	type: string;
@@ -43,7 +70,15 @@ export interface AnnouncementResponse {
 	deleteAt?: null,
 	vehicle: Vehicle;
 	advertiser: Advertiser;
+    isActive: boolean;
+    comments?: Comment[]
 }
+
+type FormValues = {
+    galleryImages: {
+        imageUrl: string;
+    }[];
+  };
 
 export interface AnnouncementRequest {
 	type: string;
@@ -54,10 +89,21 @@ export interface AnnouncementRequest {
     year: string;
     mileage: number;
     coverImage: string;
-    // galleryImages: [
-    //     {
-    //         imageUrl: string;
-    //     }
-    // ];
-    galleryImages: string
+    galleryImages:  {
+        imageUrl: string;
+    }[];
+};
+export interface UpdateAnnouncementRequest {
+	type: string;
+	title: string;
+	description: string;
+    vehicleType: string;
+    price: number;
+    year: string;
+    mileage: number;
+    coverImage: string;
+    galleryImages:  {
+        imageUrl: string;
+    }[];
+    isActive: boolean;
 };

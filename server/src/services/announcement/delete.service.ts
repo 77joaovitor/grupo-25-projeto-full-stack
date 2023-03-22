@@ -1,15 +1,31 @@
 import AppDataSource from "../../data-source";
-import { Announcement } from "../../entities";
+import { Announcement, GalleryImage } from "../../entities";
 import { AppError } from "../../errors";
 
-export const deleteAnnoucementService = async (id: string) => {
-  const annoucementRepository = AppDataSource.getRepository(Announcement);
+export const deleteAnnouncementService = async (id: string): Promise<object> => {
+  const announcementRepository = AppDataSource.getRepository(Announcement);
+  const galleryImageRepository = AppDataSource.getRepository(GalleryImage);
 
-  const findAnnoucement = await annoucementRepository.findOneBy({ id });
+  const findAnnouncement = await announcementRepository.findOne({ 
+    where: {
+      id
+    },
+    relations: {
+      vehicle: true
+    }
+  });
 
-  if (!findAnnoucement) {
-    throw new AppError(404, "Annoucement not found");
+  await galleryImageRepository
+    .createQueryBuilder()
+    .delete()
+    .where("vehicleId = :vehicleId", { vehicleId: findAnnouncement?.vehicle.id })
+    .execute();
+    
+  if (!findAnnouncement) {
+    throw new AppError(404, "Announcement not found");
   }
 
-  await annoucementRepository.delete(id);
+  await announcementRepository.delete(id);
+
+  return {message: "Announcement deleted"};
 };

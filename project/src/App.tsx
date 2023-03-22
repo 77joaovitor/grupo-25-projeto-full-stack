@@ -1,18 +1,25 @@
-import { useState } from 'react'
-import { CreateAnnouncement } from './components/Modal/CreateAnnouncement'
-import GlobalStyle from "./globalStyle";
-import FormRegister from "./components/FormRegister";
+import { CreateAnnouncement } from "./components/Modal/CreateAnnouncement";
+import RoutesMain from "./routes/index.routes";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-
-    <div className="App">
-      <GlobalStyle />
-      <FormRegister />
-       <CreateAnnouncement />
-    </div>
+    <>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      <RoutesMain />
+    </>
   );
 }
 

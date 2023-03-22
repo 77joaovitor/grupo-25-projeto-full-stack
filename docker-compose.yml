@@ -1,0 +1,51 @@
+version: '3.9'
+
+services:
+ 
+  db:
+    container_name: db
+    image: postgres
+    restart: always
+    ports:
+      - 5431:5432
+    env_file:
+      - ./server/.env
+    expose:
+      - 5432
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -q -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+  server:
+    container_name: server
+    build: 
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    env_file:
+      - ./server/.env
+    depends_on:
+      db:
+        condition: service_healthy
+    command: bash -c "yarn typeorm migration:run -d src/data-source.ts && yarn dev"
+    volumes:
+      - /app/node_modules
+      - ./server:/app
+ 
+  project:
+    container_name: project
+    stdin_open: true
+    build: 
+      context: ./project
+      dockerfile: Dockerfile
+    ports:
+      - 5173:5173
+    expose:
+      - 5173
+    volumes:
+      - /app/node_modules
+      - ./project:/app

@@ -10,10 +10,14 @@ export const Container = styled.div`
     z-index: 9999;
     inset: 0;
     width: 100%;
-    height: 100%;
-    color: #000000;
+    min-height: 100%;
+        color: #000000;
     background: rgba(18, 18, 20, 0.3);
     overflow-y: auto;
+    ::-webkit-scrollbar {
+        width: 0px;   
+        border: 1px solid ;
+    }   
 `
 
 export const BoxContent = styled.div`
@@ -35,13 +39,12 @@ export const BoxContent = styled.div`
     .add_image{
         background: #EDEAFD;
         justify-content: flex-start;
-/* Brand/brand4 */
         padding: 5px 21px;
         width: fit-content;
         border: 1px solid #EDEAFD;
         border-radius: 4px;
-                height: 38px;
-                font-weight: 600;
+        height: 38px;
+        font-weight: 600;
         font-size: 12px;
         line-height: 0px;
         color: #4529E6;
@@ -54,38 +57,57 @@ export const FormCreate = styled.form`
     width: 90%;
     display: flex;
     flex-direction: column;
-    background: #FFFFFF;
     border-radius: 8px;
     justify-content: center;
     align-items: center;
-    padding: 0px 16px 32px;
-    gap: 37px;
+    padding: 23px;
+    margin-top: 200px;
+    gap: 10px;
 
-    position: absolute;
-    width: 90%;
+    width: 100%;
+    height: fit-content;
 
+    label{
+        font-size: 12px;
+    }
+
+    .label{
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 24px;
+    }
+
+    .button_del_input{
+       display: flex;
+       flex-direction: row-reverse;
+       button{
+           position: relative;
+           right: 20px;
+           width: max-content;
+           height: max-content;
+           padding: 0;
+        }
+    }  
+    
+    
     @media (min-width: 580px) {
         width: 520px;
     }
+    
+        @media (min-height: 585px) {
+            margin-top: 150px;
+        }
 `
 
-export const BoxTitle = styled.div`
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-`
+
+
 export const BoxType = styled.div`
     display: flex;
     flex-direction: column;
     gap: 10px;
     width: 100%;
 
-    label{
-        font-weight: 500;
-        font-size: 14px;
-        line-height: 24px;
-    }
-
+   
 `
 
 export const BoxButton = styled.div`
@@ -98,6 +120,25 @@ export const BoxButton = styled.div`
     button{
         width: 50%;
     }
+
+    .buttonWhite {
+        background-color: white;
+        color: black;
+        border-radius: 5px;
+        border: 1px solid #E9ECEF;
+        transition: 400ms;
+        :hover{
+        border: #5126ea solid 1px;
+
+        }
+    }
+  .buttonBlue {
+    background-color: #5126ea;
+    color: white;
+    border-radius: 5px;
+    border: #5126ea solid 1px;
+    transition: 500ms;
+  }
 
     .cancel_btn{
         width: 146px;
@@ -119,6 +160,8 @@ export const BoxVehicleInformation = styled.div`
         display: flex;
         gap: 10px; 
     }
+
+
     
     @media (min-width: 438px) {
         .inf{
@@ -132,8 +175,7 @@ export const BoxVehicleInformation = styled.div`
             }
         }
     }
-/* 
-    /* flex-wrap: ; */
+
     input{
         width: 100%;
     }

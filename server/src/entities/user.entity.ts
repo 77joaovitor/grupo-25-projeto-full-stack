@@ -1,5 +1,5 @@
 import { Exclude } from 'class-transformer';
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import Address from './address.entity';
 import Announcement from './announcement.entity';
 import Comment from './comment.entity';
@@ -20,7 +20,7 @@ class User {
     @Exclude()
     password: string;
 
-    @Column({ length: 11 })
+    @Column({ length: 14, nullable: true })
     cpf: string;
 
     @Column({ length: 20 })
@@ -38,6 +38,9 @@ class User {
     @Column({ default: true })
     isActive: boolean;
 
+    @Column({ nullable: true})
+    pin: string
+
     @CreateDateColumn()
     createdAt: Date;
 
@@ -47,9 +50,10 @@ class User {
     @DeleteDateColumn()
     deleteAt: Date;
 
-    @OneToMany(() => Address, address => address.user)
-    addresses: Address[];
-
+    @OneToOne(() => Address, address => address.user, {onDelete: 'CASCADE'})
+    @JoinColumn()
+    addresses: Address;
+ 
     @OneToMany(() => Announcement, announcement => announcement.advertiser)
     announcements: Announcement[];
 

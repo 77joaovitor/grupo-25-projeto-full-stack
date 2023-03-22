@@ -8,7 +8,8 @@ const GlobalStyle = createGlobalStyle`
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: 
+rgba(255, 255, 255, 1);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -16,12 +17,27 @@ const GlobalStyle = createGlobalStyle`
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 
-height: fit-content;
 
 }
+*::-webkit-scrollbar {
+        width: 5px;   
+        border: 1px solid ;
+    }   
 
+    *::-webkit-scrollbar-track{
+        background: #F4F4F4; 
+    } 
+    *::-webkit-scrollbar-thumb{
+        background-color: #A1A1A1;
+        border-radius: 100px;    
+        border: 1px solid #A1A1A1
+
+    }
 * {
     box-sizing: border-box;
+    color: #1a1a1a;
+    font-family: 'Inter';
+    margin: 0;
 }
 
 a {
@@ -34,14 +50,24 @@ a:hover {
 }
 
 html{
-      scroll-behavior: smooth;
+  scroll-behavior: smooth;
+  width: 100vw;
+  overflow-x: hidden;
 }
+
 html, body {
-    width: 100vw;
-    height: 100%;
+    /* height: 100%; */
     margin:0;
     padding:0;
     font-family: Open-Sans, Helvetica, Sans-Serif;
+
+  }
+  input, textarea{
+    background: transparent;
+    :focus{
+            border: 1px solid blue;
+            transition: 400ms;
+        }
 
   }
   textarea{
@@ -50,10 +76,11 @@ html, body {
     font-family: Open-Sans, Helvetica, Sans-Serif;
 
   }
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
+
+  h1 {
+    font-size: 3.2em;
+    line-height: 1.1;
+  }
 
 button {
   border-radius: 8px;
